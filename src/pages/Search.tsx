@@ -1,0 +1,152 @@
+
+import { useState } from "react";
+import { Search as SearchIcon } from "lucide-react";
+import MainLayout from "../components/layout/MainLayout";
+import RestaurantCard from "../components/food/RestaurantCard";
+import PopularFoodCard from "../components/food/PopularFoodCard";
+
+// Sample restaurant data - reusing from HabiFood
+const restaurants = [
+  {
+    id: 1,
+    name: "Ayam Geprek Pak Gembus",
+    rating: 4.8,
+    estimatedTime: "15-20",
+    cuisineType: "Indonesian",
+    image: "https://images.unsplash.com/photo-1626804475297-41608ea09aeb?auto=format&fit=crop&q=80&w=300&h=200"
+  },
+  {
+    id: 2,
+    name: "Burger King",
+    rating: 4.3,
+    estimatedTime: "20-30",
+    cuisineType: "Fast Food",
+    image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&q=80&w=300&h=200"
+  },
+  {
+    id: 3,
+    name: "Sushi Tei",
+    rating: 4.6,
+    estimatedTime: "25-35",
+    cuisineType: "Japanese",
+    image: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&q=80&w=300&h=200"
+  },
+];
+
+// Sample popular food data - reusing from Home
+const popularFoods = [
+  {
+    id: 1,
+    name: "Burger Deluxe",
+    price: 45000,
+    restaurant: "Burger King",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&h=200"
+  },
+  {
+    id: 2,
+    name: "Nasi Goreng Special",
+    price: 35000,
+    restaurant: "Warung Padang",
+    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&h=200"
+  },
+];
+
+const Search = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // Filter restaurants and food items based on search query
+  const filteredRestaurants = restaurants.filter(restaurant => 
+    restaurant.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  const filteredFoods = popularFoods.filter(food => 
+    food.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    food.restaurant.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  const hasResults = filteredRestaurants.length > 0 || filteredFoods.length > 0;
+
+  return (
+    <MainLayout>
+      <div className="pt-8 pb-4">
+        <h1 className="text-3xl font-bold mb-6">Search</h1>
+        
+        {/* Search bar */}
+        <div className="relative mb-8">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2">
+            <SearchIcon className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search for restaurants, food, or cuisines..."
+            className="w-full pl-10 pr-4 py-3 rounded-2xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-habisin-dark/20"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        
+        {searchQuery === "" ? (
+          // Show popular searches when no query is entered
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Popular Searches</h2>
+            <div className="flex flex-wrap gap-2">
+              {["Burger", "Nasi Goreng", "Pizza", "Sushi", "Coffee", "Ice Cream", "Vegetarian", "Indonesian"].map((item) => (
+                <button
+                  key={item}
+                  className="px-4 py-2 bg-muted rounded-full text-sm"
+                  onClick={() => setSearchQuery(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+            
+            <h2 className="text-xl font-semibold mt-8 mb-4">Recommended For You</h2>
+            <div className="space-y-4">
+              {restaurants.slice(0, 3).map(restaurant => (
+                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          // Show search results
+          <div>
+            {hasResults ? (
+              <>
+                {filteredRestaurants.length > 0 && (
+                  <div className="mb-6">
+                    <h2 className="text-xl font-semibold mb-4">Restaurants</h2>
+                    <div className="space-y-4">
+                      {filteredRestaurants.map(restaurant => (
+                        <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {filteredFoods.length > 0 && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-4">Food Items</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                      {filteredFoods.map(food => (
+                        <PopularFoodCard key={food.id} food={food} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              // No results found
+              <div className="py-10 text-center">
+                <p className="text-xl font-medium mb-2">No results found</p>
+                <p className="text-muted-foreground">Try searching for something else</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </MainLayout>
+  );
+};
+
+export default Search;
