@@ -34,7 +34,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-white">
+    <div className="relative min-h-screen bg-gray-50">
       <div className="mobile-container">
         {children}
       </div>

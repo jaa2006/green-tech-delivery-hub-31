@@ -33,12 +33,13 @@ const FoodDetail = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-habisin-dark px-4 py-4 flex items-center">
         <Link to="/" className="mr-3">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
+        <h1 className="text-white text-2xl font-semibold">Food Details</h1>
       </div>
       
       {/* Food image */}
@@ -56,6 +57,10 @@ const FoodDetail = () => {
           <h1 className="text-3xl font-bold">{food.name}</h1>
           <div className="flex justify-between items-center mt-2">
             <p className="text-2xl font-bold">IDR {food.price.toLocaleString()}</p>
+            <div className="flex items-center">
+              <p className="font-medium mr-1">{food.rating}</p>
+              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            </div>
           </div>
           
           <div className="mt-6">
@@ -64,10 +69,6 @@ const FoodDetail = () => {
               <Link to={`/restaurant/${food.restaurantId}`} className="text-habisin-dark">
                 {food.restaurant}
               </Link>
-              <div className="flex items-center">
-                <p className="font-medium mr-1">{food.rating}</p>
-                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              </div>
             </div>
           </div>
           
@@ -80,8 +81,9 @@ const FoodDetail = () => {
         {/* Add to cart button */}
         <button 
           onClick={addToCart}
-          className="fixed bottom-6 left-6 right-6 bg-habisin-dark text-white py-4 rounded-full font-medium text-lg flex items-center justify-center"
+          className="fixed bottom-6 left-6 right-6 bg-habisin-dark text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
         >
+          <ShoppingCart className="mr-2 h-5 w-5" />
           Add to Cart
         </button>
       </div>

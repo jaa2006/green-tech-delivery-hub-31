@@ -40,17 +40,6 @@ const orders = [
     driver: "Diana",
     image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=150&h=150",
   },
-  {
-    id: "ORD12342",
-    type: "food",
-    restaurant: "Padang Sederhana",
-    items: ["1x Rendang Sapi", "2x Nasi", "1x Es Teh"],
-    price: 75000,
-    status: "completed",
-    date: "May 14, 2025",
-    driver: "Eko",
-    image: "https://images.unsplash.com/photo-1539755530862-00f623c00f52?auto=format&fit=crop&w=150&h=150",
-  },
 ];
 
 // Format price to IDR
@@ -82,21 +71,21 @@ const Orders = () => {
 
   return (
     <MainLayout>
-      <div className="pt-8 pb-4">
+      <div className="pt-8 pb-4 px-6">
         <h1 className="text-3xl font-bold mb-6">My Orders</h1>
         
         <Tabs defaultValue="ongoing" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsList className="grid w-full grid-cols-2 mb-6 rounded-xl">
             <TabsTrigger 
               value="ongoing" 
-              className={`${activeTab === "ongoing" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""}`}
+              className={`${activeTab === "ongoing" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""} rounded-l-xl`}
               onClick={() => setActiveTab("ongoing")}
             >
               Ongoing
             </TabsTrigger>
             <TabsTrigger 
               value="completed" 
-              className={`${activeTab === "completed" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""}`}
+              className={`${activeTab === "completed" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""} rounded-r-xl`}
               onClick={() => setActiveTab("completed")}
             >
               Completed
@@ -107,7 +96,7 @@ const Orders = () => {
             {ongoingOrders.length > 0 ? (
               <div className="space-y-4">
                 {ongoingOrders.map(order => (
-                  <div key={order.id} className="habisin-card">
+                  <div key={order.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center gap-2">
                         <OrderStatusIcon type={order.type} status={order.status} />
@@ -134,20 +123,20 @@ const Orders = () => {
                           </div>
                         ) : (
                           <div className="text-sm mb-2">
-                            <div className="text-muted-foreground">From: {order.from}</div>
-                            <div className="text-muted-foreground">To: {order.to}</div>
+                            <div className="text-gray-500">From: {order.from}</div>
+                            <div className="text-gray-500">To: {order.to}</div>
                           </div>
                         )}
                         
                         <div className="flex justify-between items-center">
-                          <div className="text-xs text-muted-foreground">{order.id} • {order.date}</div>
+                          <div className="text-xs text-gray-500">{order.id} • {order.date}</div>
                           <div className="font-semibold text-habisin-dark">{formatPrice(order.price)}</div>
                         </div>
                         
                         {order.status === "ongoing" && order.type === "food" && (
                           <div className="mt-3 text-sm">
                             <div className="font-medium">Estimated Delivery: {order.estimatedDelivery}</div>
-                            <div className="text-muted-foreground">Driver: {order.driver}</div>
+                            <div className="text-gray-500">Driver: {order.driver}</div>
                           </div>
                         )}
                       </div>
@@ -156,9 +145,9 @@ const Orders = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 text-center py-10">
                 <p className="text-xl font-medium mb-2">No ongoing orders</p>
-                <p className="text-muted-foreground">Your ongoing orders will appear here</p>
+                <p className="text-gray-500">Your ongoing orders will appear here</p>
               </div>
             )}
           </TabsContent>
@@ -167,7 +156,7 @@ const Orders = () => {
             {completedOrders.length > 0 ? (
               <div className="space-y-4">
                 {completedOrders.map(order => (
-                  <div key={order.id} className="habisin-card">
+                  <div key={order.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center gap-2">
                         <OrderStatusIcon type={order.type} status={order.status} />
@@ -194,13 +183,13 @@ const Orders = () => {
                           </div>
                         ) : (
                           <div className="text-sm mb-2">
-                            <div className="text-muted-foreground">From: {order.from}</div>
-                            <div className="text-muted-foreground">To: {order.to}</div>
+                            <div className="text-gray-500">From: {order.from}</div>
+                            <div className="text-gray-500">To: {order.to}</div>
                           </div>
                         )}
                         
                         <div className="flex justify-between items-center">
-                          <div className="text-xs text-muted-foreground">{order.id} • {order.date}</div>
+                          <div className="text-xs text-gray-500">{order.id} • {order.date}</div>
                           <div className="font-semibold text-habisin-dark">{formatPrice(order.price)}</div>
                         </div>
                       </div>
@@ -209,9 +198,9 @@ const Orders = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-10">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-100 text-center py-10">
                 <p className="text-xl font-medium mb-2">No completed orders</p>
-                <p className="text-muted-foreground">Your order history will appear here</p>
+                <p className="text-gray-500">Your order history will appear here</p>
               </div>
             )}
           </TabsContent>

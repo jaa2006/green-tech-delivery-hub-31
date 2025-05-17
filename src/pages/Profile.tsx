@@ -30,11 +30,11 @@ const Profile = () => {
   
   return (
     <MainLayout>
-      <div className="pt-8 px-4 pb-4">
+      <div className="pt-8 px-6 pb-4">
         <h1 className="text-3xl font-bold mb-6">Profile</h1>
         
         {/* User info */}
-        <div className="bg-white rounded-2xl shadow-sm p-4 flex items-center gap-4 mb-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 mb-6">
           <div className="h-16 w-16 rounded-full bg-habisin-dark flex items-center justify-center">
             <User className="h-8 w-8 text-white" />
           </div>
@@ -47,7 +47,7 @@ const Profile = () => {
         {/* Order history */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Order History</h2>
-          <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
@@ -79,7 +79,7 @@ const Profile = () => {
         {/* Settings */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Settings</h2>
-          <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {darkMode ? (
@@ -105,7 +105,7 @@ const Profile = () => {
         {/* Logout button */}
         <Button 
           variant="outline" 
-          className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10"
+          className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10 rounded-xl py-6"
           onClick={handleLogout}
         >
           <LogOut className="h-5 w-5" />

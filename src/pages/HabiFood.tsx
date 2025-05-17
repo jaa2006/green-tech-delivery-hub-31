@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, MapPin, ArrowLeft, Star } from "lucide-react";
+import { Search, ArrowLeft, Star, Utensils } from "lucide-react";
 
 // Sample restaurant data
 const restaurants = [
@@ -32,28 +32,29 @@ const restaurants = [
 ];
 
 const HabiFood = () => {
-  const [deliveryAddress] = useState("Jl. Sudifrman No 12");
+  const [deliveryAddress] = useState("Jl. Sudirman No 12");
 
   return (
-    <div className="pb-20">
+    <div className="min-h-screen bg-white pb-20">
       {/* Header */}
-      <div className="bg-habisin-dark px-4 py-4 flex justify-between items-center">
+      <div className="bg-habisin-dark px-4 py-4 flex justify-between items-center rounded-b-3xl">
         <div className="flex items-center">
           <Link to="/" className="mr-3">
             <ArrowLeft className="h-6 w-6 text-white" />
           </Link>
-          <h1 className="text-white text-2xl font-semibold">habifood</h1>
+          <h1 className="text-white text-2xl font-semibold">HabiFood</h1>
         </div>
-        <div>
-          <Search className="h-6 w-6 text-white" />
+        <div className="bg-white p-2 rounded-full">
+          <Utensils className="text-habisin-dark w-6 h-6" />
         </div>
       </div>
       
-      {/* White content area */}
-      <div className="bg-white rounded-t-3xl -mt-2 px-4 pt-6 pb-4">
+      {/* Content */}
+      <div className="p-6">
         {/* Delivery address */}
         <div className="mb-4">
-          <p className="text-sm font-medium">Delivery to</p>
+          <h2 className="text-2xl font-bold mb-2">Food Delivery</h2>
+          <p className="text-gray-700">Delivery to</p>
           <div className="flex items-center">
             <p className="font-medium">{deliveryAddress}</p>
           </div>
@@ -66,8 +67,8 @@ const HabiFood = () => {
           </div>
           <input
             type="text"
-            placeholder="Search"
-            className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 bg-gray-50 focus:outline-none"
+            placeholder="Search for food or restaurants"
+            className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none"
           />
         </div>
 
@@ -76,8 +77,8 @@ const HabiFood = () => {
           <h2 className="text-xl font-bold mb-4">Restaurants</h2>
           <div className="space-y-4">
             {restaurants.map(restaurant => (
-              <Link to={`/restaurant/${restaurant.id}`} key={restaurant.id} className="flex gap-3 items-center">
-                <div className="w-20 h-20 rounded-lg overflow-hidden">
+              <Link to={`/restaurant/${restaurant.id}`} key={restaurant.id} className="flex gap-3 items-center bg-white rounded-xl shadow-sm border border-gray-100 p-3">
+                <div className="w-20 h-20 rounded-xl overflow-hidden">
                   <img 
                     src={restaurant.image} 
                     alt={restaurant.name}
@@ -86,6 +87,7 @@ const HabiFood = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium text-lg">{restaurant.name}</h3>
+                  <p className="text-sm text-gray-500">{restaurant.cuisineType} • {restaurant.estimatedTime} min</p>
                   <div className="flex items-center mt-1">
                     <p className="font-medium mr-1">{restaurant.rating}</p>
                     <div className="flex">
