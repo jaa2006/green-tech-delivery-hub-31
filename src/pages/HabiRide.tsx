@@ -14,7 +14,7 @@ const HabiRide = () => {
         <Link to="/" className="mr-3">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
-        <h1 className="text-white text-2xl font-semibold">HabiRide</h1>
+        <h1 className="text-white text-2xl font-semibold">HabiRide Service</h1>
       </div>
       
       {/* Form area */}
@@ -67,7 +67,7 @@ const HabiRide = () => {
           className="bg-habisin-dark text-white w-full py-4 rounded-full font-medium text-lg"
           disabled={!pickup || !destination}
         >
-          Book Ride
+          Book Your Ride Now
         </button>
       </div>
     </div>
