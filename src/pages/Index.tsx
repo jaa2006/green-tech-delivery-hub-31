@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Car, Bike } from "lucide-react";
+import { User2, Bike, Utensils } from "lucide-react";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 
@@ -41,35 +41,40 @@ const Index = () => {
   const [userName] = useState("Budi");
 
   return (
-    <MainLayout>
-      <div className="pt-8 pb-4">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-3xl font-bold mb-1">Welcome, {userName}!</h1>
-            <p className="text-muted-foreground">Choose a service</p>
-          </div>
-          <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-            <span className="font-bold text-lg">{userName[0]}</span>
-          </div>
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <div className="bg-habisin-dark px-4 py-5 flex justify-between items-center rounded-b-3xl shadow-md">
+        <h1 className="text-white text-2xl font-semibold">habisin</h1>
+        <div className="bg-white p-2 rounded-full">
+          <User2 className="text-habisin-dark w-6 h-6" />
         </div>
+      </div>
 
+      {/* Content */}
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-1">Welcome, {userName}!</h2>
+        <p className="text-gray-700 mb-6">Choose a service</p>
+
+        {/* Service Buttons */}
         <div className="grid grid-cols-2 gap-4 my-8">
           <Link
             to="/habiride"
-            className="habisin-button bg-habisin-dark hover:bg-habisin-dark/90 flex items-center justify-center gap-3 h-20"
+            className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl shadow-md hover:bg-habisin-dark/90 transition-colors"
           >
-            <Car className="h-6 w-6" />
+            <Bike className="w-8 h-8 mb-2" />
             <span className="text-lg font-semibold">HabiRide</span>
           </Link>
+          
           <Link
             to="/habifood"
-            className="habisin-button bg-habisin-light hover:bg-habisin-light/90 flex items-center justify-center gap-3 h-20"
+            className="bg-habisin-light text-white flex flex-col items-center justify-center p-6 rounded-xl shadow-md hover:bg-habisin-light/90 transition-colors"
           >
-            <span role="img" aria-label="food" className="text-2xl">🍔</span>
+            <Utensils className="w-8 h-8 mb-2" />
             <span className="text-lg font-semibold">HabiFood</span>
           </Link>
         </div>
 
+        {/* Popular Picks */}
         <div className="mt-10">
           <h2 className="text-xl font-semibold mb-4">Popular Picks</h2>
           <div className="grid grid-cols-2 gap-4">
@@ -79,7 +84,14 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </MainLayout>
+      
+      {/* MainLayout's footer navigation will be rendered */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-card border-t border-border py-2 px-4 z-50">
+        <div className="max-w-md mx-auto flex items-center justify-between">
+          {/* Navigation will be handled by MainLayout */}
+        </div>
+      </nav>
+    </div>
   );
 };
 
