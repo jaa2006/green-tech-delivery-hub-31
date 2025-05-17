@@ -83,15 +83,19 @@
 
 @layer components {
   .mobile-container {
-    @apply max-w-md mx-auto min-h-screen pb-20 px-4;
+    @apply max-w-md mx-auto min-h-screen pb-20 px-0;
+  }
+
+  .content-container {
+    @apply px-4;
   }
 
   .habisin-button {
-    @apply rounded-2xl py-3 px-4 font-medium text-white transition-all duration-200 hover:opacity-90 active:scale-95;
+    @apply bg-habisin-dark text-white rounded-full py-3 px-6 font-medium transition-all duration-200 hover:opacity-90 active:scale-95 w-full text-center;
   }
 
   .habisin-card {
-    @apply bg-white rounded-2xl shadow-md border border-border p-4;
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-4;
   }
 
   .bottom-nav-item {
@@ -100,5 +104,9 @@
 
   .bottom-nav-item.active {
     @apply text-habisin-dark;
+  }
+  
+  .habisin-header {
+    @apply bg-habisin-dark text-white py-5 px-4 rounded-b-3xl;
   }
 }

@@ -9,42 +9,40 @@ import PopularFoodCard from "../components/food/PopularFoodCard";
 const popularFoods = [
   {
     id: 1,
-    name: "Burger Deluxe",
-    price: 45000,
-    restaurant: "Burger King",
+    name: "Burger",
+    price: 30000,
+    restaurant: "Delicious Bites",
     image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&h=200"
   },
   {
     id: 2,
-    name: "Nasi Goreng Special",
-    price: 35000,
-    restaurant: "Warung Padang",
-    image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&h=200"
-  },
-  {
-    id: 3,
-    name: "Ayam Bakar",
-    price: 28000,
-    restaurant: "Ayam Geprek",
+    name: "Fried Chicken",
+    price: 25000,
+    restaurant: "Taste Corner",
     image: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=300&h=200"
   },
   {
+    id: 3,
+    name: "Pizza",
+    price: 35000,
+    restaurant: "Food Lovers",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&h=200"
+  },
+  {
     id: 4,
-    name: "Mie Goreng",
-    price: 22000,
-    restaurant: "Mie Gacoan",
-    image: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=300&h=200"
+    name: "Salad",
+    price: 20000,
+    restaurant: "Healthy Eats",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=300&h=200"
   },
 ];
 
 const Index = () => {
-  const [userName] = useState("Budi");
-
   return (
     <MainLayout>
-      <div className="min-h-screen bg-white">
+      <div className="bg-white">
         {/* Header */}
-        <div className="bg-habisin-dark px-4 py-5 flex justify-between items-center rounded-b-3xl shadow-md">
+        <div className="bg-habisin-dark px-4 py-4 flex justify-between items-center rounded-b-3xl">
           <h1 className="text-white text-2xl font-semibold">habisin</h1>
           <div className="bg-white p-2 rounded-full">
             <User2 className="text-habisin-dark w-6 h-6" />
@@ -53,34 +51,44 @@ const Index = () => {
 
         {/* Content */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold mb-1">Welcome, {userName}!</h2>
+          <h2 className="text-2xl font-bold mb-2">Welcome!</h2>
           <p className="text-gray-700 mb-6">Choose a service</p>
 
           {/* Service Buttons */}
-          <div className="grid grid-cols-2 gap-4 my-8">
+          <div className="grid grid-cols-2 gap-4 mb-8">
             <Link
               to="/habiride"
-              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl shadow-md hover:bg-habisin-dark/90 transition-colors"
+              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
             >
               <Bike className="w-8 h-8 mb-2" />
-              <span className="text-lg font-semibold">HabiRide</span>
+              <span className="text-lg font-medium">HabiRide</span>
             </Link>
             
             <Link
               to="/habifood"
-              className="bg-habisin-light text-white flex flex-col items-center justify-center p-6 rounded-xl shadow-md hover:bg-habisin-light/90 transition-colors"
+              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
             >
               <Utensils className="w-8 h-8 mb-2" />
-              <span className="text-lg font-semibold">HabiFood</span>
+              <span className="text-lg font-medium">HabiFood</span>
             </Link>
           </div>
 
-          {/* Popular Picks */}
-          <div className="mt-10">
-            <h2 className="text-xl font-semibold mb-4">Popular Picks</h2>
+          {/* Popular Items */}
+          <div>
+            <h2 className="text-xl font-bold mb-4">Popular Items</h2>
             <div className="grid grid-cols-2 gap-4">
               {popularFoods.map(food => (
-                <PopularFoodCard key={food.id} food={food} />
+                <Link to={`/food/${food.id}`} key={food.id} className="block">
+                  <div className="overflow-hidden rounded-xl mb-2">
+                    <img 
+                      src={food.image} 
+                      alt={food.name}
+                      className="w-full h-32 object-cover" 
+                    />
+                  </div>
+                  <h3 className="font-medium text-base">{food.name}</h3>
+                  <p className="text-sm text-gray-500">IDR {food.price.toLocaleString()}</p>
+                </Link>
               ))}
             </div>
           </div>

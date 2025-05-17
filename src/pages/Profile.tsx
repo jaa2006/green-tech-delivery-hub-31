@@ -30,32 +30,32 @@ const Profile = () => {
   
   return (
     <MainLayout>
-      <div className="pt-8 pb-4">
+      <div className="pt-8 px-4 pb-4">
         <h1 className="text-3xl font-bold mb-6">Profile</h1>
         
         {/* User info */}
-        <div className="habisin-card flex items-center gap-4 mb-6">
-          <div className="h-16 w-16 rounded-full bg-habisin-dark/10 flex items-center justify-center">
-            <User className="h-8 w-8 text-habisin-dark" />
+        <div className="bg-white rounded-2xl shadow-sm p-4 flex items-center gap-4 mb-6">
+          <div className="h-16 w-16 rounded-full bg-habisin-dark flex items-center justify-center">
+            <User className="h-8 w-8 text-white" />
           </div>
           <div>
             <h2 className="font-semibold text-lg">Budi Santoso</h2>
-            <p className="text-sm text-muted-foreground">budi.santoso@email.com</p>
+            <p className="text-sm text-gray-500">budi.santoso@email.com</p>
           </div>
         </div>
         
         {/* Order history */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Order History</h2>
-          <div className="habisin-card space-y-4">
+          <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-habisin-light/10 flex items-center justify-center">
-                  <ShoppingBag className="h-5 w-5 text-habisin-light" />
+                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+                  <ShoppingBag className="h-5 w-5 text-habisin-dark" />
                 </div>
                 <div>
-                  <h3 className="font-medium">Burger King</h3>
-                  <p className="text-xs text-muted-foreground">May 15, 2025 • Rp 45,000</p>
+                  <h3 className="font-medium">Delicious Bites</h3>
+                  <p className="text-xs text-gray-500">May 15, 2025 • Rp 45,000</p>
                 </div>
               </div>
               <span className="text-xs py-1 px-2 bg-green-100 text-green-800 rounded-full">Delivered</span>
@@ -63,12 +63,12 @@ const Profile = () => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-habisin-dark/10 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                   <Car className="h-5 w-5 text-habisin-dark" />
                 </div>
                 <div>
                   <h3 className="font-medium">HabiRide</h3>
-                  <p className="text-xs text-muted-foreground">May 14, 2025 • Rp 25,000</p>
+                  <p className="text-xs text-gray-500">May 14, 2025 • Rp 25,000</p>
                 </div>
               </div>
               <span className="text-xs py-1 px-2 bg-green-100 text-green-800 rounded-full">Completed</span>
@@ -76,29 +76,10 @@ const Profile = () => {
           </div>
         </div>
         
-        {/* Payment methods */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-3">Saved Payment Methods</h2>
-          <div className="habisin-card flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <CreditCard className="h-5 w-5 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="font-medium">Visa •••• 4582</h3>
-                <p className="text-xs text-muted-foreground">Expires 09/26</p>
-              </div>
-            </div>
-            <Button variant="outline" size="sm">
-              Edit
-            </Button>
-          </div>
-        </div>
-        
         {/* Settings */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-3">Settings</h2>
-          <div className="habisin-card space-y-4">
+          <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {darkMode ? (

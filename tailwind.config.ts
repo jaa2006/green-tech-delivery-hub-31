@@ -53,10 +53,10 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Habisin brand colors
+				// Habisin brand colors - updated to match the reference
 				habisin: {
-					dark: '#007A33', // Dark green
-					light: '#00B14F', // Light green
+					dark: '#007B33', // Dark green
+					light: '#028A0F', // Light green
 				},
 			},
 			borderRadius: {
