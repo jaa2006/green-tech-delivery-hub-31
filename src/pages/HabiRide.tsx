@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, ArrowLeft, Motor } from "lucide-react";
+import { MapPin, ArrowLeft, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HabiRide = () => {
@@ -46,7 +46,7 @@ const HabiRide = () => {
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&q=80')] opacity-30 bg-center bg-no-repeat bg-cover"></div>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-white p-2 rounded-full shadow-lg">
-              <Motor className="h-8 w-8 text-habisin-dark" />
+              <Car className="h-8 w-8 text-habisin-dark" />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Motor } from "lucide-react";
+import { Car, Bike } from "lucide-react";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 
@@ -58,7 +58,7 @@ const Index = () => {
             to="/habiride"
             className="habisin-button bg-habisin-dark hover:bg-habisin-dark/90 flex items-center justify-center gap-3 h-20"
           >
-            <Motor className="h-6 w-6" />
+            <Car className="h-6 w-6" />
             <span className="text-lg font-semibold">HabiRide</span>
           </Link>
           <Link

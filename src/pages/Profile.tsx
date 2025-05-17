@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { User, CreditCard, LogOut, Moon, Sun, ShoppingBag } from "lucide-react";
+import { User, CreditCard, LogOut, Moon, Sun, ShoppingBag, Bell, Car } from "lucide-react";
 import MainLayout from "../components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -64,7 +64,7 @@ const Profile = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-habisin-dark/10 flex items-center justify-center">
-                  <Motor className="h-5 w-5 text-habisin-dark" />
+                  <Car className="h-5 w-5 text-habisin-dark" />
                 </div>
                 <div>
                   <h3 className="font-medium">HabiRide</h3>
