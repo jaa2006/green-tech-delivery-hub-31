@@ -4,9 +4,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Bike, Bell } from "lucide-react";
 
 // Import pages
+import SplashScreen from "./pages/SplashScreen";
+import Auth from "./pages/Auth";
 import Index from "./pages/Index";
 import HabiRide from "./pages/HabiRide";
 import HabiFood from "./pages/HabiFood";
@@ -26,6 +27,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/splash" element={<SplashScreen />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Index />} />
           <Route path="/habiride" element={<HabiRide />} />
           <Route path="/habifood" element={<HabiFood />} />
