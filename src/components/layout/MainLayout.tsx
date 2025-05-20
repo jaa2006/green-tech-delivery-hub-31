@@ -1,5 +1,5 @@
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -13,12 +13,15 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
 
-  // Redirect to auth page if not authenticated
-  if (!currentUser && location.pathname !== "/auth" && location.pathname !== "/splash") {
-    // Use setTimeout to avoid immediate redirect during render
-    setTimeout(() => {
+  // Check authentication and redirect if needed
+  useEffect(() => {
+    if (!currentUser && location.pathname !== "/auth" && location.pathname !== "/splash") {
       navigate("/auth");
-    }, 0);
+    }
+  }, [currentUser, location.pathname, navigate]);
+
+  // If no user and not on auth or splash page, return null to avoid flash of content
+  if (!currentUser && location.pathname !== "/auth" && location.pathname !== "/splash") {
     return null;
   }
 

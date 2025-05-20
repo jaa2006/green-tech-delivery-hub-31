@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   User
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 
 interface AuthContextProps {
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Logout function
+  // Logout function - updated to handle navigation in MainLayout
   const logout = () => {
     return signOut(auth);
   };
