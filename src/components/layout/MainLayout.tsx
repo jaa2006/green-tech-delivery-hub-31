@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -10,16 +11,15 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // Simulate checking auth - in a real app, this would use a proper auth context/hook
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  const { currentUser } = useAuth();
 
   // Redirect to auth page if not authenticated
-  if (!isAuthenticated && location.pathname !== "/auth" && location.pathname !== "/splash") {
+  if (!currentUser && location.pathname !== "/auth" && location.pathname !== "/splash") {
     // Use setTimeout to avoid immediate redirect during render
     setTimeout(() => {
       navigate("/auth");
     }, 0);
+    return null;
   }
 
   const navItems = [

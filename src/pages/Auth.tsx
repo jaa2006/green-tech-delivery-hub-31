@@ -1,46 +1,94 @@
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { User, LogIn, ArrowRight } from "lucide-react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { User, LogIn, ArrowRight, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { currentUser, signup, login } = useAuth();
 
   // Form states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // If user is already logged in, redirect to home
+  if (currentUser) {
+    return <Navigate to="/" />;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    // Basic validation
-    if (!email || !password || (!isLogin && (!fullName || !acceptTerms))) {
+    try {
+      // Basic validation
+      if (!email || !password) {
+        toast({
+          title: "Error",
+          description: "Email and password are required",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (!isLogin && (!fullName || !acceptTerms)) {
+        toast({
+          title: "Error",
+          description: "Full name and terms acceptance are required",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (isLogin) {
+        // Login
+        await login(email, password);
+        toast({
+          title: "Login successful",
+          description: "Welcome back!",
+        });
+      } else {
+        // Signup
+        await signup(email, password, fullName);
+        toast({
+          title: "Account created successfully",
+          description: "Welcome to Habisin!",
+        });
+      }
+
+      // Redirect to home page after successful auth
+      navigate("/");
+    } catch (error: any) {
+      let errorMessage = "Authentication failed";
+      
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        errorMessage = "Invalid email or password";
+      } else if (error.code === 'auth/email-already-in-use') {
+        errorMessage = "Email already in use";
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = "Password is too weak";
+      }
+      
       toast({
-        title: "Error",
-        description: "Please fill all required fields",
+        title: "Authentication Error",
+        description: errorMessage,
         variant: "destructive",
       });
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    // Mock authentication - in real app, this would call an API
-    toast({
-      title: isLogin ? "Logged in successfully" : "Account created successfully",
-      description: isLogin ? "Welcome back!" : "Welcome to Habisin!",
-    });
-
-    // Redirect to home page after successful auth
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
   };
 
   return (
@@ -91,6 +139,7 @@ const Auth = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     className="pl-10"
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -107,6 +156,7 @@ const Auth = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -114,14 +164,6 @@ const Auth = () => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <Label htmlFor="password">Password</Label>
-                {isLogin && (
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-habisin-dark hover:underline"
-                  >
-                    Forgot Password?
-                  </Link>
-                )}
               </div>
               <div className="relative">
                 <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -132,6 +174,7 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10"
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -144,6 +187,7 @@ const Auth = () => {
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                   className="w-4 h-4 accent-habisin-dark"
+                  disabled={isLoading}
                 />
                 <Label htmlFor="terms" className="text-sm cursor-pointer">
                   I accept all terms & conditions
@@ -154,9 +198,19 @@ const Auth = () => {
             <Button
               type="submit"
               className="w-full bg-habisin-dark hover:bg-habisin-dark/90 text-white"
+              disabled={isLoading}
             >
-              {isLogin ? "Login" : "Sign Up"}
-              <ArrowRight className="ml-2 h-5 w-5" />
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {isLogin ? "Logging in..." : "Signing up..."}
+                </>
+              ) : (
+                <>
+                  {isLogin ? "Login" : "Sign Up"}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </>
+              )}
             </Button>
           </form>
 
@@ -167,6 +221,7 @@ const Auth = () => {
                 <button
                   onClick={() => setIsLogin(false)}
                   className="text-habisin-dark font-medium hover:underline"
+                  disabled={isLoading}
                 >
                   Sign Up
                 </button>
@@ -177,6 +232,7 @@ const Auth = () => {
                 <button
                   onClick={() => setIsLogin(true)}
                   className="text-habisin-dark font-medium hover:underline"
+                  disabled={isLoading}
                 >
                   Login
                 </button>
