@@ -1,11 +1,13 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowLeft, Car } from "lucide-react";
-import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { useMapTracking } from "@/hooks/useMapTracking";
 import "@/styles/map.css";
 
@@ -80,6 +82,31 @@ const HabiRide = () => {
     }, (error) => {
       console.error("Error fetching driver location:", error);
     });
+  };
+  
+  // Function to cancel order
+  const cancelOrder = async () => {
+    if (!activeOrder) return;
+    
+    try {
+      setLoading(true);
+      await deleteDoc(doc(db, "orders", activeOrder.id));
+      toast({
+        title: "Order cancelled",
+        description: "Your ride order has been cancelled successfully",
+      });
+      setActiveOrder(null);
+      setShowOrderStatus(false);
+    } catch (error) {
+      console.error("Error cancelling order:", error);
+      toast({
+        title: "Failed to cancel order",
+        description: "There was an error cancelling your order. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   
   // Function to book a ride
@@ -270,6 +297,17 @@ const HabiRide = () => {
                       Driver is {Math.floor(Math.random() * 10) + 1} minutes away
                     </p>
                   )}
+                </div>
+                
+                {/* Cancel Order Button */}
+                <div className="mt-4 flex justify-end space-x-2">
+                  <Button
+                    variant="destructive"
+                    onClick={cancelOrder}
+                    disabled={loading}
+                  >
+                    {loading ? "Cancelling..." : "Cancel Order"}
+                  </Button>
                 </div>
               </div>
             )}
