@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, ArrowLeft, Car } from "lucide-react";
@@ -7,6 +6,8 @@ import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useMapTracking } from "@/hooks/useMapTracking";
+import "@/styles/map.css";
 
 const HabiRide = () => {
   const [pickup, setPickup] = useState("");
@@ -17,6 +18,12 @@ const HabiRide = () => {
   const [showOrderStatus, setShowOrderStatus] = useState(false);
   
   const { currentUser } = useAuth();
+  
+  // Initialize map tracking when there's an active order with a driver
+  const mapInstance = useMapTracking({
+    driverId: activeOrder?.driverId || null,
+    enabled: !!activeOrder?.driverId
+  });
   
   // Listen for user's active orders
   useEffect(() => {
@@ -207,13 +214,19 @@ const HabiRide = () => {
           </div>
         </div>
         
-        {/* Map area (placeholder) */}
-        <div className="h-[40vh] bg-gray-100 rounded-xl mb-8 relative flex items-center justify-center">
-          <div className="h-16 w-16 bg-habisin-dark rounded-full flex items-center justify-center">
-            <MapPin className="h-8 w-8 text-white" />
-          </div>
+        {/* Map area */}
+        <div className="h-[40vh] bg-gray-100 rounded-xl mb-8 relative">
+          {activeOrder?.driverId ? (
+            <div id="map" className="w-full h-full rounded-xl"></div>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <div className="h-16 w-16 bg-habisin-dark rounded-full flex items-center justify-center">
+                <MapPin className="h-8 w-8 text-white" />
+              </div>
+            </div>
+          )}
           
-          {/* Display driver location on map if available */}
+          {/* Display driver location info if available */}
           {driverLocation && (
             <div className="absolute top-4 left-4 bg-white p-2 rounded-lg shadow-md">
               <p className="text-xs font-medium">Driver location:</p>
