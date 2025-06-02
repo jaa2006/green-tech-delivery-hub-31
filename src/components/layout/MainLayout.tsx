@@ -1,8 +1,9 @@
 
 import { ReactNode, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Home, Search, ClipboardList, User } from "lucide-react";
+import { Home, Search, ClipboardList, User, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -12,6 +13,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { getTotalItems } = useCart();
 
   // Check authentication and redirect if needed
   useEffect(() => {
@@ -35,6 +37,20 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       path: "/search", 
       label: "Search", 
       icon: <Search className="h-5 w-5" /> 
+    },
+    { 
+      path: "/cart", 
+      label: "Cart", 
+      icon: (
+        <div className="relative">
+          <ShoppingCart className="h-5 w-5" />
+          {getTotalItems() > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {getTotalItems()}
+            </div>
+          )}
+        </div>
+      )
     },
     { 
       path: "/orders", 

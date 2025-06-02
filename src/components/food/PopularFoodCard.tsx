@@ -1,5 +1,8 @@
 
 import { Link } from "react-router-dom";
+import { Plus } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Food {
   id: number;
@@ -14,6 +17,9 @@ interface PopularFoodCardProps {
 }
 
 const PopularFoodCard = ({ food }: PopularFoodCardProps) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
   // Format price to IDR
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -24,9 +30,27 @@ const PopularFoodCard = ({ food }: PopularFoodCardProps) => {
     }).format(price);
   };
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    addToCart({
+      id: food.id.toString(),
+      name: food.name,
+      price: food.price,
+      restaurant: food.restaurant,
+      image: food.image
+    });
+    
+    toast({
+      title: "Ditambahkan ke keranjang",
+      description: `${food.name} telah ditambahkan ke keranjang`,
+    });
+  };
+
   return (
-    <Link to={`/food/${food.id}`} className="block">
-      <div className="habisin-card hover:shadow-lg transition-shadow duration-300">
+    <div className="habisin-card hover:shadow-lg transition-shadow duration-300 relative">
+      <Link to={`/food/${food.id}`} className="block">
         <div className="aspect-video rounded-xl overflow-hidden mb-2">
           <img
             src={food.image}
@@ -39,8 +63,15 @@ const PopularFoodCard = ({ food }: PopularFoodCardProps) => {
         <p className="text-habisin-dark font-semibold text-sm mt-1">
           {formatPrice(food.price)}
         </p>
-      </div>
-    </Link>
+      </Link>
+      
+      <button
+        onClick={handleAddToCart}
+        className="absolute top-2 right-2 bg-habisin-dark text-white p-2 rounded-full shadow-lg hover:bg-opacity-90 transition-colors"
+      >
+        <Plus className="h-4 w-4" />
+      </button>
+    </div>
   );
 };
 

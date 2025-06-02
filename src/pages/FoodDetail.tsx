@@ -1,8 +1,9 @@
 
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Star, ShoppingCart } from "lucide-react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Star, ShoppingCart, Zap } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useCart } from "@/contexts/CartContext";
 
 // Sample food data
 const foodItems = [
@@ -21,15 +22,37 @@ const foodItems = [
 const FoodDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
   
   // Find the food item based on the ID
   const food = foodItems.find(item => item.id === id) || foodItems[0];
   
-  const addToCart = () => {
-    toast({
-      title: "Added to cart",
-      description: `${food.name} added to your cart`,
+  const addToCartHandler = () => {
+    addToCart({
+      id: food.id,
+      name: food.name,
+      price: food.price,
+      restaurant: food.restaurant,
+      image: food.image
     });
+    
+    toast({
+      title: "Ditambahkan ke keranjang",
+      description: `${food.name} telah ditambahkan ke keranjang`,
+    });
+  };
+
+  const orderNow = () => {
+    addToCart({
+      id: food.id,
+      name: food.name,
+      price: food.price,
+      restaurant: food.restaurant,
+      image: food.image
+    });
+    
+    navigate("/checkout");
   };
 
   return (
@@ -39,7 +62,7 @@ const FoodDetail = () => {
         <Link to="/" className="mr-3">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
-        <h1 className="text-white text-2xl font-semibold">Food Details</h1>
+        <h1 className="text-white text-2xl font-semibold">Detail Makanan</h1>
       </div>
       
       {/* Food image */}
@@ -52,7 +75,7 @@ const FoodDetail = () => {
       </div>
       
       {/* Food details */}
-      <div className="bg-white rounded-t-3xl -mt-6 px-6 pt-6 pb-20">
+      <div className="bg-white rounded-t-3xl -mt-6 px-6 pt-6 pb-32">
         <div className="mb-8">
           <h1 className="text-3xl font-bold">{food.name}</h1>
           <div className="flex justify-between items-center mt-2">
@@ -73,19 +96,28 @@ const FoodDetail = () => {
           </div>
           
           <div className="mt-6">
-            <h3 className="font-medium text-lg">Description</h3>
+            <h3 className="font-medium text-lg">Deskripsi</h3>
             <p className="mt-1 text-gray-700">{food.description}</p>
           </div>
         </div>
         
-        {/* Add to cart button */}
-        <button 
-          onClick={addToCart}
-          className="fixed bottom-6 left-6 right-6 bg-habisin-dark text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
-        >
-          <ShoppingCart className="mr-2 h-5 w-5" />
-          Add to Cart
-        </button>
+        {/* Action buttons */}
+        <div className="fixed bottom-6 left-6 right-6 flex gap-3">
+          <button 
+            onClick={addToCartHandler}
+            className="flex-1 bg-white border-2 border-habisin-dark text-habisin-dark py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+          >
+            <ShoppingCart className="mr-2 h-5 w-5" />
+            Keranjang
+          </button>
+          <button 
+            onClick={orderNow}
+            className="flex-1 bg-habisin-dark text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+          >
+            <Zap className="mr-2 h-5 w-5" />
+            Pesan Sekarang
+          </button>
+        </div>
       </div>
     </div>
   );
