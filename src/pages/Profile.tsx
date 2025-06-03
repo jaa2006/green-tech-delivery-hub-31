@@ -128,8 +128,8 @@ const Profile = () => {
   
   return (
     <MainLayout>
-      <div className="pt-8 px-6 pb-4">
-        <h1 className="text-3xl font-bold mb-6">Profile</h1>
+      <div className="pt-4 px-4 pb-4 max-w-md mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Profile</h1>
         
         {/* Modular Components */}
         <ProfileAccount 
@@ -147,10 +147,10 @@ const Profile = () => {
         {/* Logout button */}
         <Button 
           variant="outline" 
-          className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10 rounded-xl py-6"
+          className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10 rounded-xl py-4"
           onClick={handleLogout}
         >
-          <LogOut className="h-5 w-5" />
+          <LogOut className="h-4 w-4" />
           Logout
         </Button>
       </div>

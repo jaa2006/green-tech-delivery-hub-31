@@ -34,63 +34,66 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Profil & Akun</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-3">
+      <h2 className="text-lg font-semibold mb-3">Profil & Akun</h2>
       
-      <div className="flex items-center gap-4 mb-4 relative">
-        <Avatar className="h-16 w-16">
+      <div className="flex items-center gap-3 mb-3 relative">
+        <Avatar className="h-12 w-12">
           {userData.photoURL ? (
             <AvatarImage src={userData.photoURL} alt={userData.fullName} />
           ) : (
-            <AvatarFallback className="bg-habisin-dark text-white">
+            <AvatarFallback className="bg-habisin-dark text-white text-sm">
               {userData.fullName.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           )}
         </Avatar>
-        <div className="flex-1">
-          <h3 className="font-semibold text-lg">{userData.fullName}</h3>
-          <p className="text-sm text-gray-500">{userData.email}</p>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-semibold text-base truncate">{userData.fullName}</h3>
+          <p className="text-xs text-gray-500 truncate">{userData.email}</p>
           {userData.phone && (
-            <p className="text-sm text-gray-500">{userData.phone}</p>
+            <p className="text-xs text-gray-500 truncate">{userData.phone}</p>
           )}
         </div>
         
         <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
           <DialogTrigger asChild>
-            <Button variant="ghost" className="p-2 h-auto" size="icon">
-              <Edit className="h-5 w-5" />
+            <Button variant="ghost" className="p-1 h-auto" size="icon">
+              <Edit className="h-4 w-4" />
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-w-sm mx-auto">
             <DialogHeader>
-              <DialogTitle>Edit Profil & Akun</DialogTitle>
+              <DialogTitle className="text-lg">Edit Profil & Akun</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 py-2">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nama Lengkap</Label>
+            <div className="space-y-3 py-2">
+              <div className="space-y-1">
+                <Label htmlFor="name" className="text-sm">Nama Lengkap</Label>
                 <Input 
                   id="name" 
                   value={editName} 
                   onChange={(e) => setEditName(e.target.value)}
-                  placeholder="Masukkan nama lengkap" 
+                  placeholder="Masukkan nama lengkap"
+                  className="text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Nomor HP</Label>
+              <div className="space-y-1">
+                <Label htmlFor="phone" className="text-sm">Nomor HP</Label>
                 <Input 
                   id="phone" 
                   value={editPhone} 
                   onChange={(e) => setEditPhone(e.target.value)}
-                  placeholder="Masukkan nomor HP" 
+                  placeholder="Masukkan nomor HP"
+                  className="text-sm"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="photo">URL Foto Profil</Label>
+              <div className="space-y-1">
+                <Label htmlFor="photo" className="text-sm">URL Foto Profil</Label>
                 <Input 
                   id="photo" 
                   value={editPhotoURL} 
                   onChange={(e) => setEditPhotoURL(e.target.value)}
-                  placeholder="https://example.com/photo.jpg" 
+                  placeholder="https://example.com/photo.jpg"
+                  className="text-sm"
                 />
                 <p className="text-xs text-muted-foreground">
                   Masukkan URL gambar untuk foto profil Anda
@@ -98,10 +101,10 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
               </div>
               <Button 
                 onClick={handleSaveChanges} 
-                className="w-full"
+                className="w-full text-sm py-2"
                 disabled={updating}
               >
-                {updating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {updating && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
                 Simpan Perubahan
               </Button>
             </div>

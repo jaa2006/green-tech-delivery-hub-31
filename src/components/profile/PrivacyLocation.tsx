@@ -36,21 +36,21 @@ export const PrivacyLocation = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Privasi & Lokasi</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-3">
+      <h2 className="text-lg font-semibold mb-3">Privasi & Lokasi</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5" />
-            <span>Akses Lokasi GPS</span>
+            <MapPin className="h-4 w-4" />
+            <span className="text-sm">Akses Lokasi GPS</span>
           </div>
           <Switch checked={locationAccess} onCheckedChange={handleToggleLocation} />
         </div>
 
         <div className="flex items-center justify-between">
           <div>
-            <span>Pelacakan Real-time</span>
+            <span className="text-sm">Pelacakan Real-time</span>
             <p className="text-xs text-gray-500">Bagikan lokasi secara real-time dengan driver</p>
           </div>
           <Switch checked={realtimeTracking} onCheckedChange={handleToggleRealtime} />
@@ -59,20 +59,20 @@ export const PrivacyLocation = () => {
         <div className="space-y-2">
           <label className="text-sm font-medium">Lokasi Favorit</label>
           <Select value={favoriteLocation} onValueChange={setFavoriteLocation}>
-            <SelectTrigger>
+            <SelectTrigger className="h-9">
               <SelectValue placeholder="Pilih lokasi favorit" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="home">
                 <div className="flex items-center gap-2">
-                  <Home className="h-4 w-4" />
-                  Rumah
+                  <Home className="h-3 w-3" />
+                  <span className="text-sm">Rumah</span>
                 </div>
               </SelectItem>
               <SelectItem value="office">
                 <div className="flex items-center gap-2">
-                  <Building className="h-4 w-4" />
-                  Kantor
+                  <Building className="h-3 w-3" />
+                  <span className="text-sm">Kantor</span>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -81,10 +81,10 @@ export const PrivacyLocation = () => {
 
         <Button 
           variant="outline" 
-          className="w-full flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-50"
+          className="w-full flex items-center gap-2 text-red-600 border-red-200 hover:bg-red-50 text-sm py-2"
           onClick={handleDeleteLocationHistory}
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="h-3 w-3" />
           Hapus Riwayat Lokasi
         </Button>
       </div>

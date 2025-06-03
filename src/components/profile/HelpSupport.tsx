@@ -66,60 +66,62 @@ export const HelpSupport = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Bantuan & Dukungan</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-3">
+      <h2 className="text-lg font-semibold mb-3">Bantuan & Dukungan</h2>
       
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Quick Access */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <Button 
             variant="outline" 
-            className="flex items-center gap-2 h-12"
+            className="flex items-center gap-2 h-10 text-xs"
             onClick={handleFAQ}
           >
-            <HelpCircle className="h-4 w-4" />
+            <HelpCircle className="h-3 w-3" />
             FAQ
-            <ExternalLink className="h-3 w-3" />
+            <ExternalLink className="h-2 w-2" />
           </Button>
           <Button 
             variant="outline" 
-            className="flex items-center gap-2 h-12"
+            className="flex items-center gap-2 h-10 text-xs"
             onClick={handleContactCS}
           >
-            <MessageSquare className="h-4 w-4" />
+            <MessageSquare className="h-3 w-3" />
             Customer Service
           </Button>
         </div>
 
         {/* Report Form */}
         <div className="space-y-3">
-          <h3 className="font-medium flex items-center gap-2">
-            <Mail className="h-4 w-4" />
+          <h3 className="font-medium flex items-center gap-2 text-sm">
+            <Mail className="h-3 w-3" />
             Laporkan Masalah
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div>
-              <Label htmlFor="report-title">Judul Masalah</Label>
+              <Label htmlFor="report-title" className="text-xs">Judul Masalah</Label>
               <Input
                 id="report-title"
                 value={reportTitle}
                 onChange={(e) => setReportTitle(e.target.value)}
                 placeholder="Jelaskan masalah secara singkat"
+                className="text-sm h-9"
               />
             </div>
             <div>
-              <Label htmlFor="report-description">Deskripsi Masalah</Label>
+              <Label htmlFor="report-description" className="text-xs">Deskripsi Masalah</Label>
               <Textarea
                 id="report-description"
                 value={reportDescription}
                 onChange={(e) => setReportDescription(e.target.value)}
                 placeholder="Jelaskan masalah secara detail..."
-                rows={3}
+                rows={2}
+                className="text-sm min-h-[60px]"
               />
             </div>
             <Button 
               onClick={handleSubmitReport}
-              className="w-full"
+              className="w-full text-sm py-2"
             >
               Kirim Laporan
             </Button>
@@ -127,16 +129,16 @@ export const HelpSupport = () => {
         </div>
 
         {/* My Reports Status */}
-        <div className="space-y-3">
-          <h3 className="font-medium">Status Laporan Saya</h3>
+        <div className="space-y-2">
+          <h3 className="font-medium text-sm">Status Laporan Saya</h3>
           <div className="space-y-2">
             {myReports.map((report) => (
-              <div key={report.id} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex-1">
-                  <p className="font-medium text-sm">{report.title}</p>
+              <div key={report.id} className="flex items-center justify-between p-2 border rounded-lg">
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-xs truncate">{report.title}</p>
                   <p className="text-xs text-gray-500">{report.date}</p>
                 </div>
-                <Badge className={getStatusColor(report.status)}>
+                <Badge className={`${getStatusColor(report.status)} text-xs px-2 py-1`}>
                   {report.status}
                 </Badge>
               </div>

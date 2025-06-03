@@ -40,35 +40,36 @@ export const ConnectedAccounts = () => {
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-      <h2 className="text-xl font-semibold mb-4">Akun Terhubung</h2>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-3 mb-3">
+      <h2 className="text-lg font-semibold mb-3">Akun Terhubung</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-3">
         {accountProviders.map((provider) => (
-          <div key={provider.id} className="flex items-center justify-between p-3 border rounded-lg">
-            <div className="flex items-center gap-3">
-              <div className={`w-8 h-8 ${provider.color} rounded-full flex items-center justify-center`}>
+          <div key={provider.id} className="flex items-center justify-between p-2 border rounded-lg">
+            <div className="flex items-center gap-2">
+              <div className={`w-6 h-6 ${provider.color} rounded-full flex items-center justify-center`}>
                 {connectedAccounts[provider.id as keyof typeof connectedAccounts] ? (
-                  <Check className="h-4 w-4 text-white" />
+                  <Check className="h-3 w-3 text-white" />
                 ) : (
-                  <X className="h-4 w-4 text-white" />
+                  <X className="h-3 w-3 text-white" />
                 )}
               </div>
-              <span className="font-medium">{provider.name}</span>
+              <span className="font-medium text-sm">{provider.name}</span>
             </div>
             <div className="flex items-center gap-2">
               {connectedAccounts[provider.id as keyof typeof connectedAccounts] ? (
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs px-2 py-1">
                   Terhubung
                 </Badge>
               ) : (
-                <Badge variant="outline" className="text-gray-500">
+                <Badge variant="outline" className="text-gray-500 text-xs px-2 py-1">
                   Tidak Terhubung
                 </Badge>
               )}
               <Button
                 variant="outline"
                 size="sm"
+                className="text-xs px-2 py-1 h-auto"
                 onClick={() => handleConnectAccount(provider.id)}
               >
                 {connectedAccounts[provider.id as keyof typeof connectedAccounts] ? 'Putuskan' : 'Hubungkan'}
@@ -79,10 +80,10 @@ export const ConnectedAccounts = () => {
         
         <Button 
           variant="outline" 
-          className="w-full flex items-center gap-2"
+          className="w-full flex items-center gap-2 text-sm py-2"
           onClick={handleManageDevices}
         >
-          <Settings className="h-4 w-4" />
+          <Settings className="h-3 w-3" />
           Kelola Perangkat Terhubung
         </Button>
       </div>
