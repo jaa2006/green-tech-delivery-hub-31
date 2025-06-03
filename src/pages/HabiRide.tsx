@@ -8,9 +8,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useMapTracking } from "@/hooks/useMapTracking";
 import { calculateRoute, RouteResult } from "@/utils/hereRouting";
-import "@/styles/map.css";
+import { MapComponent } from "@/components/map/MapComponent";
 
 const HabiRide = () => {
   const [pickup, setPickup] = useState("");
@@ -23,12 +22,6 @@ const HabiRide = () => {
   const [calculatingRoute, setCalculatingRoute] = useState(false);
   
   const { currentUser } = useAuth();
-  
-  // Initialize map tracking when there's an active order with a driver
-  const mapInstance = useMapTracking({
-    driverId: activeOrder?.driverId || null,
-    enabled: !!activeOrder?.driverId
-  });
   
   // Listen for user's active orders
   useEffect(() => {
@@ -329,7 +322,10 @@ const HabiRide = () => {
         {/* Map area */}
         <div className="h-[40vh] bg-gray-100 rounded-xl mb-8 relative">
           {activeOrder?.driverId ? (
-            <div id="map" className="w-full h-full rounded-xl"></div>
+            <MapComponent 
+              driverLocation={driverLocation}
+              showDriverLocation={!!driverLocation}
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <div className="h-16 w-16 bg-habisin-dark rounded-full flex items-center justify-center">
