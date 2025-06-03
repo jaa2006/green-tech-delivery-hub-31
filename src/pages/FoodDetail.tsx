@@ -56,10 +56,10 @@ const FoodDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-habisin-dark px-4 py-4 flex items-center">
-        <Link to="/" className="mr-3">
+      <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+        <Link to="/" className="mr-4">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
         <h1 className="text-white text-2xl font-semibold">Detail Makanan</h1>

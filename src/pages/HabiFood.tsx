@@ -35,11 +35,11 @@ const HabiFood = () => {
   const [deliveryAddress] = useState("Jl. Sudirman No 12");
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-habisin-dark px-4 py-4 flex justify-between items-center rounded-b-3xl">
+      <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <div className="flex items-center">
-          <Link to="/" className="mr-3">
+          <Link to="/" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
           </Link>
           <h1 className="text-white text-2xl font-semibold">HabiFood</h1>

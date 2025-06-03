@@ -40,9 +40,9 @@ const popularFoods = [
 const Index = () => {
   return (
     <MainLayout>
-      <div className="bg-white">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-habisin-dark px-4 py-4 flex justify-between items-center rounded-b-3xl">
+        <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
           <h1 className="text-white text-2xl font-semibold">habisin</h1>
           <div className="bg-white p-2 rounded-full">
             <User2 className="text-habisin-dark w-6 h-6" />
@@ -78,17 +78,7 @@ const Index = () => {
             <h2 className="text-xl font-bold mb-4">Popular Items</h2>
             <div className="grid grid-cols-2 gap-4">
               {popularFoods.map(food => (
-                <Link to={`/food/${food.id}`} key={food.id} className="block">
-                  <div className="overflow-hidden rounded-xl mb-2">
-                    <img 
-                      src={food.image} 
-                      alt={food.name}
-                      className="w-full h-32 object-cover" 
-                    />
-                  </div>
-                  <h3 className="font-medium text-base">{food.name}</h3>
-                  <p className="text-sm text-gray-500">IDR {food.price.toLocaleString()}</p>
-                </Link>
+                <PopularFoodCard key={food.id} food={food} />
               ))}
             </div>
           </div>
