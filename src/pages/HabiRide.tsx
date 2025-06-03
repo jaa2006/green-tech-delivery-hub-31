@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, ArrowLeft, Car } from "lucide-react";
+import { MapPin, ArrowLeft, Car, Navigation } from "lucide-react";
 import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
@@ -9,6 +9,7 @@ import { toast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useMapTracking } from "@/hooks/useMapTracking";
+import { calculateRoute, RouteResult } from "@/utils/hereRouting";
 import "@/styles/map.css";
 
 const HabiRide = () => {
@@ -18,6 +19,8 @@ const HabiRide = () => {
   const [activeOrder, setActiveOrder] = useState<any>(null);
   const [driverLocation, setDriverLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [showOrderStatus, setShowOrderStatus] = useState(false);
+  const [routeInfo, setRouteInfo] = useState<RouteResult['data'] | null>(null);
+  const [calculatingRoute, setCalculatingRoute] = useState(false);
   
   const { currentUser } = useAuth();
   
@@ -54,6 +57,7 @@ const HabiRide = () => {
         setActiveOrder(null);
         setShowOrderStatus(false);
         setDriverLocation(null);
+        setRouteInfo(null);
       }
     }, (error) => {
       console.error("Error fetching active orders:", error);
@@ -97,6 +101,7 @@ const HabiRide = () => {
       });
       setActiveOrder(null);
       setShowOrderStatus(false);
+      setRouteInfo(null);
     } catch (error) {
       console.error("Error cancelling order:", error);
       toast({
@@ -106,6 +111,63 @@ const HabiRide = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Function to calculate route between pickup and destination
+  const handleCalculateRoute = async () => {
+    if (!pickup || !destination) {
+      toast({
+        title: "Missing locations",
+        description: "Please enter both pickup and destination addresses",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setCalculatingRoute(true);
+    
+    try {
+      // In a real app, we'd use geocoding to convert addresses to coordinates
+      // For this example, we'll use dummy coordinates around Jakarta
+      const pickupLocation = {
+        lat: -6.2088 + (Math.random() - 0.5) * 0.1,
+        lng: 106.8456 + (Math.random() - 0.5) * 0.1
+      };
+      
+      const destinationLocation = {
+        lat: -6.2088 + (Math.random() - 0.5) * 0.1,
+        lng: 106.8456 + (Math.random() - 0.5) * 0.1
+      };
+
+      console.log('Calculating route from:', pickupLocation, 'to:', destinationLocation);
+      
+      const routeResult = await calculateRoute(pickupLocation, destinationLocation);
+      
+      if (routeResult.success && routeResult.data) {
+        setRouteInfo(routeResult.data);
+        toast({
+          title: "Route calculated",
+          description: `Distance: ${routeResult.data.distanceText}, Duration: ${routeResult.data.durationText}`,
+        });
+      } else {
+        toast({
+          title: "Route calculation failed",
+          description: routeResult.error || "Could not calculate route between locations",
+          variant: "destructive",
+        });
+        setRouteInfo(null);
+      }
+    } catch (error) {
+      console.error("Error calculating route:", error);
+      toast({
+        title: "Error",
+        description: "Failed to calculate route. Please try again.",
+        variant: "destructive",
+      });
+      setRouteInfo(null);
+    } finally {
+      setCalculatingRoute(false);
     }
   };
   
@@ -128,13 +190,13 @@ const HabiRide = () => {
       // In a real app, we'd use a geocoding API to convert addresses to coordinates
       // For this example, we'll use dummy coordinates
       const pickupLocation = {
-        lat: 37.7749 + (Math.random() - 0.5) * 0.1,
-        lng: -122.4194 + (Math.random() - 0.5) * 0.1
+        lat: -6.2088 + (Math.random() - 0.5) * 0.1,
+        lng: 106.8456 + (Math.random() - 0.5) * 0.1
       };
       
       const destinationLocation = {
-        lat: 37.7749 + (Math.random() - 0.5) * 0.1,
-        lng: -122.4194 + (Math.random() - 0.5) * 0.1
+        lat: -6.2088 + (Math.random() - 0.5) * 0.1,
+        lng: 106.8456 + (Math.random() - 0.5) * 0.1
       };
       
       // Create new order in Firestore
@@ -146,6 +208,7 @@ const HabiRide = () => {
         destination: destinationLocation,
         pickupAddress: pickup,
         destinationAddress: destination,
+        routeInfo: routeInfo, // Save route info with the order
         createdAt: serverTimestamp(),
       });
       
@@ -157,6 +220,7 @@ const HabiRide = () => {
       // Reset form
       setPickup("");
       setDestination("");
+      setRouteInfo(null);
       
     } catch (error) {
       console.error("Error booking ride:", error);
@@ -225,7 +289,7 @@ const HabiRide = () => {
           </div>
           
           {/* Set destination */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-4">
             <div className="flex items-center px-4 py-4">
               <div className="w-6 mr-3 flex justify-center">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -239,6 +303,27 @@ const HabiRide = () => {
               />
             </div>
           </div>
+
+          {/* Calculate Route Button */}
+          <button
+            className="bg-blue-600 text-white w-full py-3 rounded-xl font-medium mb-4 flex items-center justify-center"
+            disabled={!pickup || !destination || calculatingRoute || activeOrder !== null}
+            onClick={handleCalculateRoute}
+          >
+            <Navigation className="h-5 w-5 mr-2" />
+            {calculatingRoute ? "Calculating Route..." : "Calculate Route"}
+          </button>
+
+          {/* Route Info Display */}
+          {routeInfo && (
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+              <h3 className="font-semibold text-blue-800 mb-2">Route Information</h3>
+              <div className="flex justify-between text-sm text-blue-700">
+                <span>Distance: {routeInfo.distanceText}</span>
+                <span>Duration: {routeInfo.durationText}</span>
+              </div>
+            </div>
+          )}
         </div>
         
         {/* Map area */}
@@ -290,6 +375,17 @@ const HabiRide = () => {
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   <p className="text-sm font-medium">{activeOrder.destinationAddress}</p>
                 </div>
+                
+                {/* Display route info if available */}
+                {activeOrder.routeInfo && (
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="flex justify-between text-sm text-gray-700">
+                      <span>Distance: {activeOrder.routeInfo.distanceText}</span>
+                      <span>Duration: {activeOrder.routeInfo.durationText}</span>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="border-t pt-4">
                   <p className="font-medium">Status: <span className="text-habisin-dark">{formatStatus(activeOrder.status)}</span></p>
                   {driverLocation && (
