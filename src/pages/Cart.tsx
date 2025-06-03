@@ -19,15 +19,15 @@ const Cart = () => {
   if (items.length === 0) {
     return (
       <MainLayout>
-        <div className="min-h-screen bg-white">
-          <div className="bg-habisin-dark px-4 py-4 flex items-center">
-            <Link to="/" className="mr-3">
+        <div className="min-h-screen bg-gray-50">
+          <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+            <Link to="/" className="mr-4">
               <ArrowLeft className="h-6 w-6 text-white" />
             </Link>
             <h1 className="text-white text-2xl font-semibold">Keranjang</h1>
           </div>
           
-          <div className="flex flex-col items-center justify-center py-20">
+          <div className="flex flex-col items-center justify-center py-20 px-6">
             <div className="text-gray-400 text-6xl mb-4">🛒</div>
             <h2 className="text-xl font-semibold text-gray-700 mb-2">Keranjang Kosong</h2>
             <p className="text-gray-500 text-center mb-6">Belum ada produk yang ditambahkan ke keranjang</p>
@@ -42,23 +42,23 @@ const Cart = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-white">
-        <div className="bg-habisin-dark px-4 py-4 flex items-center justify-between">
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-habisin-dark px-6 py-6 flex items-center justify-between rounded-b-3xl">
           <div className="flex items-center">
-            <Link to="/" className="mr-3">
+            <Link to="/" className="mr-4">
               <ArrowLeft className="h-6 w-6 text-white" />
             </Link>
             <h1 className="text-white text-2xl font-semibold">Keranjang</h1>
           </div>
           <button 
             onClick={clearCart}
-            className="text-white text-sm"
+            className="text-white text-sm hover:text-gray-200 transition-colors"
           >
             Hapus Semua
           </button>
         </div>
 
-        <div className="p-4 pb-32">
+        <div className="p-6 pb-32">
           {items.map((item) => (
             <div key={item.id} className="habisin-card mb-4">
               <div className="flex gap-4">
@@ -79,7 +79,7 @@ const Cart = () => {
                 <div className="flex flex-col items-end gap-2">
                   <button 
                     onClick={() => removeFromCart(item.id)}
-                    className="text-red-500 p-1"
+                    className="text-red-500 p-1 hover:text-red-600 transition-colors"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -87,14 +87,14 @@ const Cart = () => {
                   <div className="flex items-center gap-2">
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"
+                      className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
                     <span className="w-8 text-center font-medium">{item.quantity}</span>
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-8 h-8 rounded-full bg-habisin-dark text-white flex items-center justify-center"
+                      className="w-8 h-8 rounded-full bg-habisin-dark text-white flex items-center justify-center hover:opacity-90 transition-opacity"
                     >
                       <Plus className="h-4 w-4" />
                     </button>
