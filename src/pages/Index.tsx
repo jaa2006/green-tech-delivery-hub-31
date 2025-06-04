@@ -76,7 +76,7 @@ const Index = () => {
 
   if (isCheckingAuth) {
     return (
-      <div className="min-h-screen bg-habisin-dark flex items-center justify-center">
+      <div className="min-h-screen bg-[#095155] flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
       </div>
     );
@@ -85,10 +85,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
+      <div className="bg-[#095155] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <h1 className="text-white text-2xl font-semibold">habisin</h1>
         <div className="bg-white p-2 rounded-full">
-          <User2 className="text-habisin-dark w-6 h-6" />
+          <User2 className="text-[#095155] w-6 h-6" />
         </div>
       </div>
 
@@ -101,7 +101,7 @@ const Index = () => {
         <div className="grid grid-cols-1 gap-4 mb-8">
           <Link
             to="/login-user"
-            className="bg-habisin-dark text-white flex items-center justify-center p-6 rounded-xl hover:bg-habisin-light transition-colors"
+            className="bg-[#095155] text-white flex items-center justify-center p-6 rounded-xl hover:bg-[#074247] transition-colors"
           >
             <UserCheck className="w-8 h-8 mr-3" />
             <span className="text-lg font-medium">Masuk sebagai User</span>
@@ -109,7 +109,7 @@ const Index = () => {
           
           <Link
             to="/login-driver"
-            className="bg-habisin-light text-white flex items-center justify-center p-6 rounded-xl hover:bg-habisin-dark transition-colors"
+            className="bg-[#074247] text-white flex items-center justify-center p-6 rounded-xl hover:bg-[#095155] transition-colors"
           >
             <Truck className="w-8 h-8 mr-3" />
             <span className="text-lg font-medium">Masuk sebagai Driver</span>
