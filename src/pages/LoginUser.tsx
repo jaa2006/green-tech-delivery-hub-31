@@ -78,76 +78,78 @@ const LoginUser = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <div className="bg-habisin-dark rounded-b-3xl h-32 flex items-center justify-center relative">
+      <div className="bg-habisin-dark rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
         <Link to="/" className="absolute left-6 top-1/2 -translate-y-1/2">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
-        <h1 className="text-white text-3xl font-bold">Login User</h1>
+        <h1 className="text-white text-2xl font-bold">Login User</h1>
       </div>
 
       {/* Login container */}
-      <div className="max-w-md w-full mx-auto mt-[-2rem] px-6">
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Masukkan email Anda"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
+      <div className="flex-1 flex items-center justify-center px-6">
+        <div className="max-w-md w-full">
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Masukkan email Anda"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Masukkan password Anda"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Masukkan password Anda"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
               </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-habisin-dark hover:bg-habisin-light text-white"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Masuk...
+                  </>
+                ) : (
+                  <>
+                    Masuk
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center text-sm text-gray-500">
+              Belum punya akun?{" "}
+              <Link
+                to="/register-user"
+                className="text-habisin-dark font-medium hover:underline"
+              >
+                Daftar sebagai User
+              </Link>
             </div>
-
-            <Button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Masuk...
-                </>
-              ) : (
-                <>
-                  Masuk
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </>
-              )}
-            </Button>
-          </form>
-
-          <div className="mt-6 text-center text-sm text-gray-500">
-            Belum punya akun?{" "}
-            <Link
-              to="/register-user"
-              className="text-blue-600 font-medium hover:underline"
-            >
-              Daftar sebagai User
-            </Link>
           </div>
         </div>
       </div>

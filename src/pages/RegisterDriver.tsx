@@ -88,138 +88,140 @@ const RegisterDriver = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <div className="bg-habisin-dark rounded-b-3xl h-32 flex items-center justify-center relative">
+      <div className="bg-habisin-dark rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
         <Link to="/login-driver" className="absolute left-6 top-1/2 -translate-y-1/2">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
-        <h1 className="text-white text-3xl font-bold">Daftar Driver</h1>
+        <h1 className="text-white text-2xl font-bold">Daftar Driver</h1>
       </div>
 
       {/* Register container */}
-      <div className="max-w-md w-full mx-auto mt-[-2rem] px-6">
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nama Lengkap</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Masukkan nama lengkap Anda"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="pl-10"
+      <div className="flex-1 flex items-start justify-center px-6 pb-6">
+        <div className="max-w-md w-full">
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nama Lengkap</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Masukkan nama lengkap Anda"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Masukkan email Anda"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Masukkan password Anda"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="kendaraan">Jenis Kendaraan</Label>
+                <div className="relative">
+                  <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="kendaraan"
+                    type="text"
+                    placeholder="Contoh: Honda Vario, Toyota Avanza"
+                    value={kendaraan}
+                    onChange={(e) => setKendaraan(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="platNomor">Plat Nomor</Label>
+                <div className="relative">
+                  <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="platNomor"
+                    type="text"
+                    placeholder="Contoh: D 1234 ZUL"
+                    value={platNomor}
+                    onChange={(e) => setPlatNomor(e.target.value)}
+                    className="pl-10"
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  checked={acceptTerms}
+                  onChange={(e) => setAcceptTerms(e.target.checked)}
+                  className="w-4 h-4 accent-habisin-dark"
                   disabled={isLoading}
                 />
+                <Label htmlFor="terms" className="text-sm cursor-pointer">
+                  Saya menerima semua syarat & ketentuan
+                </Label>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Masukkan email Anda"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Masukkan password Anda"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="kendaraan">Jenis Kendaraan</Label>
-              <div className="relative">
-                <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="kendaraan"
-                  type="text"
-                  placeholder="Contoh: Honda Vario, Toyota Avanza"
-                  value={kendaraan}
-                  onChange={(e) => setKendaraan(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="platNomor">Plat Nomor</Label>
-              <div className="relative">
-                <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                <Input
-                  id="platNomor"
-                  type="text"
-                  placeholder="Contoh: D 1234 ZUL"
-                  value={platNomor}
-                  onChange={(e) => setPlatNomor(e.target.value)}
-                  className="pl-10"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="terms"
-                checked={acceptTerms}
-                onChange={(e) => setAcceptTerms(e.target.checked)}
-                className="w-4 h-4 accent-green-600"
+              <Button
+                type="submit"
+                className="w-full bg-habisin-dark hover:bg-habisin-light text-white"
                 disabled={isLoading}
-              />
-              <Label htmlFor="terms" className="text-sm cursor-pointer">
-                Saya menerima semua syarat & ketentuan
-              </Label>
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Mendaftar...
+                  </>
+                ) : (
+                  <>
+                    Daftar
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center text-sm text-gray-500">
+              Sudah punya akun?{" "}
+              <Link
+                to="/login-driver"
+                className="text-habisin-dark font-medium hover:underline"
+              >
+                Masuk
+              </Link>
             </div>
-
-            <Button
-              type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Mendaftar...
-                </>
-              ) : (
-                <>
-                  Daftar
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </>
-              )}
-            </Button>
-          </form>
-
-          <div className="mt-6 text-center text-sm text-gray-500">
-            Sudah punya akun?{" "}
-            <Link
-              to="/login-driver"
-              className="text-green-600 font-medium hover:underline"
-            >
-              Masuk
-            </Link>
           </div>
         </div>
       </div>
