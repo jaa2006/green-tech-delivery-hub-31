@@ -11,6 +11,12 @@ import { CartProvider } from "@/contexts/CartContext";
 import SplashScreen from "./pages/SplashScreen";
 import Auth from "./pages/Auth";
 import Index from "./pages/Index";
+import LoginUser from "./pages/LoginUser";
+import LoginDriver from "./pages/LoginDriver";
+import RegisterUser from "./pages/RegisterUser";
+import RegisterDriver from "./pages/RegisterDriver";
+import UserDashboard from "./pages/UserDashboard";
+import DriverDashboard from "./pages/DriverDashboard";
 import HabiRide from "./pages/HabiRide";
 import HabiFood from "./pages/HabiFood";
 import Restaurant from "./pages/Restaurant";
@@ -36,6 +42,12 @@ const App = () => (
               <Route path="/splash" element={<SplashScreen />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/" element={<Index />} />
+              <Route path="/login-user" element={<LoginUser />} />
+              <Route path="/login-driver" element={<LoginDriver />} />
+              <Route path="/register-user" element={<RegisterUser />} />
+              <Route path="/register-driver" element={<RegisterDriver />} />
+              <Route path="/user-dashboard" element={<UserDashboard />} />
+              <Route path="/driver-dashboard" element={<DriverDashboard />} />
               <Route path="/habiride" element={<HabiRide />} />
               <Route path="/habifood" element={<HabiFood />} />
               <Route path="/restaurant/:id" element={<Restaurant />} />

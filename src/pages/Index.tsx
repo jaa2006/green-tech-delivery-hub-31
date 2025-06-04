@@ -1,7 +1,10 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { User2, Bike, Utensils } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { User2, Bike, Utensils, UserCheck, Truck } from "lucide-react";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 
@@ -38,53 +41,99 @@ const popularFoods = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const roleDoc = await getDoc(doc(db, "users", user.uid));
+          const role = roleDoc.data()?.role;
+
+          if (role === "user") {
+            navigate("/user-dashboard");
+          } else if (role === "driver") {
+            navigate("/driver-dashboard");
+          }
+        } catch (error) {
+          console.error("Error fetching user role:", error);
+        }
+      }
+      setIsCheckingAuth(false);
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-habisin-dark flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
+
   return (
-    <MainLayout>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
-          <h1 className="text-white text-2xl font-semibold">habisin</h1>
-          <div className="bg-white p-2 rounded-full">
-            <User2 className="text-habisin-dark w-6 h-6" />
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
+        <h1 className="text-white text-2xl font-semibold">habisin</h1>
+        <div className="bg-white p-2 rounded-full">
+          <User2 className="text-habisin-dark w-6 h-6" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-2">Selamat Datang!</h2>
+        <p className="text-gray-700 mb-6">Pilih cara masuk</p>
+
+        {/* Login Options */}
+        <div className="grid grid-cols-1 gap-4 mb-8">
+          <Link
+            to="/login-user"
+            className="bg-blue-600 text-white flex items-center justify-center p-6 rounded-xl hover:bg-blue-700 transition-colors"
+          >
+            <UserCheck className="w-8 h-8 mr-3" />
+            <span className="text-lg font-medium">Masuk sebagai User</span>
+          </Link>
+          
+          <Link
+            to="/login-driver"
+            className="bg-green-600 text-white flex items-center justify-center p-6 rounded-xl hover:bg-green-700 transition-colors"
+          >
+            <Truck className="w-8 h-8 mr-3" />
+            <span className="text-lg font-medium">Masuk sebagai Driver</span>
+          </Link>
+        </div>
+
+        {/* Service Buttons */}
+        <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="bg-gray-300 text-gray-500 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
+            <Bike className="w-8 h-8 mb-2" />
+            <span className="text-lg font-medium">HabiRide</span>
+            <span className="text-xs">Login dulu</span>
+          </div>
+          
+          <div className="bg-gray-300 text-gray-500 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
+            <Utensils className="w-8 h-8 mb-2" />
+            <span className="text-lg font-medium">HabiFood</span>
+            <span className="text-xs">Login dulu</span>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-2">Welcome!</h2>
-          <p className="text-gray-700 mb-6">Choose a service</p>
-
-          {/* Service Buttons */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <Link
-              to="/habiride"
-              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
-            >
-              <Bike className="w-8 h-8 mb-2" />
-              <span className="text-lg font-medium">HabiRide</span>
-            </Link>
-            
-            <Link
-              to="/habifood"
-              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
-            >
-              <Utensils className="w-8 h-8 mb-2" />
-              <span className="text-lg font-medium">HabiFood</span>
-            </Link>
-          </div>
-
-          {/* Popular Items */}
-          <div>
-            <h2 className="text-xl font-bold mb-4">Popular Items</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {popularFoods.map(food => (
-                <PopularFoodCard key={food.id} food={food} />
-              ))}
-            </div>
+        {/* Popular Items */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">Popular Items</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {popularFoods.map(food => (
+              <PopularFoodCard key={food.id} food={food} />
+            ))}
           </div>
         </div>
       </div>
-    </MainLayout>
+    </div>
   );
 };
 
