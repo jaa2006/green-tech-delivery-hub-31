@@ -11,6 +11,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import SplashScreen from "./pages/SplashScreen";
 import Auth from "./pages/Auth";
 import Index from "./pages/Index";
+import Onboarding from "./pages/Onboarding";
 import LoginUser from "./pages/LoginUser";
 import LoginDriver from "./pages/LoginDriver";
 import RegisterUser from "./pages/RegisterUser";
@@ -40,6 +41,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/splash" element={<SplashScreen />} />
+              <Route path="/onboarding" element={<Onboarding />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/" element={<Index />} />
               <Route path="/login-user" element={<LoginUser />} />

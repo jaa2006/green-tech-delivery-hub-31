@@ -45,6 +45,14 @@ const Index = () => {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
+    // Check if user has seen onboarding
+    const hasSeenOnboarding = localStorage.getItem("has_seen_onboarding");
+    
+    if (!hasSeenOnboarding) {
+      navigate("/onboarding");
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
@@ -93,7 +101,7 @@ const Index = () => {
         <div className="grid grid-cols-1 gap-4 mb-8">
           <Link
             to="/login-user"
-            className="bg-blue-600 text-white flex items-center justify-center p-6 rounded-xl hover:bg-blue-700 transition-colors"
+            className="bg-habisin-dark text-white flex items-center justify-center p-6 rounded-xl hover:bg-habisin-light transition-colors"
           >
             <UserCheck className="w-8 h-8 mr-3" />
             <span className="text-lg font-medium">Masuk sebagai User</span>
@@ -101,7 +109,7 @@ const Index = () => {
           
           <Link
             to="/login-driver"
-            className="bg-green-600 text-white flex items-center justify-center p-6 rounded-xl hover:bg-green-700 transition-colors"
+            className="bg-habisin-light text-white flex items-center justify-center p-6 rounded-xl hover:bg-habisin-dark transition-colors"
           >
             <Truck className="w-8 h-8 mr-3" />
             <span className="text-lg font-medium">Masuk sebagai Driver</span>
