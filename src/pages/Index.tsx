@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User2, Bike, Utensils, UserCheck, Truck } from "lucide-react";
@@ -7,6 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 // Sample popular food data
 const popularFoods = [
@@ -99,20 +99,16 @@ const Index = () => {
 
         {/* Login Options */}
         <div className="grid grid-cols-1 gap-4 mb-8">
-          <Link
-            to="/login-user"
-            className="bg-[#095155] text-white flex items-center justify-center p-6 rounded-xl hover:bg-[#074247] transition-colors"
-          >
-            <UserCheck className="w-8 h-8 mr-3" />
-            <span className="text-lg font-medium">Masuk sebagai User</span>
+          <Link to="/login-user">
+            <AnimatedButton className="w-full" icon={<UserCheck className="w-6 h-6" />}>
+              Masuk sebagai User
+            </AnimatedButton>
           </Link>
           
-          <Link
-            to="/login-driver"
-            className="bg-[#074247] text-white flex items-center justify-center p-6 rounded-xl hover:bg-[#095155] transition-colors"
-          >
-            <Truck className="w-8 h-8 mr-3" />
-            <span className="text-lg font-medium">Masuk sebagai Driver</span>
+          <Link to="/login-driver">
+            <AnimatedButton className="w-full" icon={<Truck className="w-6 h-6" />}>
+              Masuk sebagai Driver
+            </AnimatedButton>
           </Link>
         </div>
 

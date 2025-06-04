@@ -110,3 +110,29 @@
     @apply bg-habisin-dark text-white py-5 px-4 rounded-b-3xl;
   }
 }
+
+/* Animated Button Floating Points Animation */
+@keyframes floating-points {
+  0% { 
+    transform: translateY(0); 
+    opacity: 1;
+  }
+  85% { 
+    opacity: 0; 
+  }
+  100% { 
+    transform: translateY(-55px); 
+    opacity: 0; 
+  }
+}
+
+.animate-float-1 { animation: floating-points 2.35s infinite ease-in-out 0.2s; }
+.animate-float-2 { animation: floating-points 2.5s infinite ease-in-out 0.5s; }
+.animate-float-3 { animation: floating-points 2.2s infinite ease-in-out 0.1s; }
+.animate-float-4 { animation: floating-points 2.05s infinite ease-in-out 0s; }
+.animate-float-5 { animation: floating-points 1.9s infinite ease-in-out 0s; }
+.animate-float-6 { animation: floating-points 1.5s infinite ease-in-out 1.5s; }
+.animate-float-7 { animation: floating-points 2.2s infinite ease-in-out 0.2s; }
+.animate-float-8 { animation: floating-points 2.25s infinite ease-in-out 0.2s; }
+.animate-float-9 { animation: floating-points 2.6s infinite ease-in-out 0.1s; }
+.animate-float-10 { animation: floating-points 2.5s infinite ease-in-out 0.2s; }
