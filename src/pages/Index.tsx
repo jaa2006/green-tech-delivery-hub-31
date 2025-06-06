@@ -7,6 +7,7 @@ import { auth, db } from "@/lib/firebase";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 import { IllustratedLoginButton } from "@/components/ui/illustrated-login-button";
+import DriverRegisterPopup from "../components/ui/DriverRegisterPopup";
 
 // Sample popular food data
 const popularFoods = [
@@ -84,6 +85,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
+      <DriverRegisterPopup />
       {/* Header */}
       <div className="bg-[#095155] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <h1 className="text-white text-2xl font-semibold">habisin</h1>

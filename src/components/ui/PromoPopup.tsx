@@ -7,29 +7,21 @@ const PromoPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check if user has seen the popup today
-    const lastShown = localStorage.getItem('promoPopupLastShown');
-    const today = new Date().toDateString();
+    // Show popup after a short delay every time user enters the app
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 1000);
     
-    if (lastShown !== today) {
-      // Show popup after a short delay
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1000);
-      
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
     setIsOpen(false);
-    // Remember that user has seen the popup today
-    localStorage.setItem('promoPopupLastShown', new Date().toDateString());
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-sm mx-auto p-0 bg-transparent border-none shadow-none">
+      <DialogContent className="max-w-xs mx-auto p-0 bg-transparent border-none shadow-none">
         <div className="relative">
           <button
             onClick={handleClose}

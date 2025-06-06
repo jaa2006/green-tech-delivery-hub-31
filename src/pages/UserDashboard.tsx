@@ -9,6 +9,7 @@ import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 import PromoSlider from "../components/ui/PromoSlider";
 import PromoPopup from "../components/ui/PromoPopup";
+import DriverRegisterPopup from "../components/ui/DriverRegisterPopup";
 
 // Sample popular food data
 const popularFoods = [
@@ -85,6 +86,7 @@ const UserDashboard = () => {
   return (
     <MainLayout>
       <PromoPopup />
+      <DriverRegisterPopup />
       <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         {/* Header */}
         <div className="bg-[#07595A] px-4 py-4 flex justify-between items-center rounded-b-3xl">
