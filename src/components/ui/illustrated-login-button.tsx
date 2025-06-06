@@ -4,56 +4,119 @@ import { cn } from '@/lib/utils';
 
 interface IllustratedLoginButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  characterImage: string;
   variant: 'user' | 'driver';
 }
 
 const IllustratedLoginButton = React.forwardRef<HTMLButtonElement, IllustratedLoginButtonProps>(
-  ({ className, children, characterImage, variant, ...props }, ref) => {
+  ({ className, children, variant, ...props }, ref) => {
     return (
       <button
         className={cn(
-          'illustrated-login-button relative w-full h-20 bg-[#0A5D5D] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]',
+          'styled-button relative w-full',
           className
         )}
         ref={ref}
         {...props}
       >
-        {/* 3D Background Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A5D5D] via-[#085456] to-[#064b4d] rounded-2xl"></div>
-        
-        {/* Inner Shadow for 3D effect */}
-        <div className="absolute inset-1 bg-gradient-to-br from-white/10 to-transparent rounded-xl"></div>
-        
-        {/* Character Image */}
-        <div className="absolute left-2 top-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center">
-          <img 
-            src={characterImage} 
-            alt={`Habisin ${variant} character`}
-            className="w-14 h-14 object-contain drop-shadow-lg"
-          />
+        {children}
+        <div className="inner-button">
+          <svg
+            id="Arrow"
+            viewBox="0 0 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+            height="30px"
+            width="30px"
+            className="icon"
+          >
+            <defs>
+              <linearGradient y2="100%" x2="100%" y1="0%" x1="0%" id="iconGradient">
+                <stop style={{stopColor:"#FFFFFF", stopOpacity:1}} offset="0%"></stop>
+                <stop style={{stopColor:"#AAAAAA", stopOpacity:1}} offset="100%"></stop>
+              </linearGradient>
+            </defs>
+            <path
+              fill="url(#iconGradient)"
+              d="M4 15a1 1 0 0 0 1 1h19.586l-4.292 4.292a1 1 0 0 0 1.414 1.414l6-6a.99.99 0 0 0 .292-.702V15c0-.13-.026-.26-.078-.382a.99.99 0 0 0-.216-.324l-6-6a1 1 0 0 0-1.414 1.414L24.586 14H5a1 1 0 0 0-1 1z"
+            ></path>
+          </svg>
         </div>
-        
-        {/* Button Text */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-right">
-          <span className="text-white font-bold text-lg leading-tight">
-            {children}
-          </span>
-        </div>
-        
-        {/* 3D Highlight */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-t-2xl"></div>
-        
-        {/* Bottom Shadow */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-black/20 rounded-b-2xl"></div>
 
-        <style>{`
-          .illustrated-login-button:hover {
-            box-shadow: 0 8px 25px rgba(10, 93, 93, 0.3);
+        <style jsx>{`
+          .styled-button {
+            position: relative;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(to bottom, #171717, #242424);
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 1), 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #292929;
           }
-          
-          .illustrated-login-button:active {
-            box-shadow: 0 4px 15px rgba(10, 93, 93, 0.4);
+
+          .styled-button::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            right: -1px;
+            bottom: -1px;
+            left: -1px;
+            background: linear-gradient(to bottom, #292929, #000000);
+            z-index: -1;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+            opacity: 1;
+          }
+
+          .styled-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 1), 0 5px 10px rgba(0, 0, 0, 0.4);
+          }
+
+          .styled-button .inner-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #171717, #242424);
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 1px rgba(0, 0, 0, 1);
+            border: 1px solid #252525;
+            transition: all 0.2s ease;
+          }
+
+          .styled-button .inner-button::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            right: -1px;
+            bottom: -1px;
+            left: -1px;
+            background: linear-gradient(to bottom, #292929, #000000);
+            z-index: -1;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+            opacity: 1;
+          }
+
+          .styled-button .inner-button .icon {
+            filter: drop-shadow(0 10px 20px rgba(26, 25, 25, 0.9))
+              drop-shadow(0 0 4px rgba(0, 0, 0, 1));
+            transition: all 0.4s ease-in-out;
+          }
+
+          .styled-button .inner-button .icon:hover {
+            filter: drop-shadow(0 10px 20px rgba(50, 50, 50, 1))
+              drop-shadow(0 0 20px rgba(2, 2, 2, 1));
+            transform: rotate(-35deg);
           }
         `}</style>
       </button>

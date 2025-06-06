@@ -100,19 +100,13 @@ const Index = () => {
         {/* 3D Illustrated Login Options */}
         <div className="grid grid-cols-1 gap-6 mb-8">
           <Link to="/login-user">
-            <IllustratedLoginButton 
-              characterImage="/lovable-uploads/6afe9b4e-5522-415f-bc48-c4d7447f2617.png"
-              variant="user"
-            >
+            <IllustratedLoginButton variant="user">
               Masuk Sebagai User
             </IllustratedLoginButton>
           </Link>
           
           <Link to="/login-driver">
-            <IllustratedLoginButton 
-              characterImage="/lovable-uploads/45a59870-fa09-4389-ad40-18b7d43fbb08.png"
-              variant="driver"
-            >
+            <IllustratedLoginButton variant="driver">
               Masuk Sebagai Driver
             </IllustratedLoginButton>
           </Link>
