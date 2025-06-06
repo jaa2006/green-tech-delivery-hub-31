@@ -101,21 +101,21 @@ const FoodDetail = () => {
           </div>
         </div>
         
-        {/* Action buttons */}
-        <div className="fixed bottom-6 left-6 right-6 flex gap-3">
+        {/* Action buttons - Fixed for mobile responsiveness */}
+        <div className="fixed bottom-20 left-4 right-4 flex gap-3 z-10">
           <button 
             onClick={addToCartHandler}
-            className="flex-1 bg-white border-2 border-[#07595A] text-[#07595A] py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+            className="flex-1 bg-white border-2 border-[#07595A] text-[#07595A] py-3 px-4 rounded-xl font-medium text-sm sm:text-base flex items-center justify-center min-h-[48px] active:scale-95 transition-transform"
           >
-            <ShoppingCart className="mr-2 h-5 w-5" />
-            Keranjang
+            <ShoppingCart className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="truncate">Keranjang</span>
           </button>
           <button 
             onClick={orderNow}
-            className="flex-1 bg-[#07595A] text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+            className="flex-1 bg-[#07595A] text-white py-3 px-4 rounded-xl font-medium text-sm sm:text-base flex items-center justify-center min-h-[48px] active:scale-95 transition-transform"
           >
-            <Zap className="mr-2 h-5 w-5" />
-            Pesan Sekarang
+            <Zap className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="truncate">Pesan Sekarang</span>
           </button>
         </div>
       </div>
