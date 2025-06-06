@@ -6,7 +6,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc, collection, query, where, onSnapshot, updateDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 interface Order {
   id: string;
@@ -102,14 +102,14 @@ const DriverDashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
+      <div className="bg-[#095155] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <div>
           <h1 className="text-white text-2xl font-semibold">Driver Dashboard</h1>
           <p className="text-white/80 text-sm">Halo, {driverName}</p>
         </div>
         <div className="flex items-center gap-3">
           <div className="bg-white p-2 rounded-full">
-            <Truck className="text-habisin-dark w-6 h-6" />
+            <Truck className="text-[#095155] w-6 h-6" />
           </div>
           <button
             onClick={handleLogout}
@@ -156,13 +156,13 @@ const DriverDashboard = () => {
                   </div>
                 </div>
                 
-                <Button
+                <AnimatedButton
                   onClick={() => acceptOrder(order.id)}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  className="w-full"
+                  icon={<CheckCircle className="w-4 h-4" />}
                 >
-                  <CheckCircle className="w-4 h-4 mr-2" />
                   Terima Order
-                </Button>
+                </AnimatedButton>
               </div>
             ))}
           </div>

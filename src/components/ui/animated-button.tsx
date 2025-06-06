@@ -56,7 +56,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           {children}
         </span>
 
-        <style jsx>{`
+        <style>{`
           .animated-button::before {
             content: "";
             position: absolute;
