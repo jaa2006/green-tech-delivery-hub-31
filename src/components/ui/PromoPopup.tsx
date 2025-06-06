@@ -21,7 +21,7 @@ const PromoPopup = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-xs mx-auto p-2 bg-white border border-gray-200 shadow-lg">
+      <DialogContent className="max-w-xs mx-auto p-2 bg-transparent border-none shadow-none">
         <div className="relative">
           <button
             onClick={handleClose}
