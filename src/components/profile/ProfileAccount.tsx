@@ -74,40 +74,40 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
               <Edit className="h-4 w-4" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-sm mx-auto">
+          <DialogContent className="max-w-sm mx-auto bg-white border border-gray-200 shadow-lg">
             <DialogHeader>
-              <DialogTitle className="text-lg">Edit Profil & Akun</DialogTitle>
+              <DialogTitle className="text-lg text-gray-900">Edit Profil & Akun</DialogTitle>
             </DialogHeader>
             <div className="space-y-3 py-2">
               <div className="space-y-1">
-                <Label htmlFor="name" className="text-sm">Nama Lengkap</Label>
+                <Label htmlFor="name" className="text-sm text-gray-700">Nama Lengkap</Label>
                 <Input 
                   id="name" 
                   value={editName} 
                   onChange={(e) => setEditName(e.target.value)}
                   placeholder="Masukkan nama lengkap"
-                  className="text-sm"
+                  className="text-sm bg-white border-gray-300"
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="phone" className="text-sm">Nomor HP</Label>
+                <Label htmlFor="phone" className="text-sm text-gray-700">Nomor HP</Label>
                 <Input 
                   id="phone" 
                   value={editPhone} 
                   onChange={(e) => setEditPhone(e.target.value)}
                   placeholder="Masukkan nomor HP"
-                  className="text-sm"
+                  className="text-sm bg-white border-gray-300"
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="photo" className="text-sm">Foto Profil</Label>
+                <Label htmlFor="photo" className="text-sm text-gray-700">Foto Profil</Label>
                 <div className="flex gap-2">
                   <Input 
                     id="photo" 
                     value={editPhotoURL} 
                     onChange={(e) => setEditPhotoURL(e.target.value)}
                     placeholder="URL foto atau upload file"
-                    className="text-sm flex-1"
+                    className="text-sm flex-1 bg-white border-gray-300"
                   />
                   <div className="relative">
                     <input
@@ -116,18 +116,18 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
                       onChange={handleFileUpload}
                       className="absolute inset-0 opacity-0 cursor-pointer"
                     />
-                    <Button variant="outline" size="sm" className="h-10 w-10 p-0">
+                    <Button variant="outline" size="sm" className="h-10 w-10 p-0 bg-white border-gray-300">
                       <Upload className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-gray-500">
                   Upload foto dari device atau masukkan URL gambar
                 </p>
               </div>
               <Button 
                 onClick={handleSaveChanges} 
-                className="w-full text-sm py-2"
+                className="w-full text-sm py-2 bg-[#07595A] hover:bg-[#095155]"
                 disabled={updating}
               >
                 {updating && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}

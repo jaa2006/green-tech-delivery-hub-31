@@ -21,15 +21,15 @@ const PromoPopup = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-xs mx-auto p-0 bg-transparent border-none shadow-none">
+      <DialogContent className="max-w-xs mx-auto p-2 bg-white border border-gray-200 shadow-lg">
         <div className="relative">
           <button
             onClick={handleClose}
-            className="absolute top-2 right-2 z-10 bg-white/80 rounded-full p-2 hover:bg-white transition-colors"
+            className="absolute top-2 right-2 z-10 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors shadow-md"
           >
             <X className="h-4 w-4 text-gray-600" />
           </button>
-          <div className="rounded-2xl overflow-hidden shadow-2xl">
+          <div className="rounded-2xl overflow-hidden">
             <img 
               src="/lovable-uploads/89c18810-2f40-4279-85a3-a10a146ab390.png" 
               alt="First Launch Promo - Get 50% OFF" 
