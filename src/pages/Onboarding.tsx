@@ -15,10 +15,10 @@ import {
 const OnboardingSlide1 = ({ onNext }: { onNext: () => void }) => (
   <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
     <div className="mb-8">
-      <div className="w-24 h-24 bg-habisin-dark rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-24 h-24 bg-[#07595A] rounded-full flex items-center justify-center mx-auto mb-6">
         <span className="text-white text-3xl font-bold">H</span>
       </div>
-      <h1 className="text-4xl font-bold text-habisin-dark mb-4">Habisin</h1>
+      <h1 className="text-4xl font-bold text-[#07595A] mb-4">Habisin</h1>
       <p className="text-xl text-gray-600 leading-relaxed">
         Transportasi Mudah, Cepat, dan Aman
       </p>
@@ -26,7 +26,7 @@ const OnboardingSlide1 = ({ onNext }: { onNext: () => void }) => (
     
     <Button 
       onClick={onNext}
-      className="w-full max-w-sm bg-habisin-dark hover:bg-habisin-light text-white py-4 text-lg"
+      className="w-full max-w-sm bg-[#07595A] hover:bg-[#065658] text-white py-4 text-lg"
     >
       Get Started
       <ChevronRight className="ml-2 h-5 w-5" />
@@ -37,8 +37,8 @@ const OnboardingSlide1 = ({ onNext }: { onNext: () => void }) => (
 const OnboardingSlide2 = ({ onNext }: { onNext: () => void }) => (
   <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
     <div className="mb-8">
-      <div className="w-32 h-32 bg-habisin-light/20 rounded-full flex items-center justify-center mx-auto mb-6">
-        <Car className="w-16 h-16 text-habisin-dark" />
+      <div className="w-32 h-32 bg-[#07595A]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <Car className="w-16 h-16 text-[#07595A]" />
       </div>
       <h2 className="text-3xl font-bold text-gray-800 mb-6">Mudah & Efisien</h2>
       <p className="text-lg text-gray-600 leading-relaxed max-w-md">
@@ -48,7 +48,7 @@ const OnboardingSlide2 = ({ onNext }: { onNext: () => void }) => (
     
     <Button 
       onClick={onNext}
-      className="w-full max-w-sm bg-habisin-dark hover:bg-habisin-light text-white py-4 text-lg"
+      className="w-full max-w-sm bg-[#07595A] hover:bg-[#065658] text-white py-4 text-lg"
     >
       Next
       <ChevronRight className="ml-2 h-5 w-5" />
@@ -63,7 +63,7 @@ const OnboardingSlide3 = ({ onFinish }: { onFinish: () => void }) => (
       
       <div className="space-y-6 max-w-sm">
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-habisin-dark rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-[#07595A] rounded-full flex items-center justify-center flex-shrink-0">
             <Users className="w-6 h-6 text-white" />
           </div>
           <div className="text-left">
@@ -73,7 +73,7 @@ const OnboardingSlide3 = ({ onFinish }: { onFinish: () => void }) => (
         </div>
         
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-habisin-dark rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-[#07595A] rounded-full flex items-center justify-center flex-shrink-0">
             <MapPin className="w-6 h-6 text-white" />
           </div>
           <div className="text-left">
@@ -83,7 +83,7 @@ const OnboardingSlide3 = ({ onFinish }: { onFinish: () => void }) => (
         </div>
         
         <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-habisin-dark rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-[#07595A] rounded-full flex items-center justify-center flex-shrink-0">
             <Car className="w-6 h-6 text-white" />
           </div>
           <div className="text-left">
@@ -96,7 +96,7 @@ const OnboardingSlide3 = ({ onFinish }: { onFinish: () => void }) => (
     
     <Button 
       onClick={onFinish}
-      className="w-full max-w-sm bg-habisin-dark hover:bg-habisin-light text-white py-4 text-lg"
+      className="w-full max-w-sm bg-[#07595A] hover:bg-[#065658] text-white py-4 text-lg"
     >
       Mulai Sekarang
       <ChevronRight className="ml-2 h-5 w-5" />
@@ -154,7 +154,7 @@ const Onboarding = () => {
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === current ? "bg-habisin-dark" : "bg-gray-300"
+              index === current ? "bg-[#07595A]" : "bg-gray-300"
             }`}
             onClick={() => api?.scrollTo(index)}
           />
@@ -164,7 +164,7 @@ const Onboarding = () => {
       {/* Skip Button */}
       <button
         onClick={handleFinish}
-        className="fixed top-6 right-6 text-gray-500 hover:text-habisin-dark transition-colors"
+        className="fixed top-6 right-6 text-gray-500 hover:text-[#07595A] transition-colors"
       >
         Skip
       </button>

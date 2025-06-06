@@ -65,7 +65,7 @@ const Checkout = () => {
   return (
     <MainLayout>
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+        <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
           <Link to="/cart" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
           </Link>
@@ -92,14 +92,14 @@ const Checkout = () => {
                     <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                   </div>
                 </div>
-                <p className="font-semibold text-habisin-dark">
+                <p className="font-semibold text-[#07595A]">
                   {formatPrice(item.price * item.quantity)}
                 </p>
               </div>
             ))}
             <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-200">
               <span className="font-semibold">Total</span>
-              <span className="text-lg font-bold text-habisin-dark">
+              <span className="text-lg font-bold text-[#07595A]">
                 {formatPrice(getTotalPrice())}
               </span>
             </div>
@@ -108,7 +108,7 @@ const Checkout = () => {
           {/* Alamat Pengiriman */}
           <div className="habisin-card mb-4">
             <div className="flex items-center gap-2 mb-3">
-              <MapPin className="h-5 w-5 text-habisin-dark" />
+              <MapPin className="h-5 w-5 text-[#07595A]" />
               <h2 className="text-lg font-semibold">Alamat Pengiriman</h2>
             </div>
             <textarea
@@ -123,7 +123,7 @@ const Checkout = () => {
           {/* Metode Pembayaran */}
           <div className="habisin-card mb-6">
             <div className="flex items-center gap-2 mb-3">
-              <CreditCard className="h-5 w-5 text-habisin-dark" />
+              <CreditCard className="h-5 w-5 text-[#07595A]" />
               <h2 className="text-lg font-semibold">Metode Pembayaran</h2>
             </div>
             <div className="space-y-2">
@@ -133,7 +133,7 @@ const Checkout = () => {
                   onClick={() => setSelectedPayment(method.id)}
                   className={`w-full p-3 rounded-lg border-2 transition-colors flex items-center gap-3 ${
                     selectedPayment === method.id
-                      ? "border-habisin-dark bg-green-50"
+                      ? "border-[#07595A] bg-green-50"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >

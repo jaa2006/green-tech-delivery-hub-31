@@ -58,7 +58,7 @@ const FoodDetail = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+      <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
         <Link to="/" className="mr-4">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
@@ -89,7 +89,7 @@ const FoodDetail = () => {
           <div className="mt-6">
             <h3 className="font-medium text-lg">Restaurant</h3>
             <div className="flex items-center justify-between mt-1">
-              <Link to={`/restaurant/${food.restaurantId}`} className="text-habisin-dark">
+              <Link to={`/restaurant/${food.restaurantId}`} className="text-[#07595A]">
                 {food.restaurant}
               </Link>
             </div>
@@ -105,14 +105,14 @@ const FoodDetail = () => {
         <div className="fixed bottom-6 left-6 right-6 flex gap-3">
           <button 
             onClick={addToCartHandler}
-            className="flex-1 bg-white border-2 border-habisin-dark text-habisin-dark py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+            className="flex-1 bg-white border-2 border-[#07595A] text-[#07595A] py-4 rounded-xl font-medium text-lg flex items-center justify-center"
           >
             <ShoppingCart className="mr-2 h-5 w-5" />
             Keranjang
           </button>
           <button 
             onClick={orderNow}
-            className="flex-1 bg-habisin-dark text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
+            className="flex-1 bg-[#07595A] text-white py-4 rounded-xl font-medium text-lg flex items-center justify-center"
           >
             <Zap className="mr-2 h-5 w-5" />
             Pesan Sekarang

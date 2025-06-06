@@ -20,7 +20,7 @@ const Cart = () => {
     return (
       <MainLayout>
         <div className="min-h-screen bg-gray-50">
-          <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+          <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
             <Link to="/" className="mr-4">
               <ArrowLeft className="h-6 w-6 text-white" />
             </Link>
@@ -43,7 +43,7 @@ const Cart = () => {
   return (
     <MainLayout>
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-habisin-dark px-6 py-6 flex items-center justify-between rounded-b-3xl">
+        <div className="bg-[#07595A] px-6 py-6 flex items-center justify-between rounded-b-3xl">
           <div className="flex items-center">
             <Link to="/" className="mr-4">
               <ArrowLeft className="h-6 w-6 text-white" />
@@ -73,7 +73,7 @@ const Cart = () => {
                 <div className="flex-1">
                   <h3 className="font-semibold mb-1">{item.name}</h3>
                   <p className="text-sm text-gray-500 mb-2">{item.restaurant}</p>
-                  <p className="font-bold text-habisin-dark">{formatPrice(item.price)}</p>
+                  <p className="font-bold text-[#07595A]">{formatPrice(item.price)}</p>
                 </div>
 
                 <div className="flex flex-col items-end gap-2">
@@ -94,7 +94,7 @@ const Cart = () => {
                     <span className="w-8 text-center font-medium">{item.quantity}</span>
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-8 h-8 rounded-full bg-habisin-dark text-white flex items-center justify-center hover:opacity-90 transition-opacity"
+                      className="w-8 h-8 rounded-full bg-[#07595A] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
                     >
                       <Plus className="h-4 w-4" />
                     </button>
@@ -107,7 +107,7 @@ const Cart = () => {
           <div className="habisin-card mt-6">
             <div className="flex justify-between items-center mb-4">
               <span className="text-lg font-semibold">Total</span>
-              <span className="text-xl font-bold text-habisin-dark">
+              <span className="text-xl font-bold text-[#07595A]">
                 {formatPrice(getTotalPrice())}
               </span>
             </div>

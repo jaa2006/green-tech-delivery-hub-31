@@ -71,7 +71,7 @@ const Search = () => {
     <MainLayout>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-habisin-dark px-6 py-6 flex items-center rounded-b-3xl">
+        <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
           <Link to="/" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
           </Link>
@@ -87,7 +87,7 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search for restaurants, food, or cuisines..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-habisin-dark/20"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#07595A]/20"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

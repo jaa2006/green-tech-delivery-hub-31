@@ -15,9 +15,9 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         case 'secondary':
           return 'bg-white text-gray-700 border border-gray-300';
         case 'outline':
-          return 'bg-transparent border border-[#095155] text-[#095155]';
+          return 'bg-transparent border border-[#07595A] text-[#07595A]';
         default:
-          return 'bg-gradient-to-b from-[#095155] to-[#074247]';
+          return 'bg-gradient-to-b from-[#07595A] to-[#065659]';
       }
     };
 
@@ -33,7 +33,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         {...props}
       >
         {/* Fold effect */}
-        <span className="fold absolute top-0 right-0 h-4 w-4 transition-all duration-500 ease-in-out bg-gradient-to-br from-[#095155]/80 to-transparent shadow-sm rounded-tr-xl rounded-bl-2xl z-10"></span>
+        <span className="fold absolute top-0 right-0 h-4 w-4 transition-all duration-500 ease-in-out bg-gradient-to-br from-[#07595A]/80 to-transparent shadow-sm rounded-tr-xl rounded-bl-2xl z-10"></span>
         
         {/* Floating points */}
         <div className="points-wrapper absolute inset-0 overflow-hidden pointer-events-none z-10">
@@ -78,7 +78,7 @@ const AnimatedButton = React.forwardRef<HTMLButtonElement, AnimatedButtonProps>(
             transition: all 0.5s ease-in-out;
             border-radius: calc(0.75rem - 2px);
             z-index: 0;
-            background: linear-gradient(0deg, #095155, #095155);
+            background: linear-gradient(0deg, #07595A, #07595A);
           }
           
           .animated-button:active {

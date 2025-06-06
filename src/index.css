@@ -16,10 +16,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 150 100% 24%; /* Habisin dark green */
+    --primary: 186 100% 20%; /* Updated to #07595A */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 152 100% 35%; /* Habisin light green */
+    --secondary: 186 100% 25%; /* Lighter variant of #07595A */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
@@ -33,7 +33,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 150 100% 24%;
+    --ring: 186 100% 20%;
 
     --radius: 16px;
   }
@@ -48,10 +48,10 @@
     --popover: 240 5% 13%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 150 100% 24%;
+    --primary: 186 100% 20%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 152 100% 35%;
+    --secondary: 186 100% 25%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 240 3.7% 15.9%;
@@ -65,7 +65,7 @@
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 152 100% 35%;
+    --ring: 186 100% 25%;
   }
 
   * {
@@ -77,7 +77,7 @@
   }
 
   ::selection {
-    @apply bg-habisin-dark text-white;
+    @apply bg-[#07595A] text-white;
   }
 }
 
@@ -91,7 +91,7 @@
   }
 
   .habisin-button {
-    @apply bg-habisin-dark text-white rounded-full py-3 px-6 font-medium transition-all duration-200 hover:opacity-90 active:scale-95 w-full text-center;
+    @apply bg-[#07595A] text-white rounded-full py-3 px-6 font-medium transition-all duration-200 hover:opacity-90 active:scale-95 w-full text-center;
   }
 
   .habisin-card {
@@ -103,11 +103,11 @@
   }
 
   .bottom-nav-item.active {
-    @apply text-habisin-dark;
+    @apply text-[#07595A];
   }
   
   .habisin-header {
-    @apply bg-habisin-dark text-white py-5 px-4 rounded-b-3xl;
+    @apply bg-[#07595A] text-white py-5 px-4 rounded-b-3xl;
   }
 }
 

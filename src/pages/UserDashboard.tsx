@@ -83,14 +83,14 @@ const UserDashboard = () => {
     <MainLayout>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
+        <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl">
           <div>
             <h1 className="text-white text-2xl font-semibold">habisin</h1>
             <p className="text-white/80 text-sm">Halo, {userName}</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="bg-white p-2 rounded-full">
-              <User2 className="text-habisin-dark w-6 h-6" />
+              <User2 className="text-[#07595A] w-6 h-6" />
             </div>
             <button
               onClick={handleLogout}
@@ -110,7 +110,7 @@ const UserDashboard = () => {
           <div className="grid grid-cols-2 gap-4 mb-8">
             <Link
               to="/habiride"
-              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
+              className="bg-[#07595A] text-white flex flex-col items-center justify-center p-6 rounded-xl"
             >
               <Bike className="w-8 h-8 mb-2" />
               <span className="text-lg font-medium">HabiRide</span>
@@ -118,7 +118,7 @@ const UserDashboard = () => {
             
             <Link
               to="/habifood"
-              className="bg-habisin-dark text-white flex flex-col items-center justify-center p-6 rounded-xl"
+              className="bg-[#07595A] text-white flex flex-col items-center justify-center p-6 rounded-xl"
             >
               <Utensils className="w-8 h-8 mb-2" />
               <span className="text-lg font-medium">HabiFood</span>

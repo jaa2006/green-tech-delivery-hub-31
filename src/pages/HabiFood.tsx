@@ -37,7 +37,7 @@ const HabiFood = () => {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-habisin-dark px-6 py-6 flex justify-between items-center rounded-b-3xl">
+      <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <div className="flex items-center">
           <Link to="/" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
@@ -45,7 +45,7 @@ const HabiFood = () => {
           <h1 className="text-white text-2xl font-semibold">HabiFood</h1>
         </div>
         <div className="bg-white p-2 rounded-full">
-          <Utensils className="text-habisin-dark w-6 h-6" />
+          <Utensils className="text-[#07595A] w-6 h-6" />
         </div>
       </div>
       
