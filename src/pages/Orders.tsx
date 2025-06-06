@@ -1,28 +1,39 @@
 
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock, CheckCircle } from "lucide-react";
+import { ArrowLeft, Clock, CheckCircle, MapPin } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 
 const Orders = () => {
-  // Sample orders data
+  // Sample orders data with more realistic information
   const orders = [
     {
       id: "ORD-001",
-      items: ["Burger Deluxe", "French Fries"],
+      items: [
+        { name: "Burger Deluxe", quantity: 1, price: 45000 },
+        { name: "French Fries", quantity: 1, price: 15000 },
+        { name: "Coca Cola", quantity: 2, price: 8000 }
+      ],
       restaurant: "Burger King",
-      total: 75000,
+      total: 76000,
       status: "delivered",
       date: "2024-01-15",
-      time: "14:30"
+      time: "14:30",
+      address: "Jl. Sudirman No. 123, Jakarta",
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&h=200"
     },
     {
       id: "ORD-002",
-      items: ["Nasi Goreng Special"],
+      items: [
+        { name: "Nasi Goreng Special", quantity: 1, price: 35000 },
+        { name: "Es Teh Manis", quantity: 1, price: 5000 }
+      ],
       restaurant: "Warung Padang",
-      total: 35000,
+      total: 40000,
       status: "preparing",
       date: "2024-01-15",
-      time: "13:15"
+      time: "13:15",
+      address: "Jl. Gatot Subroto No. 45, Jakarta",
+      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&h=200"
     }
   ];
 
@@ -38,13 +49,13 @@ const Orders = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "delivered":
-        return "text-green-400";
+        return "text-green-600 bg-green-100";
       case "preparing":
-        return "text-yellow-400";
+        return "text-yellow-600 bg-yellow-100";
       case "cancelled":
-        return "text-red-400";
+        return "text-red-600 bg-red-100";
       default:
-        return "text-gray-400";
+        return "text-gray-600 bg-gray-100";
     }
   };
 
@@ -82,27 +93,50 @@ const Orders = () => {
           ) : (
             <div className="space-y-4">
               {orders.map((order) => (
-                <div key={order.id} className="habisin-card">
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="font-semibold text-lg text-white">{order.id}</h3>
-                      <p className="text-gray-300 text-sm">{order.restaurant}</p>
-                      <p className="text-gray-400 text-xs">{order.date} • {order.time}</p>
+                <div key={order.id} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 text-gray-900">
+                  {/* Order Header */}
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="flex items-start gap-3">
+                      <img 
+                        src={order.image} 
+                        alt="Order"
+                        className="w-16 h-16 rounded-lg object-cover"
+                      />
+                      <div>
+                        <h3 className="font-semibold text-lg text-gray-900">{order.id}</h3>
+                        <p className="text-gray-600 text-sm">{order.restaurant}</p>
+                        <p className="text-gray-500 text-xs">{order.date} • {order.time}</p>
+                      </div>
                     </div>
-                    <div className={`flex items-center gap-1 ${getStatusColor(order.status)}`}>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
                       {getStatusIcon(order.status)}
-                      <span className="text-sm font-medium capitalize">{order.status}</span>
+                      <span className="capitalize">{order.status}</span>
                     </div>
                   </div>
                   
-                  <div className="mb-3">
-                    <p className="text-gray-300 text-sm mb-1">Items:</p>
-                    <p className="text-white">{order.items.join(", ")}</p>
+                  {/* Delivery Address */}
+                  <div className="mb-3 flex items-start gap-2">
+                    <MapPin className="h-4 w-4 text-gray-500 mt-0.5" />
+                    <p className="text-gray-600 text-sm">{order.address}</p>
                   </div>
                   
-                  <div className="flex justify-between items-center pt-3 border-t border-gray-600">
-                    <span className="text-gray-300">Total</span>
-                    <span className="font-bold text-white">{formatPrice(order.total)}</span>
+                  {/* Order Items */}
+                  <div className="mb-4">
+                    <p className="text-gray-700 text-sm font-medium mb-2">Items Ordered:</p>
+                    <div className="space-y-1">
+                      {order.items.map((item, index) => (
+                        <div key={index} className="flex justify-between items-center text-sm">
+                          <span className="text-gray-700">{item.quantity}x {item.name}</span>
+                          <span className="text-gray-600">{formatPrice(item.price)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Total */}
+                  <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+                    <span className="text-gray-700 font-medium">Total</span>
+                    <span className="font-bold text-gray-900 text-lg">{formatPrice(order.total)}</span>
                   </div>
                 </div>
               ))}

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User2, Bike, Utensils, LogOut } from "lucide-react";
@@ -8,6 +7,7 @@ import { auth, db } from "@/lib/firebase";
 import { useToast } from "@/components/ui/use-toast";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
+import PromoSlider from "../components/ui/PromoSlider";
 
 // Sample popular food data
 const popularFoods = [
@@ -100,6 +100,9 @@ const UserDashboard = () => {
             </button>
           </div>
         </div>
+
+        {/* Promo Slider */}
+        <PromoSlider />
 
         {/* Content */}
         <div className="p-6">
