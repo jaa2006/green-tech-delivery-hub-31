@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User2, Bike, Utensils, LogOut } from "lucide-react";
@@ -9,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
 import PromoSlider from "../components/ui/PromoSlider";
+import PromoPopup from "../components/ui/PromoPopup";
 
 // Sample popular food data
 const popularFoods = [
@@ -84,6 +84,7 @@ const UserDashboard = () => {
 
   return (
     <MainLayout>
+      <PromoPopup />
       <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         {/* Header */}
         <div className="bg-[#07595A] px-4 py-4 flex justify-between items-center rounded-b-3xl">
