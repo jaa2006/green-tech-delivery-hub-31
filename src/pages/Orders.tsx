@@ -1,210 +1,114 @@
 
-import { useState } from "react";
-import { Clock, Package, Check } from "lucide-react";
-import MainLayout from "../components/layout/MainLayout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-// Sample order data
-const orders = [
-  {
-    id: "ORD12345",
-    type: "food",
-    restaurant: "Burger King",
-    items: ["1x Burger Deluxe", "1x Fries", "1x Coke"],
-    price: 65000,
-    status: "ongoing",
-    date: "May 17, 2025",
-    estimatedDelivery: "15:45",
-    driver: "Ahmad",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=150&h=150",
-  },
-  {
-    id: "ORD12344",
-    type: "ride",
-    from: "Jl. Sudirman No. 12",
-    to: "Mall Grand Indonesia",
-    price: 25000,
-    status: "completed",
-    date: "May 16, 2025",
-    driver: "Budi",
-    image: null,
-  },
-  {
-    id: "ORD12343",
-    type: "food",
-    restaurant: "Sushi Tei",
-    items: ["1x Sushi Platter", "2x Green Tea"],
-    price: 98000,
-    status: "completed",
-    date: "May 15, 2025",
-    driver: "Diana",
-    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=150&h=150",
-  },
-];
-
-// Format price to IDR
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
-};
+import { Link } from "react-router-dom";
+import { ArrowLeft, Clock, CheckCircle } from "lucide-react";
+import MainLayout from "@/components/layout/MainLayout";
 
 const Orders = () => {
-  const [activeTab, setActiveTab] = useState("ongoing");
-  
-  const ongoingOrders = orders.filter(order => order.status === "ongoing");
-  const completedOrders = orders.filter(order => order.status === "completed");
+  // Sample orders data
+  const orders = [
+    {
+      id: "ORD-001",
+      items: ["Burger Deluxe", "French Fries"],
+      restaurant: "Burger King",
+      total: 75000,
+      status: "delivered",
+      date: "2024-01-15",
+      time: "14:30"
+    },
+    {
+      id: "ORD-002",
+      items: ["Nasi Goreng Special"],
+      restaurant: "Warung Padang",
+      total: 35000,
+      status: "preparing",
+      date: "2024-01-15",
+      time: "13:15"
+    }
+  ];
 
-  // Order status icon component
-  const OrderStatusIcon = ({ type, status }: { type: string, status: string }) => {
-    if (status === "ongoing") {
-      return <Clock className="h-5 w-5 text-yellow-500" />;
-    } else if (status === "completed") {
-      return <Check className="h-5 w-5 text-green-500" />;
-    } else {
-      return <Package className="h-5 w-5 text-habisin-dark" />;
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return "text-green-400";
+      case "preparing":
+        return "text-yellow-400";
+      case "cancelled":
+        return "text-red-400";
+      default:
+        return "text-gray-400";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return <CheckCircle className="h-4 w-4" />;
+      case "preparing":
+        return <Clock className="h-4 w-4" />;
+      default:
+        return <Clock className="h-4 w-4" />;
     }
   };
 
   return (
     <MainLayout>
-      <div className="pt-8 pb-4 px-6">
-        <h1 className="text-3xl font-bold mb-6">My Orders</h1>
-        
-        <Tabs defaultValue="ongoing" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6 rounded-xl">
-            <TabsTrigger 
-              value="ongoing" 
-              className={`${activeTab === "ongoing" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""} rounded-l-xl`}
-              onClick={() => setActiveTab("ongoing")}
-            >
-              Ongoing
-            </TabsTrigger>
-            <TabsTrigger 
-              value="completed" 
-              className={`${activeTab === "completed" ? "data-[state=active]:bg-habisin-dark data-[state=active]:text-white" : ""} rounded-r-xl`}
-              onClick={() => setActiveTab("completed")}
-            >
-              Completed
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="ongoing">
-            {ongoingOrders.length > 0 ? (
-              <div className="space-y-4">
-                {ongoingOrders.map(order => (
-                  <div key={order.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex items-center gap-2">
-                        <OrderStatusIcon type={order.type} status={order.status} />
-                        <h3 className="font-medium">{order.type === "food" ? order.restaurant : "HabiRide"}</h3>
-                      </div>
-                      <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
-                        {order.status === "ongoing" ? "On the way" : order.status}
-                      </span>
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
+        <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
+          <Link to="/" className="mr-4">
+            <ArrowLeft className="h-6 w-6 text-white" />
+          </Link>
+          <h1 className="text-white text-2xl font-semibold">My Orders</h1>
+        </div>
+
+        <div className="p-6 pb-24">
+          {orders.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <div className="text-gray-400 text-6xl mb-4">📋</div>
+              <h2 className="text-xl font-semibold text-white mb-2">No Orders Yet</h2>
+              <p className="text-gray-300 text-center mb-6">You haven't placed any orders yet</p>
+              <Link to="/habifood" className="habisin-button">
+                Start Shopping
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {orders.map((order) => (
+                <div key={order.id} className="habisin-card">
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <h3 className="font-semibold text-lg text-white">{order.id}</h3>
+                      <p className="text-gray-300 text-sm">{order.restaurant}</p>
+                      <p className="text-gray-400 text-xs">{order.date} • {order.time}</p>
                     </div>
-                    
-                    <div className="flex gap-4">
-                      {order.image && (
-                        <div className="w-16 h-16 rounded-lg overflow-hidden">
-                          <img src={order.image} alt={order.restaurant} className="w-full h-full object-cover" />
-                        </div>
-                      )}
-                      
-                      <div className="flex-1">
-                        {order.type === "food" ? (
-                          <div className="text-sm mb-2">
-                            {order.items.map((item, i) => (
-                              <div key={i}>{item}</div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-sm mb-2">
-                            <div className="text-gray-500">From: {order.from}</div>
-                            <div className="text-gray-500">To: {order.to}</div>
-                          </div>
-                        )}
-                        
-                        <div className="flex justify-between items-center">
-                          <div className="text-xs text-gray-500">{order.id} • {order.date}</div>
-                          <div className="font-semibold text-habisin-dark">{formatPrice(order.price)}</div>
-                        </div>
-                        
-                        {order.status === "ongoing" && order.type === "food" && (
-                          <div className="mt-3 text-sm">
-                            <div className="font-medium">Estimated Delivery: {order.estimatedDelivery}</div>
-                            <div className="text-gray-500">Driver: {order.driver}</div>
-                          </div>
-                        )}
-                      </div>
+                    <div className={`flex items-center gap-1 ${getStatusColor(order.status)}`}>
+                      {getStatusIcon(order.status)}
+                      <span className="text-sm font-medium capitalize">{order.status}</span>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 text-center py-10">
-                <p className="text-xl font-medium mb-2">No ongoing orders</p>
-                <p className="text-gray-500">Your ongoing orders will appear here</p>
-              </div>
-            )}
-          </TabsContent>
-          
-          <TabsContent value="completed">
-            {completedOrders.length > 0 ? (
-              <div className="space-y-4">
-                {completedOrders.map(order => (
-                  <div key={order.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex items-center gap-2">
-                        <OrderStatusIcon type={order.type} status={order.status} />
-                        <h3 className="font-medium">{order.type === "food" ? order.restaurant : "HabiRide"}</h3>
-                      </div>
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                        Completed
-                      </span>
-                    </div>
-                    
-                    <div className="flex gap-4">
-                      {order.image && (
-                        <div className="w-16 h-16 rounded-lg overflow-hidden">
-                          <img src={order.image} alt={order.restaurant} className="w-full h-full object-cover" />
-                        </div>
-                      )}
-                      
-                      <div className="flex-1">
-                        {order.type === "food" ? (
-                          <div className="text-sm mb-2">
-                            {order.items.map((item, i) => (
-                              <div key={i}>{item}</div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-sm mb-2">
-                            <div className="text-gray-500">From: {order.from}</div>
-                            <div className="text-gray-500">To: {order.to}</div>
-                          </div>
-                        )}
-                        
-                        <div className="flex justify-between items-center">
-                          <div className="text-xs text-gray-500">{order.id} • {order.date}</div>
-                          <div className="font-semibold text-habisin-dark">{formatPrice(order.price)}</div>
-                        </div>
-                      </div>
-                    </div>
+                  
+                  <div className="mb-3">
+                    <p className="text-gray-300 text-sm mb-1">Items:</p>
+                    <p className="text-white">{order.items.join(", ")}</p>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 text-center py-10">
-                <p className="text-xl font-medium mb-2">No completed orders</p>
-                <p className="text-gray-500">Your order history will appear here</p>
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+                  
+                  <div className="flex justify-between items-center pt-3 border-t border-gray-600">
+                    <span className="text-gray-300">Total</span>
+                    <span className="font-bold text-white">{formatPrice(order.total)}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </MainLayout>
   );

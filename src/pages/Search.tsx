@@ -78,7 +78,7 @@ const Search = () => {
           <h1 className="text-white text-2xl font-semibold">Search</h1>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 pb-24">
           {/* Search bar */}
           <div className="relative mb-8">
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -87,7 +87,7 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search for restaurants, food, or cuisines..."
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#07595A]/20"
+              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#07595A]/20"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -95,35 +95,39 @@ const Search = () => {
           
           {searchQuery === "" ? (
             // Show popular searches when no query is entered
-            <div>
-              <h2 className="text-xl font-bold mb-4 text-white">Popular Searches</h2>
-              <div className="flex flex-wrap gap-2">
-                {["Burger", "Nasi Goreng", "Pizza", "Sushi", "Coffee", "Ice Cream", "Vegetarian", "Indonesian"].map((item) => (
-                  <button
-                    key={item}
-                    className="px-4 py-2 bg-gray-700 text-white rounded-full text-sm"
-                    onClick={() => setSearchQuery(item)}
-                  >
-                    {item}
-                  </button>
-                ))}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-xl font-bold mb-4 text-white">Popular Searches</h2>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {["Burger", "Nasi Goreng", "Pizza", "Sushi", "Coffee", "Ice Cream", "Vegetarian", "Indonesian"].map((item) => (
+                    <button
+                      key={item}
+                      className="px-4 py-2 bg-gray-700 text-white rounded-full text-sm hover:bg-gray-600 transition-colors"
+                      onClick={() => setSearchQuery(item)}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
               </div>
               
-              <h2 className="text-xl font-bold mt-8 mb-4 text-white">Recommended For You</h2>
-              <div className="space-y-4">
-                {restaurants.slice(0, 3).map(restaurant => (
-                  <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-                ))}
+              <div>
+                <h2 className="text-xl font-bold mb-6 text-white">Recommended For You</h2>
+                <div className="space-y-4">
+                  {restaurants.slice(0, 3).map(restaurant => (
+                    <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                  ))}
+                </div>
               </div>
             </div>
           ) : (
             // Show search results
-            <div>
+            <div className="space-y-8">
               {hasResults ? (
                 <>
                   {filteredRestaurants.length > 0 && (
-                    <div className="mb-6">
-                      <h2 className="text-xl font-bold mb-4 text-white">Restaurants</h2>
+                    <div>
+                      <h2 className="text-xl font-bold mb-6 text-white">Restaurants</h2>
                       <div className="space-y-4">
                         {filteredRestaurants.map(restaurant => (
                           <RestaurantCard key={restaurant.id} restaurant={restaurant} />
@@ -134,7 +138,7 @@ const Search = () => {
                   
                   {filteredFoods.length > 0 && (
                     <div>
-                      <h2 className="text-xl font-bold mb-4 text-white">Food Items</h2>
+                      <h2 className="text-xl font-bold mb-6 text-white">Food Items</h2>
                       <div className="grid grid-cols-2 gap-4">
                         {filteredFoods.map(food => (
                           <PopularFoodCard key={food.id} food={food} />

@@ -1,3 +1,4 @@
+
 import { ReactNode, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, User, ShoppingCart } from "lucide-react";
@@ -69,14 +70,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         {children}
       </div>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 py-2 px-6 z-50">
+      <nav className="fixed bottom-0 left-0 right-0 bg-gradient-to-b from-[#07595A] to-black border-t border-gray-700 py-2 px-6 z-50">
         <div className="max-w-md mx-auto flex items-center justify-between">
           {navItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               className={({ isActive }) => 
-                `flex flex-col items-center pt-1 ${isActive ? 'text-habisin-dark font-medium' : 'text-gray-500'}`
+                `flex flex-col items-center pt-1 ${isActive ? 'text-white font-medium' : 'text-gray-400'}`
               }
             >
               {item.icon}

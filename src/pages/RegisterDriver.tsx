@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, LogIn, ArrowRight, Loader2, ArrowLeft, Truck } from "lucide-react";
@@ -137,9 +138,9 @@ const RegisterDriver = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
       {/* Header */}
-      <div className="bg-[#095155] rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
+      <div className="bg-[#07595A] rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
         <Link to="/login-driver" className="absolute left-6 top-1/2 -translate-y-1/2">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
@@ -149,10 +150,10 @@ const RegisterDriver = () => {
       {/* Register container */}
       <div className="flex-1 flex items-start justify-center px-6 pb-6">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-lg p-6 border border-gray-700">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="name">Nama Lengkap</Label>
+                <Label htmlFor="name" className="text-white">Nama Lengkap</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -161,14 +162,14 @@ const RegisterDriver = () => {
                     placeholder="Masukkan nama lengkap Anda"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-white">Email</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -177,14 +178,14 @@ const RegisterDriver = () => {
                     placeholder="Masukkan email Anda"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-white">Password</Label>
                 <div className="relative">
                   <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -193,14 +194,14 @@ const RegisterDriver = () => {
                     placeholder="Masukkan password Anda"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="kendaraan">Jenis Kendaraan</Label>
+                <Label htmlFor="kendaraan" className="text-white">Jenis Kendaraan</Label>
                 <div className="relative">
                   <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -209,14 +210,14 @@ const RegisterDriver = () => {
                     placeholder="Contoh: Honda Vario, Toyota Avanza"
                     value={kendaraan}
                     onChange={(e) => setKendaraan(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="platNomor">Plat Nomor</Label>
+                <Label htmlFor="platNomor" className="text-white">Plat Nomor</Label>
                 <div className="relative">
                   <Truck className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -225,7 +226,7 @@ const RegisterDriver = () => {
                     placeholder="Contoh: D 1234 ZUL"
                     value={platNomor}
                     onChange={(e) => setPlatNomor(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
@@ -238,10 +239,10 @@ const RegisterDriver = () => {
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                   className="w-4 h-4"
-                  style={{ accentColor: '#095155' }}
+                  style={{ accentColor: '#07595A' }}
                   disabled={isLoading || isGoogleLoading}
                 />
-                <Label htmlFor="terms" className="text-sm cursor-pointer">
+                <Label htmlFor="terms" className="text-sm cursor-pointer text-gray-300">
                   Saya menerima semua syarat & ketentuan
                 </Label>
               </div>
@@ -260,10 +261,10 @@ const RegisterDriver = () => {
             <div className="mt-4">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-gray-300" />
+                  <span className="w-full border-t border-gray-600" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">atau</span>
+                  <span className="px-2 bg-gray-800 text-gray-400">atau</span>
                 </div>
               </div>
               
@@ -272,7 +273,7 @@ const RegisterDriver = () => {
                 onClick={handleGoogleSignup}
                 disabled={isLoading || isGoogleLoading}
                 variant="secondary"
-                className="w-full mt-4"
+                className="w-full mt-4 bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
                 icon={isGoogleLoading ? 
                   <Loader2 className="h-4 w-4 animate-spin" /> : 
                   <svg className="h-4 w-4" viewBox="0 0 24 24">
@@ -287,11 +288,11 @@ const RegisterDriver = () => {
               </AnimatedButton>
             </div>
 
-            <div className="mt-6 text-center text-sm text-gray-500">
+            <div className="mt-6 text-center text-sm text-gray-400">
               Sudah punya akun?{" "}
               <Link
                 to="/login-driver"
-                className="text-[#095155] font-medium hover:underline"
+                className="text-[#07595A] font-medium hover:underline"
               >
                 Masuk
               </Link>

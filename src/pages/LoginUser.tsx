@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User, LogIn, ArrowRight, Loader2, ArrowLeft } from "lucide-react";
@@ -126,9 +127,9 @@ const LoginUser = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
       {/* Header */}
-      <div className="bg-[#095155] rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
+      <div className="bg-[#07595A] rounded-b-3xl h-24 flex items-center justify-center relative mb-8">
         <Link to="/" className="absolute left-6 top-1/2 -translate-y-1/2">
           <ArrowLeft className="h-6 w-6 text-white" />
         </Link>
@@ -138,10 +139,10 @@ const LoginUser = () => {
       {/* Login container */}
       <div className="flex-1 flex items-center justify-center px-6">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl shadow-lg p-6 border border-gray-700">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-white">Email</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -150,14 +151,14 @@ const LoginUser = () => {
                     placeholder="Masukkan email Anda"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-white">Password</Label>
                 <div className="relative">
                   <LogIn className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -166,7 +167,7 @@ const LoginUser = () => {
                     placeholder="Masukkan password Anda"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                     disabled={isLoading || isGoogleLoading}
                   />
                 </div>
@@ -186,10 +187,10 @@ const LoginUser = () => {
             <div className="mt-4">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-gray-300" />
+                  <span className="w-full border-t border-gray-600" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">atau</span>
+                  <span className="px-2 bg-gray-800 text-gray-400">atau</span>
                 </div>
               </div>
               
@@ -198,7 +199,7 @@ const LoginUser = () => {
                 onClick={handleGoogleLogin}
                 disabled={isLoading || isGoogleLoading}
                 variant="secondary"
-                className="w-full mt-4"
+                className="w-full mt-4 bg-gray-700 border-gray-600 text-white hover:bg-gray-600"
                 icon={isGoogleLoading ? 
                   <Loader2 className="h-4 w-4 animate-spin" /> : 
                   <svg className="h-4 w-4" viewBox="0 0 24 24">
@@ -213,11 +214,11 @@ const LoginUser = () => {
               </AnimatedButton>
             </div>
 
-            <div className="mt-6 text-center text-sm text-gray-500">
+            <div className="mt-6 text-center text-sm text-gray-400">
               Belum punya akun?{" "}
               <Link
                 to="/register-user"
-                className="text-[#095155] font-medium hover:underline"
+                className="text-[#07595A] font-medium hover:underline"
               >
                 Daftar sebagai User
               </Link>
