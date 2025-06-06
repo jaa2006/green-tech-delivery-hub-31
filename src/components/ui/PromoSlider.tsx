@@ -50,7 +50,7 @@ const PromoSlider = () => {
   };
 
   return (
-    <div className="relative w-full h-32 rounded-2xl overflow-hidden shadow-lg mx-4 mb-6">
+    <div className="relative w-full max-w-sm mx-auto h-28 rounded-2xl overflow-hidden shadow-lg mb-4">
       <div 
         className="flex transition-transform duration-500 ease-in-out h-full"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -58,13 +58,13 @@ const PromoSlider = () => {
         {promos.map((promo) => (
           <div
             key={promo.id}
-            className={`min-w-full h-full ${promo.background} flex items-center justify-between p-4 text-white`}
+            className={`min-w-full h-full ${promo.background} flex items-center justify-between p-3 text-white`}
           >
-            <div className="flex-1">
-              <h3 className="font-bold text-lg mb-1">{promo.title}</h3>
-              <p className="text-sm opacity-90">{promo.description}</p>
+            <div className="flex-1 pr-2">
+              <h3 className="font-bold text-sm mb-1 leading-tight">{promo.title}</h3>
+              <p className="text-xs opacity-90 leading-tight">{promo.description}</p>
             </div>
-            <div className="text-4xl ml-4">
+            <div className="text-2xl ml-2">
               {promo.icon}
             </div>
           </div>
@@ -74,25 +74,25 @@ const PromoSlider = () => {
       {/* Navigation Buttons */}
       <button
         onClick={goToPrevSlide}
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
+        className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
       >
-        <ChevronLeft className="w-4 h-4 text-white" />
+        <ChevronLeft className="w-3 h-3 text-white" />
       </button>
       
       <button
         onClick={goToNextSlide}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
+        className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full p-1 transition-colors"
       >
-        <ChevronRight className="w-4 h-4 text-white" />
+        <ChevronRight className="w-3 h-3 text-white" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-1">
         {promos.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-1.5 h-1.5 rounded-full transition-colors ${
               index === currentSlide ? 'bg-white' : 'bg-white/50'
             }`}
           />

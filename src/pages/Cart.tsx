@@ -58,11 +58,11 @@ const Cart = () => {
           </button>
         </div>
 
-        <div className="p-6 pb-32">
+        <div className="p-4 pb-32">
           {items.map((item) => (
             <div key={item.id} className="habisin-card mb-4">
-              <div className="flex gap-4">
-                <div className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+              <div className="flex gap-3">
+                <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
                   <img 
                     src={item.image} 
                     alt={item.name}
@@ -70,33 +70,33 @@ const Cart = () => {
                   />
                 </div>
                 
-                <div className="flex-1">
-                  <h3 className="font-semibold mb-1">{item.name}</h3>
-                  <p className="text-sm text-gray-500 mb-2">{item.restaurant}</p>
-                  <p className="font-bold text-[#07595A]">{formatPrice(item.price)}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold mb-1 text-sm">{item.name}</h3>
+                  <p className="text-xs text-gray-500 mb-2">{item.restaurant}</p>
+                  <p className="font-bold text-[#07595A] text-sm">{formatPrice(item.price)}</p>
                 </div>
 
-                <div className="flex flex-col items-end gap-2">
+                <div className="flex flex-col items-end gap-2 flex-shrink-0">
                   <button 
                     onClick={() => removeFromCart(item.id)}
                     className="text-red-500 p-1 hover:text-red-600 transition-colors"
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-3 w-3" />
                   </button>
                   
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                      className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                      className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
                     >
-                      <Minus className="h-4 w-4" />
+                      <Minus className="h-3 w-3" />
                     </button>
-                    <span className="w-8 text-center font-medium">{item.quantity}</span>
+                    <span className="w-6 text-center font-medium text-xs">{item.quantity}</span>
                     <button 
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="w-8 h-8 rounded-full bg-[#07595A] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
+                      className="w-6 h-6 rounded-full bg-[#07595A] text-white flex items-center justify-center hover:opacity-90 transition-opacity"
                     >
-                      <Plus className="h-4 w-4" />
+                      <Plus className="h-3 w-3" />
                     </button>
                   </div>
                 </div>

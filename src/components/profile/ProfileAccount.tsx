@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Edit, Loader2 } from "lucide-react";
+import { Edit, Loader2, Upload } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 interface ProfileAccountProps {
@@ -24,6 +24,19 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
   const [editPhotoURL, setEditPhotoURL] = useState(userData.photoURL || "");
   const [editPhone, setEditPhone] = useState(userData.phone || "");
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setEditPhotoURL(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSaveChanges = async () => {
     await onUpdateProfile({
       fullName: editName,
@@ -42,7 +55,7 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
           {userData.photoURL ? (
             <AvatarImage src={userData.photoURL} alt={userData.fullName} />
           ) : (
-            <AvatarFallback className="bg-habisin-dark text-white text-sm">
+            <AvatarFallback className="bg-[#07595A] text-white text-sm">
               {userData.fullName.substring(0, 2).toUpperCase()}
             </AvatarFallback>
           )}
@@ -87,16 +100,29 @@ export const ProfileAccount = ({ userData, onUpdateProfile, updating }: ProfileA
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="photo" className="text-sm">URL Foto Profil</Label>
-                <Input 
-                  id="photo" 
-                  value={editPhotoURL} 
-                  onChange={(e) => setEditPhotoURL(e.target.value)}
-                  placeholder="https://example.com/photo.jpg"
-                  className="text-sm"
-                />
+                <Label htmlFor="photo" className="text-sm">Foto Profil</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    id="photo" 
+                    value={editPhotoURL} 
+                    onChange={(e) => setEditPhotoURL(e.target.value)}
+                    placeholder="URL foto atau upload file"
+                    className="text-sm flex-1"
+                  />
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                    <Button variant="outline" size="sm" className="h-10 w-10 p-0">
+                      <Upload className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
                 <p className="text-xs text-muted-foreground">
-                  Masukkan URL gambar untuk foto profil Anda
+                  Upload foto dari device atau masukkan URL gambar
                 </p>
               </div>
               <Button 

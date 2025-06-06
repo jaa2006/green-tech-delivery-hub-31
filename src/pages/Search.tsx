@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search as SearchIcon, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -78,9 +77,9 @@ const Search = () => {
           <h1 className="text-white text-2xl font-semibold">Search</h1>
         </div>
 
-        <div className="p-6 pb-24">
+        <div className="p-4 pb-24">
           {/* Search bar */}
-          <div className="relative mb-8">
+          <div className="relative mb-6">
             <div className="absolute left-3 top-1/2 -translate-y-1/2">
               <SearchIcon className="h-5 w-5 text-muted-foreground" />
             </div>
@@ -95,10 +94,10 @@ const Search = () => {
           
           {searchQuery === "" ? (
             // Show popular searches when no query is entered
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div>
                 <h2 className="text-xl font-bold mb-4 text-white">Popular Searches</h2>
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {["Burger", "Nasi Goreng", "Pizza", "Sushi", "Coffee", "Ice Cream", "Vegetarian", "Indonesian"].map((item) => (
                     <button
                       key={item}
@@ -112,8 +111,8 @@ const Search = () => {
               </div>
               
               <div>
-                <h2 className="text-xl font-bold mb-6 text-white">Recommended For You</h2>
-                <div className="space-y-4">
+                <h2 className="text-xl font-bold mb-4 text-white">Recommended For You</h2>
+                <div className="space-y-3">
                   {restaurants.slice(0, 3).map(restaurant => (
                     <RestaurantCard key={restaurant.id} restaurant={restaurant} />
                   ))}
@@ -122,13 +121,13 @@ const Search = () => {
             </div>
           ) : (
             // Show search results
-            <div className="space-y-8">
+            <div className="space-y-6">
               {hasResults ? (
                 <>
                   {filteredRestaurants.length > 0 && (
                     <div>
-                      <h2 className="text-xl font-bold mb-6 text-white">Restaurants</h2>
-                      <div className="space-y-4">
+                      <h2 className="text-xl font-bold mb-4 text-white">Restaurants</h2>
+                      <div className="space-y-3">
                         {filteredRestaurants.map(restaurant => (
                           <RestaurantCard key={restaurant.id} restaurant={restaurant} />
                         ))}
@@ -138,8 +137,8 @@ const Search = () => {
                   
                   {filteredFoods.length > 0 && (
                     <div>
-                      <h2 className="text-xl font-bold mb-6 text-white">Food Items</h2>
-                      <div className="grid grid-cols-2 gap-4">
+                      <h2 className="text-xl font-bold mb-4 text-white">Food Items</h2>
+                      <div className="grid grid-cols-2 gap-3">
                         {filteredFoods.map(food => (
                           <PopularFoodCard key={food.id} food={food} />
                         ))}

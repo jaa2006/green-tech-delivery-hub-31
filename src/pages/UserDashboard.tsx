@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User2, Bike, Utensils, LogOut } from "lucide-react";
@@ -45,6 +46,7 @@ const UserDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [userName, setUserName] = useState("");
+  const [userPhoto, setUserPhoto] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -53,7 +55,8 @@ const UserDashboard = () => {
           const userDoc = await getDoc(doc(db, "users", user.uid));
           const userData = userDoc.data();
           if (userData) {
-            setUserName(userData.name);
+            setUserName(userData.name || userData.fullName || user.email?.split('@')[0] || "User");
+            setUserPhoto(userData.photoURL || "");
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -83,14 +86,22 @@ const UserDashboard = () => {
     <MainLayout>
       <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         {/* Header */}
-        <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl">
+        <div className="bg-[#07595A] px-4 py-4 flex justify-between items-center rounded-b-3xl">
           <div>
             <h1 className="text-white text-2xl font-semibold">habisin</h1>
             <p className="text-white/80 text-sm">Halo, {userName}</p>
           </div>
           <div className="flex items-center gap-3">
             <div className="bg-white p-2 rounded-full">
-              <User2 className="text-[#07595A] w-6 h-6" />
+              {userPhoto ? (
+                <img 
+                  src={userPhoto} 
+                  alt="Profile" 
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+              ) : (
+                <User2 className="text-[#07595A] w-6 h-6" />
+              )}
             </div>
             <button
               onClick={handleLogout}
@@ -101,11 +112,13 @@ const UserDashboard = () => {
           </div>
         </div>
 
-        {/* Promo Slider */}
-        <PromoSlider />
+        {/* Promo Slider - Fixed for mobile */}
+        <div className="px-2 mt-4">
+          <PromoSlider />
+        </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4">
           <h2 className="text-2xl font-bold mb-2 text-white">Welcome!</h2>
           <p className="text-gray-300 mb-6">Choose a service</p>
 
@@ -131,7 +144,7 @@ const UserDashboard = () => {
           {/* Popular Items */}
           <div>
             <h2 className="text-xl font-bold mb-4 text-white">Popular Items</h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               {popularFoods.map(food => (
                 <PopularFoodCard key={food.id} food={food} />
               ))}
