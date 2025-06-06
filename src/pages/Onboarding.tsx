@@ -133,7 +133,7 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent>
           <CarouselItem>
@@ -154,7 +154,7 @@ const Onboarding = () => {
           <button
             key={index}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === current ? "bg-[#07595A]" : "bg-gray-300"
+              index === current ? "bg-white" : "bg-gray-400"
             }`}
             onClick={() => api?.scrollTo(index)}
           />
@@ -164,7 +164,7 @@ const Onboarding = () => {
       {/* Skip Button */}
       <button
         onClick={handleFinish}
-        className="fixed top-6 right-6 text-gray-500 hover:text-[#07595A] transition-colors"
+        className="fixed top-6 right-6 text-gray-300 hover:text-white transition-colors"
       >
         Skip
       </button>

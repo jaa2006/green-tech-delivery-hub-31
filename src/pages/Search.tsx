@@ -69,7 +69,7 @@ const Search = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         {/* Header */}
         <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
           <Link to="/" className="mr-4">
@@ -96,12 +96,12 @@ const Search = () => {
           {searchQuery === "" ? (
             // Show popular searches when no query is entered
             <div>
-              <h2 className="text-xl font-bold mb-4">Popular Searches</h2>
+              <h2 className="text-xl font-bold mb-4 text-white">Popular Searches</h2>
               <div className="flex flex-wrap gap-2">
                 {["Burger", "Nasi Goreng", "Pizza", "Sushi", "Coffee", "Ice Cream", "Vegetarian", "Indonesian"].map((item) => (
                   <button
                     key={item}
-                    className="px-4 py-2 bg-gray-100 rounded-full text-sm"
+                    className="px-4 py-2 bg-gray-700 text-white rounded-full text-sm"
                     onClick={() => setSearchQuery(item)}
                   >
                     {item}
@@ -109,7 +109,7 @@ const Search = () => {
                 ))}
               </div>
               
-              <h2 className="text-xl font-bold mt-8 mb-4">Recommended For You</h2>
+              <h2 className="text-xl font-bold mt-8 mb-4 text-white">Recommended For You</h2>
               <div className="space-y-4">
                 {restaurants.slice(0, 3).map(restaurant => (
                   <RestaurantCard key={restaurant.id} restaurant={restaurant} />
@@ -123,7 +123,7 @@ const Search = () => {
                 <>
                   {filteredRestaurants.length > 0 && (
                     <div className="mb-6">
-                      <h2 className="text-xl font-bold mb-4">Restaurants</h2>
+                      <h2 className="text-xl font-bold mb-4 text-white">Restaurants</h2>
                       <div className="space-y-4">
                         {filteredRestaurants.map(restaurant => (
                           <RestaurantCard key={restaurant.id} restaurant={restaurant} />
@@ -134,7 +134,7 @@ const Search = () => {
                   
                   {filteredFoods.length > 0 && (
                     <div>
-                      <h2 className="text-xl font-bold mb-4">Food Items</h2>
+                      <h2 className="text-xl font-bold mb-4 text-white">Food Items</h2>
                       <div className="grid grid-cols-2 gap-4">
                         {filteredFoods.map(food => (
                           <PopularFoodCard key={food.id} food={food} />
@@ -146,8 +146,8 @@ const Search = () => {
               ) : (
                 // No results found
                 <div className="py-10 text-center">
-                  <p className="text-xl font-medium mb-2">No results found</p>
-                  <p className="text-gray-500">Try searching for something else</p>
+                  <p className="text-xl font-medium mb-2 text-white">No results found</p>
+                  <p className="text-gray-300">Try searching for something else</p>
                 </div>
               )}
             </div>

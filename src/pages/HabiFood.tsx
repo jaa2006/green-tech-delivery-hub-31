@@ -35,7 +35,7 @@ const HabiFood = () => {
   const [deliveryAddress] = useState("Jl. Sudirman No 12");
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black pb-20">
       {/* Header */}
       <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <div className="flex items-center">
@@ -53,10 +53,10 @@ const HabiFood = () => {
       <div className="p-6">
         {/* Delivery address */}
         <div className="mb-4">
-          <h2 className="text-2xl font-bold mb-2">Food Delivery</h2>
-          <p className="text-gray-700">Delivery to</p>
+          <h2 className="text-2xl font-bold mb-2 text-white">Food Delivery</h2>
+          <p className="text-gray-300">Delivery to</p>
           <div className="flex items-center">
-            <p className="font-medium">{deliveryAddress}</p>
+            <p className="font-medium text-white">{deliveryAddress}</p>
           </div>
         </div>
 
@@ -74,7 +74,7 @@ const HabiFood = () => {
 
         {/* Restaurants section */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Restaurants</h2>
+          <h2 className="text-xl font-bold mb-4 text-white">Restaurants</h2>
           <div className="space-y-4">
             {restaurants.map(restaurant => (
               <Link to={`/restaurant/${restaurant.id}`} key={restaurant.id} className="flex gap-3 items-center bg-white rounded-xl shadow-sm border border-gray-100 p-3">

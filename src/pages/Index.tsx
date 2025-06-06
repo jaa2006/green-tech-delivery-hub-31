@@ -76,14 +76,14 @@ const Index = () => {
 
   if (isCheckingAuth) {
     return (
-      <div className="min-h-screen bg-[#095155] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex items-center justify-center">
         <div className="text-white text-xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
       {/* Header */}
       <div className="bg-[#095155] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <h1 className="text-white text-2xl font-semibold">habisin</h1>
@@ -94,8 +94,8 @@ const Index = () => {
 
       {/* Content */}
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-2">Selamat Datang!</h2>
-        <p className="text-gray-700 mb-6">Pilih cara masuk</p>
+        <h2 className="text-2xl font-bold mb-2 text-white">Selamat Datang!</h2>
+        <p className="text-gray-300 mb-6">Pilih cara masuk</p>
 
         {/* 3D Illustrated Login Options */}
         <div className="grid grid-cols-1 gap-6 mb-8">
@@ -114,13 +114,13 @@ const Index = () => {
 
         {/* Service Buttons */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-gray-300 text-gray-500 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
+          <div className="bg-gray-800 text-gray-400 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
             <Bike className="w-8 h-8 mb-2" />
             <span className="text-lg font-medium">HabiRide</span>
             <span className="text-xs">Login dulu</span>
           </div>
           
-          <div className="bg-gray-300 text-gray-500 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
+          <div className="bg-gray-800 text-gray-400 flex flex-col items-center justify-center p-6 rounded-xl opacity-50">
             <Utensils className="w-8 h-8 mb-2" />
             <span className="text-lg font-medium">HabiFood</span>
             <span className="text-xs">Login dulu</span>
@@ -129,7 +129,7 @@ const Index = () => {
 
         {/* Popular Items */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Popular Items</h2>
+          <h2 className="text-xl font-bold mb-4 text-white">Popular Items</h2>
           <div className="grid grid-cols-2 gap-4">
             {popularFoods.map(food => (
               <PopularFoodCard key={food.id} food={food} />

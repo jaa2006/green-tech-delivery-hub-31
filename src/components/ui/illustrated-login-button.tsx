@@ -41,7 +41,7 @@ const IllustratedLoginButton = React.forwardRef<HTMLButtonElement, IllustratedLo
           </svg>
         </div>
 
-        <style jsx>{`
+        <style>{`
           .styled-button {
             position: relative;
             padding: 1rem 2rem;

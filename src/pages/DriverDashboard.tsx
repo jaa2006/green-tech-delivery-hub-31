@@ -100,7 +100,7 @@ const DriverDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
       {/* Header */}
       <div className="bg-[#095155] px-6 py-6 flex justify-between items-center rounded-b-3xl">
         <div>
@@ -122,12 +122,12 @@ const DriverDashboard = () => {
 
       {/* Content */}
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6">Order Tersedia</h2>
+        <h2 className="text-2xl font-bold mb-6 text-white">Order Tersedia</h2>
 
         {orders.length === 0 ? (
           <div className="text-center py-12">
             <Clock className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">Belum ada order tersedia</p>
+            <p className="text-gray-300 text-lg">Belum ada order tersedia</p>
             <p className="text-gray-400 text-sm">Order baru akan muncul di sini</p>
           </div>
         ) : (

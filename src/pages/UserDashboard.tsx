@@ -81,7 +81,7 @@ const UserDashboard = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         {/* Header */}
         <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl">
           <div>
@@ -103,8 +103,8 @@ const UserDashboard = () => {
 
         {/* Content */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold mb-2">Welcome!</h2>
-          <p className="text-gray-700 mb-6">Choose a service</p>
+          <h2 className="text-2xl font-bold mb-2 text-white">Welcome!</h2>
+          <p className="text-gray-300 mb-6">Choose a service</p>
 
           {/* Service Buttons */}
           <div className="grid grid-cols-2 gap-4 mb-8">
@@ -127,7 +127,7 @@ const UserDashboard = () => {
 
           {/* Popular Items */}
           <div>
-            <h2 className="text-xl font-bold mb-4">Popular Items</h2>
+            <h2 className="text-xl font-bold mb-4 text-white">Popular Items</h2>
             <div className="grid grid-cols-2 gap-4">
               {popularFoods.map(food => (
                 <PopularFoodCard key={food.id} food={food} />

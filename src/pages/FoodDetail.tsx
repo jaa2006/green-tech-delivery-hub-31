@@ -56,7 +56,7 @@ const FoodDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
       {/* Header */}
       <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
         <Link to="/" className="mr-4">

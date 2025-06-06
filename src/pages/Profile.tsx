@@ -119,8 +119,8 @@ const Profile = () => {
   if (loading) {
     return (
       <MainLayout>
-        <div className="flex justify-center items-center h-[70vh]">
-          <Loader2 className="h-8 w-8 animate-spin text-[#07595A]" />
+        <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex justify-center items-center h-[70vh]">
+          <Loader2 className="h-8 w-8 animate-spin text-white" />
         </div>
       </MainLayout>
     );
@@ -128,31 +128,33 @@ const Profile = () => {
   
   return (
     <MainLayout>
-      <div className="pt-4 px-4 pb-4 max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Profile</h1>
-        
-        {/* Modular Components */}
-        <ProfileAccount 
-          userData={userData}
-          onUpdateProfile={handleUpdateProfile}
-          updating={updating}
-        />
-        
-        <PrivacyLocation />
-        
-        <ConnectedAccounts />
-        
-        <HelpSupport />
-        
-        {/* Logout button */}
-        <Button 
-          variant="outline" 
-          className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10 rounded-xl py-4"
-          onClick={handleLogout}
-        >
-          <LogOut className="h-4 w-4" />
-          Logout
-        </Button>
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
+        <div className="pt-4 px-4 pb-4 max-w-md mx-auto">
+          <h1 className="text-2xl font-bold mb-4 text-white">Profile</h1>
+          
+          {/* Modular Components */}
+          <ProfileAccount 
+            userData={userData}
+            onUpdateProfile={handleUpdateProfile}
+            updating={updating}
+          />
+          
+          <PrivacyLocation />
+          
+          <ConnectedAccounts />
+          
+          <HelpSupport />
+          
+          {/* Logout button */}
+          <Button 
+            variant="outline" 
+            className="w-full flex items-center justify-center gap-2 border-destructive text-destructive hover:bg-destructive/10 rounded-xl py-4"
+            onClick={handleLogout}
+          >
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
+        </div>
       </div>
     </MainLayout>
   );

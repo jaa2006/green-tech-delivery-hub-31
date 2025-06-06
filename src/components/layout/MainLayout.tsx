@@ -1,4 +1,3 @@
-
 import { ReactNode, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, User, ShoppingCart } from "lucide-react";
@@ -65,7 +64,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gray-50">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#07595A] to-black">
       <div className="mobile-container">
         {children}
       </div>

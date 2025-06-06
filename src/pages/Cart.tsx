@@ -19,7 +19,7 @@ const Cart = () => {
   if (items.length === 0) {
     return (
       <MainLayout>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
           <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
             <Link to="/" className="mr-4">
               <ArrowLeft className="h-6 w-6 text-white" />
@@ -29,8 +29,8 @@ const Cart = () => {
           
           <div className="flex flex-col items-center justify-center py-20 px-6">
             <div className="text-gray-400 text-6xl mb-4">🛒</div>
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">Keranjang Kosong</h2>
-            <p className="text-gray-500 text-center mb-6">Belum ada produk yang ditambahkan ke keranjang</p>
+            <h2 className="text-xl font-semibold text-white mb-2">Keranjang Kosong</h2>
+            <p className="text-gray-300 text-center mb-6">Belum ada produk yang ditambahkan ke keranjang</p>
             <Link to="/habifood" className="habisin-button">
               Mulai Belanja
             </Link>
@@ -42,7 +42,7 @@ const Cart = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         <div className="bg-[#07595A] px-6 py-6 flex items-center justify-between rounded-b-3xl">
           <div className="flex items-center">
             <Link to="/" className="mr-4">

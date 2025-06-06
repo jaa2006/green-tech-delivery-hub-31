@@ -64,7 +64,7 @@ const Checkout = () => {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black">
         <div className="bg-[#07595A] px-6 py-6 flex items-center rounded-b-3xl">
           <Link to="/cart" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
