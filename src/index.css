@@ -103,7 +103,7 @@
   }
 
   .habisin-card {
-    @apply bg-gradient-to-b from-[#07595A] to-black rounded-2xl shadow-sm border border-gray-700 p-4 text-white;
+    @apply bg-white rounded-2xl shadow-sm border border-gray-200 p-4 text-gray-900;
   }
 
   .bottom-nav-item {
