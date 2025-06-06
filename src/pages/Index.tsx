@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { User2, Bike, Utensils, UserCheck, Truck } from "lucide-react";
+import { User2, Bike, Utensils } from "lucide-react";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import MainLayout from "../components/layout/MainLayout";
 import PopularFoodCard from "../components/food/PopularFoodCard";
-import { AnimatedButton } from "@/components/ui/animated-button";
+import { IllustratedLoginButton } from "@/components/ui/illustrated-login-button";
 
 // Sample popular food data
 const popularFoods = [
@@ -97,18 +97,24 @@ const Index = () => {
         <h2 className="text-2xl font-bold mb-2">Selamat Datang!</h2>
         <p className="text-gray-700 mb-6">Pilih cara masuk</p>
 
-        {/* Login Options */}
-        <div className="grid grid-cols-1 gap-4 mb-8">
+        {/* 3D Illustrated Login Options */}
+        <div className="grid grid-cols-1 gap-6 mb-8">
           <Link to="/login-user">
-            <AnimatedButton className="w-full" icon={<UserCheck className="w-6 h-6" />}>
-              Masuk sebagai User
-            </AnimatedButton>
+            <IllustratedLoginButton 
+              characterImage="/lovable-uploads/6afe9b4e-5522-415f-bc48-c4d7447f2617.png"
+              variant="user"
+            >
+              Masuk Sebagai User
+            </IllustratedLoginButton>
           </Link>
           
           <Link to="/login-driver">
-            <AnimatedButton className="w-full" icon={<Truck className="w-6 h-6" />}>
-              Masuk sebagai Driver
-            </AnimatedButton>
+            <IllustratedLoginButton 
+              characterImage="/lovable-uploads/45a59870-fa09-4389-ad40-18b7d43fbb08.png"
+              variant="driver"
+            >
+              Masuk Sebagai Driver
+            </IllustratedLoginButton>
           </Link>
         </div>
 
