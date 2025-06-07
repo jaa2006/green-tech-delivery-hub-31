@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Car } from "lucide-react";
@@ -178,20 +177,44 @@ const HabiRide = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07595A] flex flex-col">
-      {/* Header - Same style as home page */}
-      <div className="bg-[#07595A] px-6 py-4 flex justify-between items-center shadow-lg relative z-10">
-        <div className="flex items-center">
-          <Link to="/" className="mr-4">
-            <ArrowLeft className="h-6 w-6 text-white" />
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
+      {/* New Tab Bar Style Header */}
+      <div className="bg-[#07595A]/95 backdrop-blur-sm px-6 py-4 relative z-10">
+        <div className="flex items-center justify-center space-x-8">
+          {/* Back Button Tab */}
+          <Link to="/" className="flex flex-col items-center space-y-1 group">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-200 group-hover:shadow-lg group-hover:shadow-white/20">
+              <ArrowLeft className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-xs text-white/80 font-medium">Back</span>
           </Link>
-          <div>
-            <h1 className="text-white text-2xl font-bold">HabiRide</h1>
-            <p className="text-white/80 text-sm">Transportasi Cepat & Aman</p>
+
+          {/* HabiRide Active Tab */}
+          <div className="flex flex-col items-center space-y-1">
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg shadow-white/30 ring-2 ring-white/50">
+              <Car className="h-6 w-6 text-[#07595A]" />
+            </div>
+            <span className="text-xs text-white font-semibold">HabiRide</span>
+          </div>
+
+          {/* Status Indicator Tab */}
+          <div className="flex flex-col items-center space-y-1">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+              <div className={`w-3 h-3 rounded-full ${
+                rideState === 'destination' ? 'bg-orange-400' : 
+                rideState === 'driver_coming' ? 'bg-yellow-400' : 'bg-green-400'
+              }`} />
+            </div>
+            <span className="text-xs text-white/80 font-medium">
+              {rideState === 'destination' ? 'Setup' : 
+               rideState === 'driver_coming' ? 'Coming' : 'Arrived'}
+            </span>
           </div>
         </div>
-        <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
-          <Car className="text-white w-6 h-6" />
+        
+        {/* Optional subtitle */}
+        <div className="text-center mt-2">
+          <p className="text-white/60 text-xs">Transportasi Cepat & Aman</p>
         </div>
       </div>
       
