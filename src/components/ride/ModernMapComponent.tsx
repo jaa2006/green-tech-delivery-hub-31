@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -13,7 +12,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ
 
 export const ModernMapComponent: React.FC<ModernMapComponentProps> = ({ 
   driverLocation, 
-  userLocation = { lat: -6.2088, lng: 106.8456 },
+  userLocation = { lat: -7.9666, lng: 112.6326 },
   showRoute = false 
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -59,6 +58,22 @@ export const ModernMapComponent: React.FC<ModernMapComponentProps> = ({
       }
     };
   }, [userLocation]);
+
+  // Update user location marker when userLocation changes
+  useEffect(() => {
+    if (!map.current || !userMarker.current) return;
+
+    userMarker.current.setLngLat([userLocation.lng, userLocation.lat]);
+    
+    // Update map center if no driver location to track
+    if (!driverLocation) {
+      map.current.easeTo({
+        center: [userLocation.lng, userLocation.lat],
+        zoom: 15,
+        duration: 1000
+      });
+    }
+  }, [userLocation, driverLocation]);
 
   // Update driver location and route
   useEffect(() => {

@@ -9,12 +9,23 @@ import { toast } from "@/components/ui/use-toast";
 import { ModernMapComponent } from "@/components/ride/ModernMapComponent";
 import RideBottomSheet from "@/components/ride/RideBottomSheet";
 import EmergencyButton from "@/components/ride/EmergencyButton";
+import DestinationConfirmContainer from "@/components/ride/DestinationConfirmContainer";
 
 const HabiRide = () => {
   const [rideState, setRideState] = useState<'destination' | 'driver_coming' | 'driver_arrived'>('destination');
   const [activeOrder, setActiveOrder] = useState<any>(null);
   const [driverLocation, setDriverLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [pickupLocation, setPickupLocation] = useState({
+    lat: -7.9666,
+    lng: 112.6326,
+    address: "Lokasi Anda"
+  });
+  const [destinationLocation, setDestinationLocation] = useState({
+    lat: -7.9566,
+    lng: 112.6146,
+    address: "Universitas Brawijaya, Jl. Veteran, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145"
+  });
   
   const { currentUser } = useAuth();
   
@@ -88,24 +99,14 @@ const HabiRide = () => {
     setLoading(true);
     
     try {
-      const pickupLocation = {
-        lat: -6.2088 + (Math.random() - 0.5) * 0.01,
-        lng: 106.8456 + (Math.random() - 0.5) * 0.01
-      };
-      
-      const destinationLocation = {
-        lat: -6.2088 + (Math.random() - 0.5) * 0.01,
-        lng: 106.8456 + (Math.random() - 0.5) * 0.01
-      };
-      
       await addDoc(collection(db, "orders"), {
         userId: currentUser.uid,
         driverId: null,
         status: "pending",
         pickupLocation,
         destination: destinationLocation,
-        pickupAddress: "Lokasi Anda",
-        destinationAddress: "Universitas Brawijaya, Jl. Veteran, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
+        pickupAddress: pickupLocation.address,
+        destinationAddress: destinationLocation.address,
         createdAt: serverTimestamp(),
       });
       
@@ -177,17 +178,20 @@ const HabiRide = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <div className="bg-white px-4 py-4 flex justify-between items-center shadow-sm z-10">
+    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
+      {/* Header - Same style as main page */}
+      <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl shadow-lg">
         <div className="flex items-center">
-          <Link to="/" className="mr-3">
-            <ArrowLeft className="h-6 w-6 text-gray-700" />
+          <Link to="/" className="mr-4">
+            <ArrowLeft className="h-6 w-6 text-white" />
           </Link>
-          <h1 className="text-gray-900 text-xl font-semibold">HabiRide</h1>
+          <div>
+            <h1 className="text-white text-2xl font-bold">HabiRide</h1>
+            <p className="text-white/80 text-sm">Transportasi Cepat & Aman</p>
+          </div>
         </div>
-        <div className="bg-green-100 p-2 rounded-full">
-          <Car className="text-green-600 w-6 h-6" />
+        <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
+          <Car className="text-white w-6 h-6" />
         </div>
       </div>
       
@@ -195,22 +199,73 @@ const HabiRide = () => {
       <div className="flex-1 relative">
         <ModernMapComponent 
           driverLocation={driverLocation}
+          userLocation={pickupLocation}
           showRoute={rideState !== 'destination'}
         />
         
         {/* Emergency Button */}
         <EmergencyButton />
         
-        {/* Bottom Sheet */}
+        {/* Bottom Content */}
         <div className="absolute bottom-0 left-0 right-0">
-          <RideBottomSheet
-            state={rideState}
-            onConfirmDestination={handleConfirmDestination}
-            onConfirmOrder={handleConfirmOrder}
-            onCancel={handleCancel}
-            onArrivedAtPickup={handleArrivedAtPickup}
-            onEditDestination={handleEditDestination}
-          />
+          {rideState === 'destination' ? (
+            <DestinationConfirmContainer
+              destination="Universitas Brawijaya"
+              destinationAddress={destinationLocation.address}
+              pickupLocation={pickupLocation}
+              onDestinationChange={(location) => setDestinationLocation(location)}
+              onPickupLocationChange={(location) => setPickupLocation(location)}
+              onConfirmDestination={handleConfirmDestination}
+              remainingQuota={5}
+            />
+          ) : (
+            <RideBottomSheet
+              state={rideState}
+              destination="Universitas Brawijaya"
+              destinationAddress={destinationLocation.address}
+              onConfirmOrder={() => {
+                toast({
+                  title: "Pesanan Dikonfirmasi",
+                  description: "Driver sedang dalam perjalanan ke lokasi Anda",
+                });
+                setRideState('driver_arrived');
+              }}
+              onCancel={async () => {
+                if (!activeOrder) return;
+                
+                try {
+                  setLoading(true);
+                  await deleteDoc(doc(db, "orders", activeOrder.id));
+                  toast({
+                    title: "Pesanan dibatalkan",
+                    description: "Pesanan Anda telah dibatalkan",
+                  });
+                  setRideState('destination');
+                } catch (error) {
+                  console.error("Error cancelling order:", error);
+                  toast({
+                    title: "Gagal membatalkan pesanan",
+                    description: "Terjadi kesalahan. Silakan coba lagi.",
+                    variant: "destructive",
+                  });
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              onArrivedAtPickup={() => {
+                toast({
+                  title: "Perjalanan Dimulai",
+                  description: "Selamat menikmati perjalanan Anda!",
+                });
+              }}
+              onEditDestination={() => {
+                toast({
+                  title: "Edit Tujuan",
+                  description: "Fitur edit tujuan akan segera tersedia",
+                });
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
