@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ModernMapComponent } from "./ModernMapComponent";
+import { GoogleMapComponent } from "./GoogleMapComponent";
 
 // Komponen Konfirmasi Perjalanan
 const ConfirmationContainer = () => {
@@ -47,7 +47,7 @@ export default function RideLayout() {
     <div className="relative w-full h-screen overflow-hidden">
       {/* MAP BACKGROUND - Full Screen */}
       <div className="absolute inset-0 z-0">
-        <ModernMapComponent 
+        <GoogleMapComponent 
           userLocation={{ lat: -7.9666, lng: 112.6326 }}
           showRoute={false}
         />

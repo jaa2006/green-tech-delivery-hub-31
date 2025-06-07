@@ -5,7 +5,7 @@ import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, del
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
-import { ModernMapComponent } from "@/components/ride/ModernMapComponent";
+import { GoogleMapComponent } from "@/components/ride/GoogleMapComponent";
 import RideBottomSheet from "@/components/ride/RideBottomSheet";
 import EmergencyButton from "@/components/ride/EmergencyButton";
 import DestinationConfirmContainer from "@/components/ride/DestinationConfirmContainer";
@@ -25,6 +25,7 @@ const HabiRide = () => {
     lng: 112.6146,
     address: "Universitas Brawijaya, Jl. Veteran, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145"
   });
+  const [distanceInfo, setDistanceInfo] = useState<{ distance: string; duration: string } | null>(null);
   
   const { currentUser } = useAuth();
   
@@ -176,14 +177,19 @@ const HabiRide = () => {
     });
   };
 
+  const handleDistanceCalculated = (distance: string, duration: string) => {
+    setDistanceInfo({ distance, duration });
+  };
+
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-100">
       {/* Full Screen Map Background */}
       <div className="absolute inset-0 z-0">
-        <ModernMapComponent 
+        <GoogleMapComponent 
           driverLocation={driverLocation}
           userLocation={pickupLocation}
           showRoute={rideState !== 'destination'}
+          onDistanceCalculated={handleDistanceCalculated}
         />
       </div>
 
@@ -215,6 +221,11 @@ const HabiRide = () => {
                 {rideState === 'destination' ? 'Setup Perjalanan' : 
                  rideState === 'driver_coming' ? 'Driver Menuju Lokasi' : 'Driver Tiba'}
               </span>
+              {distanceInfo && rideState !== 'destination' && (
+                <span className="text-white/60 text-xs ml-2">
+                  {distanceInfo.distance} • {distanceInfo.duration}
+                </span>
+              )}
             </div>
           </div>
         </div>
