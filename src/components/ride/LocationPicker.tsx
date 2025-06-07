@@ -10,13 +10,15 @@ interface LocationPickerProps {
   initialLocation?: { lat: number; lng: number; address: string };
   placeholder?: string;
   label?: string;
+  isDarkTheme?: boolean;
 }
 
 const LocationPicker: React.FC<LocationPickerProps> = ({
   onLocationSelect,
   initialLocation,
   placeholder = "Masukkan alamat...",
-  label = "Lokasi"
+  label = "Lokasi",
+  isDarkTheme = false
 }) => {
   const [address, setAddress] = useState(initialLocation?.address || '');
   const [isLoadingGPS, setIsLoadingGPS] = useState(false);
@@ -94,9 +96,13 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
     }
   };
 
+  const labelClass = isDarkTheme ? "text-sm font-medium text-white/90" : "text-sm font-medium text-gray-700";
+  const inputClass = isDarkTheme ? "bg-white/10 border-white/20 text-white placeholder:text-white/50" : "";
+  const buttonClass = isDarkTheme ? "bg-white/20 hover:bg-white/30 text-white border-white/20" : "bg-[#07595A] hover:bg-[#064d4e] text-white";
+
   return (
     <div className="space-y-3">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      <label className={labelClass}>{label}</label>
       
       <div className="flex space-x-2">
         <div className="flex-1">
@@ -104,14 +110,14 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
             value={address}
             onChange={(e) => handleAddressChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full"
+            className={`w-full ${inputClass}`}
           />
         </div>
         
         <Button
           onClick={handleUseCurrentLocation}
           disabled={isLoadingGPS}
-          className="bg-[#07595A] hover:bg-[#064d4e] text-white px-3"
+          className={buttonClass}
           size="sm"
         >
           {isLoadingGPS ? (

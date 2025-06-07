@@ -178,9 +178,9 @@ const HabiRide = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
-      {/* Header - Same style as main page */}
-      <div className="bg-[#07595A] px-6 py-6 flex justify-between items-center rounded-b-3xl shadow-lg">
+    <div className="min-h-screen bg-[#07595A] flex flex-col">
+      {/* Header - Same style as home page */}
+      <div className="bg-[#07595A] px-6 py-4 flex justify-between items-center shadow-lg relative z-10">
         <div className="flex items-center">
           <Link to="/" className="mr-4">
             <ArrowLeft className="h-6 w-6 text-white" />
@@ -195,7 +195,7 @@ const HabiRide = () => {
         </div>
       </div>
       
-      {/* Map Container */}
+      {/* Map Container - Full height when container is hidden */}
       <div className="flex-1 relative">
         <ModernMapComponent 
           driverLocation={driverLocation}

@@ -27,10 +27,10 @@ const DestinationConfirmContainer: React.FC<DestinationConfirmContainerProps> = 
   const [isEditingDestination, setIsEditingDestination] = useState(false);
 
   return (
-    <div className="bg-white rounded-t-3xl shadow-lg overflow-hidden">
+    <div className="bg-[#07595A] rounded-t-3xl shadow-lg overflow-hidden">
       {/* Header - Always visible */}
       <div 
-        className="p-4 bg-[#07595A] flex justify-between items-center cursor-pointer"
+        className="p-4 flex justify-between items-center cursor-pointer border-b border-white/10"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <h2 className="text-lg font-semibold text-white">Konfirmasi Perjalanan</h2>
@@ -49,18 +49,19 @@ const DestinationConfirmContainer: React.FC<DestinationConfirmContainerProps> = 
               placeholder="Lokasi penjemputan..."
               initialLocation={pickupLocation}
               onLocationSelect={onPickupLocationChange}
+              isDarkTheme={true}
             />
           </div>
 
           {/* Destination */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-medium text-gray-700">Tujuan</h3>
+              <h3 className="text-sm font-medium text-white/90">Tujuan</h3>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsEditingDestination(!isEditingDestination)}
-                className="text-[#07595A] hover:text-[#064d4e] p-1 h-auto"
+                className="text-white hover:text-white/80 hover:bg-white/10 p-1 h-auto"
               >
                 <Edit2 className="h-4 w-4 mr-1" />
                 {isEditingDestination ? 'Selesai' : 'Edit'}
@@ -75,25 +76,26 @@ const DestinationConfirmContainer: React.FC<DestinationConfirmContainerProps> = 
                   onDestinationChange(location);
                   setIsEditingDestination(false);
                 }}
+                isDarkTheme={true}
               />
             ) : (
-              <div className="flex items-start space-x-3 p-3 bg-gray-50 rounded-xl">
-                <div className="w-8 h-8 bg-[#07595A] rounded-full flex items-center justify-center mt-1">
+              <div className="flex items-start space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center mt-1">
                   <MapPin className="h-4 w-4 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-900">{destination}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{destinationAddress}</p>
+                  <h4 className="font-medium text-white">{destination}</h4>
+                  <p className="text-sm text-white/70 mt-1">{destinationAddress}</p>
                 </div>
               </div>
             )}
           </div>
 
           {/* Quota Info */}
-          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl">
-            <span className="text-sm text-gray-700">Kuota harian tersisa</span>
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500/20 to-orange-400/20 rounded-xl border border-orange-400/30">
+            <span className="text-sm text-white/90">Kuota harian tersisa</span>
             <div className="flex items-center space-x-2">
-              <span className="text-sm font-semibold text-gray-900">{remainingQuota}</span>
+              <span className="text-sm font-semibold text-white">{remainingQuota}</span>
               <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
                 <span className="text-xs font-bold text-white">!</span>
               </div>
@@ -103,7 +105,7 @@ const DestinationConfirmContainer: React.FC<DestinationConfirmContainerProps> = 
           {/* Confirm Button */}
           <Button
             onClick={onConfirmDestination}
-            className="w-full bg-[#07595A] hover:bg-[#064d4e] text-white py-3 rounded-xl font-medium text-base"
+            className="w-full bg-white text-[#07595A] hover:bg-white/90 py-3 rounded-xl font-medium text-base"
           >
             Konfirmasi Perjalanan
           </Button>
