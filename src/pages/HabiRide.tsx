@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Car } from "lucide-react";
@@ -178,9 +179,9 @@ const HabiRide = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
-      {/* Compact Navbar with transparent margins */}
-      <div className="px-4 pt-8 pb-2">
-        <div className="bg-[#00695C] rounded-3xl px-4 py-4">
+      {/* Transparent Navbar overlay */}
+      <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-8 pb-2">
+        <div className="backdrop-blur-md bg-black/20 rounded-3xl px-4 py-4 border border-white/10">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3">
               <Link to="/" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200">
@@ -211,7 +212,7 @@ const HabiRide = () => {
         </div>
       </div>
       
-      {/* Map Container - Full height when container is hidden */}
+      {/* Map Container - Full height */}
       <div className="flex-1 relative">
         <ModernMapComponent 
           driverLocation={driverLocation}
