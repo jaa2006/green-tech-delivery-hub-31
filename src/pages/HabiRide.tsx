@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Car } from "lucide-react";
@@ -5,7 +6,7 @@ import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, del
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
-import { GoogleMapComponent } from "@/components/ride/GoogleMapComponent";
+import { GomapsComponent } from "@/components/ride/GomapsComponent";
 import RideBottomSheet from "@/components/ride/RideBottomSheet";
 import EmergencyButton from "@/components/ride/EmergencyButton";
 import DestinationConfirmContainer from "@/components/ride/DestinationConfirmContainer";
@@ -183,9 +184,9 @@ const HabiRide = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-100">
-      {/* Full Screen Map Background */}
+      {/* Full Screen Map Background with Gomaps */}
       <div className="absolute inset-0 z-0">
-        <GoogleMapComponent 
+        <GomapsComponent 
           driverLocation={driverLocation}
           userLocation={pickupLocation}
           showRoute={rideState !== 'destination'}
