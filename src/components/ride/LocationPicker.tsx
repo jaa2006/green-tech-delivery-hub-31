@@ -1,9 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { MapPin, Crosshair, AlertCircle } from 'lucide-react';
+import { MapPin, Crosshair, AlertCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
+import { reverseGeocode } from '@/utils/geocoding';
+import { useGeocoding } from '@/hooks/useGeocoding';
 
 interface LocationPickerProps {
   onLocationSelect: (location: { lat: number; lng: number; address: string }) => void;
@@ -23,6 +25,31 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
   const [address, setAddress] = useState(initialLocation?.address || '');
   const [isLoadingGPS, setIsLoadingGPS] = useState(false);
   const [showGPSPermissionDialog, setShowGPSPermissionDialog] = useState(false);
+
+  // Use geocoding hook with debouncing
+  const { isLoading: isGeocodingLoading, coordinates, error } = useGeocoding(address, 1500);
+
+  // Update parent component when coordinates change
+  useEffect(() => {
+    if (coordinates && address) {
+      onLocationSelect({
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        address: address
+      });
+    }
+  }, [coordinates, address, onLocationSelect]);
+
+  // Show geocoding error in toast
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Pencarian alamat gagal",
+        description: error,
+        variant: "destructive",
+      });
+    }
+  }, [error]);
 
   const requestGPSPermission = () => {
     setShowGPSPermissionDialog(true);
@@ -45,21 +72,39 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
       async (position) => {
         const { latitude, longitude } = position.coords;
         
-        // Simulate reverse geocoding - in real app, use proper geocoding service
-        const simulatedAddress = `Jl. Contoh No. ${Math.floor(Math.random() * 100)}, Malang`;
-        
-        setAddress(simulatedAddress);
-        onLocationSelect({
-          lat: latitude,
-          lng: longitude,
-          address: simulatedAddress
-        });
+        try {
+          // Use OpenCage reverse geocoding
+          const geocodedAddress = await reverseGeocode(latitude, longitude);
+          const finalAddress = geocodedAddress || `Lokasi GPS: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+          
+          setAddress(finalAddress);
+          onLocationSelect({
+            lat: latitude,
+            lng: longitude,
+            address: finalAddress
+          });
+          
+          toast({
+            title: "Lokasi berhasil dideteksi",
+            description: finalAddress,
+          });
+        } catch (error) {
+          console.error('Reverse geocoding error:', error);
+          const fallbackAddress = `Lokasi GPS: ${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+          setAddress(fallbackAddress);
+          onLocationSelect({
+            lat: latitude,
+            lng: longitude,
+            address: fallbackAddress
+          });
+          
+          toast({
+            title: "Lokasi berhasil dideteksi",
+            description: "Koordinat GPS berhasil didapatkan",
+          });
+        }
         
         setIsLoadingGPS(false);
-        toast({
-          title: "Lokasi berhasil dideteksi",
-          description: simulatedAddress,
-        });
       },
       (error) => {
         setIsLoadingGPS(false);
@@ -85,15 +130,6 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
 
   const handleAddressChange = (value: string) => {
     setAddress(value);
-    // Simulate geocoding for manual address input
-    if (value.length > 5) {
-      const simulatedLocation = {
-        lat: -7.9666 + (Math.random() - 0.5) * 0.01,
-        lng: 112.6326 + (Math.random() - 0.5) * 0.01,
-        address: value
-      };
-      onLocationSelect(simulatedLocation);
-    }
   };
 
   const labelClass = isDarkTheme ? "text-sm font-medium text-white/90" : "text-sm font-medium text-gray-700";
@@ -105,13 +141,19 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
       <label className={labelClass}>{label}</label>
       
       <div className="flex space-x-2">
-        <div className="flex-1">
+        <div className="flex-1 relative">
           <Input
             value={address}
             onChange={(e) => handleAddressChange(e.target.value)}
             placeholder={placeholder}
             className={`w-full ${inputClass}`}
           />
+          {/* Geocoding loading indicator */}
+          {isGeocodingLoading && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+            </div>
+          )}
         </div>
         
         <Button
@@ -127,6 +169,14 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
           )}
         </Button>
       </div>
+
+      {/* Geocoding status indicator */}
+      {coordinates && address && !isGeocodingLoading && (
+        <div className={`text-xs ${isDarkTheme ? 'text-white/70' : 'text-gray-600'} flex items-center space-x-1`}>
+          <MapPin className="h-3 w-3" />
+          <span>Koordinat: {coordinates.lat.toFixed(6)}, {coordinates.lng.toFixed(6)}</span>
+        </div>
+      )}
 
       {/* GPS Permission Dialog */}
       {showGPSPermissionDialog && (
