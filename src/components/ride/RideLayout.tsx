@@ -53,7 +53,7 @@ export default function RideLayout() {
         />
       </div>
 
-      {/* KONFIRMASI CONTAINER - Bottom Overlay */}
+      {/* KONFIRMASI CONTAINER - Bottom Overlay - Only show when showConfirm is true */}
       {showConfirm && (
         <div className="absolute bottom-0 left-0 right-0 z-30 transition-all duration-300 ease-in-out transform">
           <ConfirmationContainer />
