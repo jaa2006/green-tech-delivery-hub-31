@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Car } from "lucide-react";
@@ -178,7 +177,16 @@ const HabiRide = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
+    <div className="relative w-full h-screen overflow-hidden bg-gray-100">
+      {/* Full Screen Map Background */}
+      <div className="absolute inset-0 z-0">
+        <ModernMapComponent 
+          driverLocation={driverLocation}
+          userLocation={pickupLocation}
+          showRoute={rideState !== 'destination'}
+        />
+      </div>
+
       {/* Transparent Navbar overlay */}
       <div className="absolute top-0 left-0 right-0 z-20 px-4 pt-8 pb-2">
         <div className="backdrop-blur-md bg-black/20 rounded-3xl px-4 py-4 border border-white/10">
@@ -212,78 +220,69 @@ const HabiRide = () => {
         </div>
       </div>
       
-      {/* Map Container - Full height */}
-      <div className="flex-1 relative">
-        <ModernMapComponent 
-          driverLocation={driverLocation}
-          userLocation={pickupLocation}
-          showRoute={rideState !== 'destination'}
-        />
-        
-        {/* Emergency Button */}
-        <EmergencyButton />
-        
-        {/* Bottom Content */}
-        <div className="absolute bottom-0 left-0 right-0">
-          {rideState === 'destination' ? (
-            <DestinationConfirmContainer
-              destination="Universitas Brawijaya"
-              destinationAddress={destinationLocation.address}
-              pickupLocation={pickupLocation}
-              onDestinationChange={(location) => setDestinationLocation(location)}
-              onPickupLocationChange={(location) => setPickupLocation(location)}
-              onConfirmDestination={handleConfirmDestination}
-              remainingQuota={5}
-            />
-          ) : (
-            <RideBottomSheet
-              state={rideState}
-              destination="Universitas Brawijaya"
-              destinationAddress={destinationLocation.address}
-              onConfirmOrder={() => {
+      {/* Emergency Button */}
+      <EmergencyButton />
+      
+      {/* Bottom Content */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        {rideState === 'destination' ? (
+          <DestinationConfirmContainer
+            destination="Universitas Brawijaya"
+            destinationAddress={destinationLocation.address}
+            pickupLocation={pickupLocation}
+            onDestinationChange={(location) => setDestinationLocation(location)}
+            onPickupLocationChange={(location) => setPickupLocation(location)}
+            onConfirmDestination={handleConfirmDestination}
+            remainingQuota={5}
+          />
+        ) : (
+          <RideBottomSheet
+            state={rideState}
+            destination="Universitas Brawijaya"
+            destinationAddress={destinationLocation.address}
+            onConfirmOrder={() => {
+              toast({
+                title: "Pesanan Dikonfirmasi",
+                description: "Driver sedang dalam perjalanan ke lokasi Anda",
+              });
+              setRideState('driver_arrived');
+            }}
+            onCancel={async () => {
+              if (!activeOrder) return;
+              
+              try {
+                setLoading(true);
+                await deleteDoc(doc(db, "orders", activeOrder.id));
                 toast({
-                  title: "Pesanan Dikonfirmasi",
-                  description: "Driver sedang dalam perjalanan ke lokasi Anda",
+                  title: "Pesanan dibatalkan",
+                  description: "Pesanan Anda telah dibatalkan",
                 });
-                setRideState('driver_arrived');
-              }}
-              onCancel={async () => {
-                if (!activeOrder) return;
-                
-                try {
-                  setLoading(true);
-                  await deleteDoc(doc(db, "orders", activeOrder.id));
-                  toast({
-                    title: "Pesanan dibatalkan",
-                    description: "Pesanan Anda telah dibatalkan",
-                  });
-                  setRideState('destination');
-                } catch (error) {
-                  console.error("Error cancelling order:", error);
-                  toast({
-                    title: "Gagal membatalkan pesanan",
-                    description: "Terjadi kesalahan. Silakan coba lagi.",
-                    variant: "destructive",
-                  });
-                } finally {
-                  setLoading(false);
-                }
-              }}
-              onArrivedAtPickup={() => {
+                setRideState('destination');
+              } catch (error) {
+                console.error("Error cancelling order:", error);
                 toast({
-                  title: "Perjalanan Dimulai",
-                  description: "Selamat menikmati perjalanan Anda!",
+                  title: "Gagal membatalkan pesanan",
+                  description: "Terjadi kesalahan. Silakan coba lagi.",
+                  variant: "destructive",
                 });
-              }}
-              onEditDestination={() => {
-                toast({
-                  title: "Edit Tujuan",
-                  description: "Fitur edit tujuan akan segera tersedia",
-                });
-              }}
-            />
-          )}
-        </div>
+              } finally {
+                setLoading(false);
+              }
+            }}
+            onArrivedAtPickup={() => {
+              toast({
+                title: "Perjalanan Dimulai",
+                description: "Selamat menikmati perjalanan Anda!",
+              });
+            }}
+            onEditDestination={() => {
+              toast({
+                title: "Edit Tujuan",
+                description: "Fitur edit tujuan akan segera tersedia",
+              });
+            }}
+          />
+        )}
       </div>
     </div>
   );
