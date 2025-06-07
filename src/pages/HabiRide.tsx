@@ -178,43 +178,38 @@ const HabiRide = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
-      {/* New Tab Bar Style Header */}
-      <div className="bg-[#07595A]/95 backdrop-blur-sm px-6 py-4 relative z-10">
-        <div className="flex items-center justify-center space-x-8">
-          {/* Back Button Tab */}
-          <Link to="/" className="flex flex-col items-center space-y-1 group">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 transition-all duration-200 group-hover:shadow-lg group-hover:shadow-white/20">
-              <ArrowLeft className="h-6 w-6 text-white" />
+      {/* Card Style Header */}
+      <div className="p-4 relative z-10">
+        <div className="bg-[#07595A] rounded-3xl shadow-lg p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Link to="/" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200">
+                <ArrowLeft className="h-5 w-5 text-white" />
+              </Link>
+              <div>
+                <h1 className="text-white text-xl font-bold">HabiRide</h1>
+                <p className="text-white/70 text-sm">Transportasi Cepat & Aman</p>
+              </div>
             </div>
-            <span className="text-xs text-white/80 font-medium">Back</span>
-          </Link>
-
-          {/* HabiRide Active Tab */}
-          <div className="flex flex-col items-center space-y-1">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg shadow-white/30 ring-2 ring-white/50">
+            
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
               <Car className="h-6 w-6 text-[#07595A]" />
             </div>
-            <span className="text-xs text-white font-semibold">HabiRide</span>
           </div>
-
-          {/* Status Indicator Tab */}
-          <div className="flex flex-col items-center space-y-1">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+          
+          {/* Status Indicator */}
+          <div className="flex items-center justify-center mt-4 pt-4 border-t border-white/10">
+            <div className="flex items-center space-x-2">
               <div className={`w-3 h-3 rounded-full ${
                 rideState === 'destination' ? 'bg-orange-400' : 
                 rideState === 'driver_coming' ? 'bg-yellow-400' : 'bg-green-400'
               }`} />
+              <span className="text-white/80 text-sm font-medium">
+                Status: {rideState === 'destination' ? 'Setup Perjalanan' : 
+                        rideState === 'driver_coming' ? 'Driver Menuju Lokasi' : 'Driver Tiba'}
+              </span>
             </div>
-            <span className="text-xs text-white/80 font-medium">
-              {rideState === 'destination' ? 'Setup' : 
-               rideState === 'driver_coming' ? 'Coming' : 'Arrived'}
-            </span>
           </div>
-        </div>
-        
-        {/* Optional subtitle */}
-        <div className="text-center mt-2">
-          <p className="text-white/60 text-xs">Transportasi Cepat & Aman</p>
         </div>
       </div>
       
