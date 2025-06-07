@@ -178,33 +178,35 @@ const HabiRide = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#07595A] to-black flex flex-col">
-      {/* New Navbar Design based on Flutter reference */}
-      <div className="w-full pt-10 px-5 pb-6 bg-[#00695C] rounded-b-3xl">
-        <div className="flex justify-between items-start">
-          <div className="flex items-start space-x-4">
-            <Link to="/" className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200 mt-1">
-              <ArrowLeft className="h-5 w-5 text-white" />
-            </Link>
-            <div className="flex flex-col">
-              <h1 className="text-white text-[22px] font-bold leading-tight">HabiRide</h1>
-              <p className="text-white/70 text-sm mt-1">Transportasi Cepat & Aman</p>
+      {/* Compact Navbar with transparent margins */}
+      <div className="px-4 pt-8 pb-2">
+        <div className="bg-[#00695C] rounded-3xl px-4 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <Link to="/" className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200">
+                <ArrowLeft className="h-4 w-4 text-white" />
+              </Link>
+              <div className="flex flex-col">
+                <h1 className="text-white text-lg font-bold leading-tight">HabiRide</h1>
+                <p className="text-white/70 text-xs">Transportasi Cepat & Aman</p>
+              </div>
             </div>
+            
+            <Car className="h-6 w-6 text-white" />
           </div>
           
-          <Car className="h-8 w-8 text-white" />
-        </div>
-        
-        {/* Status Indicator */}
-        <div className="flex items-center justify-center mt-6 pt-4 border-t border-white/10">
-          <div className="flex items-center space-x-2">
-            <div className={`w-3 h-3 rounded-full ${
-              rideState === 'destination' ? 'bg-orange-400' : 
-              rideState === 'driver_coming' ? 'bg-yellow-400' : 'bg-green-400'
-            }`} />
-            <span className="text-white/80 text-sm font-medium">
-              Status: {rideState === 'destination' ? 'Setup Perjalanan' : 
-                      rideState === 'driver_coming' ? 'Driver Menuju Lokasi' : 'Driver Tiba'}
-            </span>
+          {/* Compact Status Indicator */}
+          <div className="flex items-center justify-center mt-3 pt-3 border-t border-white/10">
+            <div className="flex items-center space-x-2">
+              <div className={`w-2 h-2 rounded-full ${
+                rideState === 'destination' ? 'bg-orange-400' : 
+                rideState === 'driver_coming' ? 'bg-yellow-400' : 'bg-green-400'
+              }`} />
+              <span className="text-white/80 text-xs font-medium">
+                {rideState === 'destination' ? 'Setup Perjalanan' : 
+                 rideState === 'driver_coming' ? 'Driver Menuju Lokasi' : 'Driver Tiba'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
