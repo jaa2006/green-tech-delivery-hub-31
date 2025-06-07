@@ -27,7 +27,7 @@ const DestinationConfirmContainer: React.FC<DestinationConfirmContainerProps> = 
   const [isEditingDestination, setIsEditingDestination] = useState(false);
 
   return (
-    <div className="bg-[#07595A] rounded-t-3xl shadow-lg overflow-hidden">
+    <div className="bg-[#07595A] rounded-t-3xl shadow-lg overflow-hidden relative z-30">
       {/* Header - Always visible */}
       <div 
         className="p-4 flex justify-between items-center cursor-pointer border-b border-white/10"
