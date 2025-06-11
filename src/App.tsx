@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { OrderProvider } from "@/contexts/OrderContext";
 
 // Import pages
 import SplashScreen from "./pages/SplashScreen";
@@ -35,34 +36,36 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <CartProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/splash" element={<SplashScreen />} />
-              <Route path="/onboarding" element={<Onboarding />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/" element={<Index />} />
-              <Route path="/login-user" element={<LoginUser />} />
-              <Route path="/login-driver" element={<LoginDriver />} />
-              <Route path="/register-user" element={<RegisterUser />} />
-              <Route path="/register-driver" element={<RegisterDriver />} />
-              <Route path="/user-dashboard" element={<UserDashboard />} />
-              <Route path="/driver-dashboard" element={<DriverDashboard />} />
-              <Route path="/habiride" element={<HabiRide />} />
-              <Route path="/habifood" element={<HabiFood />} />
-              <Route path="/restaurant/:id" element={<Restaurant />} />
-              <Route path="/food/:id" element={<FoodDetail />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <OrderProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/splash" element={<SplashScreen />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/" element={<Index />} />
+                <Route path="/login-user" element={<LoginUser />} />
+                <Route path="/login-driver" element={<LoginDriver />} />
+                <Route path="/register-user" element={<RegisterUser />} />
+                <Route path="/register-driver" element={<RegisterDriver />} />
+                <Route path="/user-dashboard" element={<UserDashboard />} />
+                <Route path="/driver-dashboard" element={<DriverDashboard />} />
+                <Route path="/habiride" element={<HabiRide />} />
+                <Route path="/habifood" element={<HabiFood />} />
+                <Route path="/restaurant/:id" element={<Restaurant />} />
+                <Route path="/food/:id" element={<FoodDetail />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </OrderProvider>
       </CartProvider>
     </AuthProvider>
   </QueryClientProvider>

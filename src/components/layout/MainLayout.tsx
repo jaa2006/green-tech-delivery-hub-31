@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Home, Search, ClipboardList, User, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
+import { useOrder } from "@/contexts/OrderContext";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { getTotalItems } = useCart();
+  const { getOrderCount } = useOrder();
 
   // Check authentication and redirect if needed
   useEffect(() => {
@@ -55,7 +57,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     { 
       path: "/orders", 
       label: "Orders", 
-      icon: <ClipboardList className="h-5 w-5" /> 
+      icon: (
+        <div className="relative">
+          <ClipboardList className="h-5 w-5" />
+          {getOrderCount() > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {getOrderCount()}
+            </div>
+          )}
+        </div>
+      )
     },
     { 
       path: "/profile", 

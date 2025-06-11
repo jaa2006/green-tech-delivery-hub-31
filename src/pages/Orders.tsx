@@ -2,40 +2,10 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Clock, CheckCircle, MapPin } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
+import { useOrder } from "@/contexts/OrderContext";
 
 const Orders = () => {
-  // Sample orders data with more realistic information
-  const orders = [
-    {
-      id: "ORD-001",
-      items: [
-        { name: "Burger Deluxe", quantity: 1, price: 45000 },
-        { name: "French Fries", quantity: 1, price: 15000 },
-        { name: "Coca Cola", quantity: 2, price: 8000 }
-      ],
-      restaurant: "Burger King",
-      total: 76000,
-      status: "delivered",
-      date: "2024-01-15",
-      time: "14:30",
-      address: "Jl. Sudirman No. 123, Jakarta",
-      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&h=200"
-    },
-    {
-      id: "ORD-002",
-      items: [
-        { name: "Nasi Goreng Special", quantity: 1, price: 35000 },
-        { name: "Es Teh Manis", quantity: 1, price: 5000 }
-      ],
-      restaurant: "Warung Padang",
-      total: 40000,
-      status: "preparing",
-      date: "2024-01-15",
-      time: "13:15",
-      address: "Jl. Gatot Subroto No. 45, Jakarta",
-      image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=300&h=200"
-    }
-  ];
+  const { orders } = useOrder();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -106,6 +76,7 @@ const Orders = () => {
                         <h3 className="font-semibold text-lg text-gray-900">{order.id}</h3>
                         <p className="text-gray-600 text-sm">{order.restaurant}</p>
                         <p className="text-gray-500 text-xs">{order.date} • {order.time}</p>
+                        <p className="text-gray-500 text-xs">Pembayaran: {order.paymentMethod}</p>
                       </div>
                     </div>
                     <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
@@ -127,7 +98,7 @@ const Orders = () => {
                       {order.items.map((item, index) => (
                         <div key={index} className="flex justify-between items-center text-sm">
                           <span className="text-gray-700">{item.quantity}x {item.name}</span>
-                          <span className="text-gray-600">{formatPrice(item.price)}</span>
+                          <span className="text-gray-600">{formatPrice(item.price * item.quantity)}</span>
                         </div>
                       ))}
                     </div>

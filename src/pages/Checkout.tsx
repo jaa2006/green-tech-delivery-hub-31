@@ -4,10 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin, CreditCard } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import { useCart } from "@/contexts/CartContext";
+import { useOrder } from "@/contexts/OrderContext";
 import { useToast } from "@/components/ui/use-toast";
 
 const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCart();
+  const { addOrder } = useOrder();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [selectedPayment, setSelectedPayment] = useState("");
@@ -29,6 +31,11 @@ const Checkout = () => {
     { id: "qris", name: "QRIS", icon: "📱" },
   ];
 
+  const getPaymentMethodName = (id: string) => {
+    const method = paymentMethods.find(m => m.id === id);
+    return method ? method.name : "";
+  };
+
   const handleOrder = () => {
     if (!address.trim()) {
       toast({
@@ -47,6 +54,27 @@ const Checkout = () => {
       });
       return;
     }
+
+    // Ambil restaurant dari item pertama (asumsi semua item dari restaurant yang sama)
+    const restaurant = items[0]?.restaurant || "Restaurant";
+    const orderImage = items[0]?.image || "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=300&h=200";
+
+    // Simpan pesanan
+    addOrder({
+      items: items.map(item => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        restaurant: item.restaurant,
+        image: item.image,
+        quantity: item.quantity
+      })),
+      restaurant,
+      total: getTotalPrice(),
+      address,
+      paymentMethod: getPaymentMethodName(selectedPayment),
+      image: orderImage
+    });
 
     toast({
       title: "Pesanan berhasil!",
