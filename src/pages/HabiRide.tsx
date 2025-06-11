@@ -5,7 +5,7 @@ import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, del
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
-import { TomTomMap } from "@/components/ride/TomTomMap";
+import TomTomMap from "@/components/ride/TomTomMap";
 import { RoutingControl } from "@/components/ride/RoutingControl";
 import { GeocodingPanel } from "@/components/ride/GeocodingPanel";
 import RideBottomSheet from "@/components/ride/RideBottomSheet";
@@ -183,7 +183,7 @@ const HabiRide = () => {
         key: TOMTOM_API_KEY,
         query: query,
         limit: 5,
-        center: [pickupLocation.lng, pickupLocation.lat],
+        center: { lat: pickupLocation.lat, lon: pickupLocation.lng },
         radius: 50000
       });
       return response.results || [];
@@ -197,7 +197,7 @@ const HabiRide = () => {
     try {
       const response = await ttapi.services.reverseGeocode({
         key: TOMTOM_API_KEY,
-        position: [lng, lat]
+        position: { lat: lat, lon: lng }
       });
 
       if (response.addresses && response.addresses.length > 0) {
@@ -223,12 +223,7 @@ const HabiRide = () => {
     <div className="relative w-full h-screen overflow-hidden bg-gray-100">
       {/* Full Screen Map Background with TomTom */}
       <div className="absolute inset-0 z-0">
-        <TomTomMap 
-          userLocation={pickupLocation}
-          destination={rideState !== 'destination' ? destinationLocation : undefined}
-          onLocationUpdate={handleLocationUpdate}
-          onRouteCalculated={handleDistanceCalculated}
-        />
+        <TomTomMap />
       </div>
 
       {/* Transparent Navbar overlay */}
