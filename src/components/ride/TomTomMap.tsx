@@ -1,14 +1,15 @@
 
+import React, { useEffect, useRef } from "react";
 import * as tt from "@tomtom-international/web-sdk-maps";
 import * as services from "@tomtom-international/web-sdk-services";
 import "@tomtom-international/web-sdk-maps/dist/maps.css";
 
-import React, { useEffect, useRef } from "react";
-
-const TomTomMap = () => {
-  const mapRef = useRef(null);
+const TomTomMap: React.FC = () => {
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!mapRef.current) return;
+
     const map = tt.map({
       key: "iA54SRddlkPve4SnJ18SpJQPe91ZQZNu",
       container: mapRef.current,
@@ -30,7 +31,17 @@ const TomTomMap = () => {
       })
       .then((res) => {
         console.log("Hasil Pencarian:", res);
+      })
+      .catch((error) => {
+        console.error("Error dalam pencarian:", error);
       });
+
+    // Cleanup function
+    return () => {
+      if (map) {
+        map.remove();
+      }
+    };
   }, []);
 
   return (
