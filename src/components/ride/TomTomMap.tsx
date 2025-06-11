@@ -45,10 +45,17 @@ const TomTomMap: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Peta HabiRide</h2>
-      <div ref={mapRef} style={{ width: "100%", height: "400px" }} />
-    </div>
+    <div 
+      ref={mapRef} 
+      style={{ 
+        width: "100%", 
+        height: "100vh",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: 1
+      }} 
+    />
   );
 };
 
