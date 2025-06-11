@@ -17,12 +17,12 @@ export const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
   onDistanceCalculated
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [userMarker, setUserMarker] = useState<google.maps.Marker | null>(null);
-  const [driverMarker, setDriverMarker] = useState<google.maps.Marker | null>(null);
-  const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer | null>(null);
-  const [directionsService, setDirectionsService] = useState<google.maps.DirectionsService | null>(null);
-  const [distanceMatrixService, setDistanceMatrixService] = useState<google.maps.DistanceMatrixService | null>(null);
+  const [map, setMap] = useState<any>(null);
+  const [userMarker, setUserMarker] = useState<any>(null);
+  const [driverMarker, setDriverMarker] = useState<any>(null);
+  const [directionsRenderer, setDirectionsRenderer] = useState<any>(null);
+  const [directionsService, setDirectionsService] = useState<any>(null);
+  const [distanceMatrixService, setDistanceMatrixService] = useState<any>(null);
 
   // Load Google Maps API
   useEffect(() => {
@@ -147,7 +147,7 @@ export const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
           destination: userLocation,
           travelMode: window.google.maps.TravelMode.DRIVING,
         },
-        (result, status) => {
+        (result: any, status: string) => {
           if (status === 'OK' && result) {
             directionsRenderer.setDirections(result);
           }
@@ -163,7 +163,7 @@ export const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({
             travelMode: window.google.maps.TravelMode.DRIVING,
             unitSystem: window.google.maps.UnitSystem.METRIC,
           },
-          (response, status) => {
+          (response: any, status: string) => {
             if (status === 'OK' && response && response.rows[0]?.elements[0]) {
               const element = response.rows[0].elements[0];
               if (element.status === 'OK') {
