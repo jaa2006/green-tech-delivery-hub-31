@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Car } from "lucide-react";
@@ -6,10 +5,15 @@ import { collection, addDoc, onSnapshot, query, where, serverTimestamp, doc, del
 import { db } from "../lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/components/ui/use-toast";
-import { GomapsComponent } from "@/components/ride/GomapsComponent";
+import { TomTomMap } from "@/components/ride/TomTomMap";
+import { RoutingControl } from "@/components/ride/RoutingControl";
+import { GeocodingPanel } from "@/components/ride/GeocodingPanel";
 import RideBottomSheet from "@/components/ride/RideBottomSheet";
 import EmergencyButton from "@/components/ride/EmergencyButton";
 import DestinationConfirmContainer from "@/components/ride/DestinationConfirmContainer";
+import * as ttapi from '@tomtom-international/web-sdk-services';
+
+const TOMTOM_API_KEY = 'iA54SRddlkPve4SnJ18SpJQPe91ZQZNu';
 
 const HabiRide = () => {
   const [rideState, setRideState] = useState<'destination' | 'driver_coming' | 'driver_arrived'>('destination');
@@ -27,6 +31,8 @@ const HabiRide = () => {
     address: "Universitas Brawijaya, Jl. Veteran, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145"
   });
   const [distanceInfo, setDistanceInfo] = useState<{ distance: string; duration: string } | null>(null);
+  const [showRoutingPanel, setShowRoutingPanel] = useState(false);
+  const [showGeocodingPanel, setShowGeocodingPanel] = useState(false);
   
   const { currentUser } = useAuth();
   
@@ -34,8 +40,8 @@ const HabiRide = () => {
   useEffect(() => {
     if (rideState === 'driver_coming' || rideState === 'driver_arrived') {
       setDriverLocation({
-        lat: -6.2098 + (Math.random() - 0.5) * 0.01,
-        lng: 106.8446 + (Math.random() - 0.5) * 0.01
+        lat: -7.9696 + (Math.random() - 0.5) * 0.01,
+        lng: 112.6356 + (Math.random() - 0.5) * 0.01
       });
     }
   }, [rideState]);
@@ -116,7 +122,6 @@ const HabiRide = () => {
         description: "Mencari driver terdekat...",
       });
       
-      // Simulate driver acceptance after 3 seconds
       setTimeout(() => {
         setRideState('driver_coming');
       }, 3000);
@@ -131,14 +136,6 @@ const HabiRide = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleConfirmOrder = () => {
-    toast({
-      title: "Pesanan Dikonfirmasi",
-      description: "Driver sedang dalam perjalanan ke lokasi Anda",
-    });
-    setRideState('driver_arrived');
   };
 
   const handleCancel = async () => {
@@ -164,33 +161,73 @@ const HabiRide = () => {
     }
   };
 
-  const handleArrivedAtPickup = () => {
-    toast({
-      title: "Perjalanan Dimulai",
-      description: "Selamat menikmati perjalanan Anda!",
-    });
-  };
-
-  const handleEditDestination = () => {
-    toast({
-      title: "Edit Tujuan",
-      description: "Fitur edit tujuan akan segera tersedia",
-    });
-  };
-
   const handleDistanceCalculated = (distance: string, duration: string) => {
     setDistanceInfo({ distance, duration });
   };
 
+  const handleLocationUpdate = (location: { lat: number; lng: number }) => {
+    setPickupLocation({
+      ...location,
+      address: "Lokasi Anda (Updated)"
+    });
+  };
+
+  const handleCalculateRoute = (origin: { lat: number; lng: number }, destination: { lat: number; lng: number }) => {
+    setPickupLocation({ ...origin, address: pickupLocation.address });
+    setDestinationLocation({ ...destination, address: destinationLocation.address });
+  };
+
+  const handleGeocodeSearch = async (query: string) => {
+    try {
+      const response = await ttapi.services.fuzzySearch({
+        key: TOMTOM_API_KEY,
+        query: query,
+        limit: 5,
+        center: [pickupLocation.lng, pickupLocation.lat],
+        radius: 50000
+      });
+      return response.results || [];
+    } catch (error) {
+      console.error('Geocoding error:', error);
+      throw error;
+    }
+  };
+
+  const handleReverseGeocode = async (lat: number, lng: number) => {
+    try {
+      const response = await ttapi.services.reverseGeocode({
+        key: TOMTOM_API_KEY,
+        position: [lng, lat]
+      });
+
+      if (response.addresses && response.addresses.length > 0) {
+        return response.addresses[0].address.freeformAddress;
+      }
+      return 'Unknown location';
+    } catch (error) {
+      console.error('Reverse geocoding error:', error);
+      throw error;
+    }
+  };
+
+  const handleLocationSelect = (location: { lat: number; lng: number; address: string }) => {
+    setDestinationLocation(location);
+    setShowGeocodingPanel(false);
+    toast({
+      title: "Lokasi Dipilih",
+      description: `Tujuan diset ke: ${location.address}`,
+    });
+  };
+
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-100">
-      {/* Full Screen Map Background with Gomaps */}
+      {/* Full Screen Map Background with TomTom */}
       <div className="absolute inset-0 z-0">
-        <GomapsComponent 
-          driverLocation={driverLocation}
+        <TomTomMap 
           userLocation={pickupLocation}
-          showRoute={rideState !== 'destination'}
-          onDistanceCalculated={handleDistanceCalculated}
+          destination={rideState !== 'destination' ? destinationLocation : undefined}
+          onLocationUpdate={handleLocationUpdate}
+          onRouteCalculated={handleDistanceCalculated}
         />
       </div>
 
@@ -204,11 +241,26 @@ const HabiRide = () => {
               </Link>
               <div className="flex flex-col">
                 <h1 className="text-white text-lg font-bold leading-tight">HabiRide</h1>
-                <p className="text-white/70 text-xs">Transportasi Cepat & Aman</p>
+                <p className="text-white/70 text-xs">TomTom Maps Integration</p>
               </div>
             </div>
             
-            <Car className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setShowRoutingPanel(!showRoutingPanel)}
+                className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200"
+                title="Routing Panel"
+              >
+                <Car className="h-4 w-4 text-white" />
+              </button>
+              <button
+                onClick={() => setShowGeocodingPanel(!showGeocodingPanel)}
+                className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-white/30 transition-all duration-200"
+                title="Search Panel"
+              >
+                <Car className="h-4 w-4 text-white" />
+              </button>
+            </div>
           </div>
           
           {/* Compact Status Indicator */}
@@ -231,6 +283,27 @@ const HabiRide = () => {
           </div>
         </div>
       </div>
+
+      {/* Side Panels */}
+      {showRoutingPanel && (
+        <div className="absolute top-24 left-4 z-30 w-80">
+          <RoutingControl
+            onCalculateRoute={handleCalculateRoute}
+            routeInfo={distanceInfo}
+            isLoading={loading}
+          />
+        </div>
+      )}
+
+      {showGeocodingPanel && (
+        <div className="absolute top-24 right-4 z-30 w-80">
+          <GeocodingPanel
+            onLocationSelect={handleLocationSelect}
+            onGeocodeSearch={handleGeocodeSearch}
+            onReverseGeocode={handleReverseGeocode}
+          />
+        </div>
+      )}
       
       {/* Emergency Button */}
       <EmergencyButton />
@@ -259,28 +332,7 @@ const HabiRide = () => {
               });
               setRideState('driver_arrived');
             }}
-            onCancel={async () => {
-              if (!activeOrder) return;
-              
-              try {
-                setLoading(true);
-                await deleteDoc(doc(db, "orders", activeOrder.id));
-                toast({
-                  title: "Pesanan dibatalkan",
-                  description: "Pesanan Anda telah dibatalkan",
-                });
-                setRideState('destination');
-              } catch (error) {
-                console.error("Error cancelling order:", error);
-                toast({
-                  title: "Gagal membatalkan pesanan",
-                  description: "Terjadi kesalahan. Silakan coba lagi.",
-                  variant: "destructive",
-                });
-              } finally {
-                setLoading(false);
-              }
-            }}
+            onCancel={handleCancel}
             onArrivedAtPickup={() => {
               toast({
                 title: "Perjalanan Dimulai",
@@ -288,10 +340,7 @@ const HabiRide = () => {
               });
             }}
             onEditDestination={() => {
-              toast({
-                title: "Edit Tujuan",
-                description: "Fitur edit tujuan akan segera tersedia",
-              });
+              setShowGeocodingPanel(true);
             }}
           />
         )}
